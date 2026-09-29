@@ -1,6 +1,7 @@
 const express = require("express");
 const multer = require("multer");
 const path = require("path");
+const fs = require("fs");
 
 const Device = require("../models/Device");
 const Configuration = require("../models/Configuration");
@@ -15,6 +16,27 @@ const router = express.Router();
 
 
 // ==========================================
+// UPLOAD DIRECTORY
+// ==========================================
+
+const uploadDirectory = path.join(
+    __dirname,
+    "../uploads"
+);
+
+if (!fs.existsSync(uploadDirectory)) {
+
+    fs.mkdirSync(
+        uploadDirectory,
+        {
+            recursive: true
+        }
+    );
+
+}
+
+
+// ==========================================
 // MULTER STORAGE
 // ==========================================
 
@@ -24,22 +46,32 @@ const storage = multer.diskStorage({
 
         cb(
             null,
-            path.join(__dirname, "../uploads")
+            uploadDirectory
         );
 
     },
 
     filename: function (req, file, cb) {
 
-        let originalName = file.originalname;
+        let originalName =
+            file.originalname;
 
         originalName =
-            originalName.replace(/(\.txt)+$/i, "");
+            originalName.replace(
+                /(\.txt)+$/i,
+                ""
+            );
 
         const finalName =
-            Date.now() + "-" + originalName + ".txt";
+            Date.now() +
+            "-" +
+            originalName +
+            ".txt";
 
-        cb(null, finalName);
+        cb(
+            null,
+            finalName
+        );
 
     }
 
@@ -55,26 +87,31 @@ const upload = multer({
 // UPLOAD PAGE
 // ==========================================
 
-router.get("/upload", async (req, res) => {
+router.get(
+    "/upload",
+    async (req, res) => {
 
-    try {
+        try {
 
-        res.render("pages/uploadConfig");
+            res.render(
+                "pages/uploadConfig"
+            );
 
-    } catch (error) {
+        } catch (error) {
 
-        console.error(
-            "Upload page error:",
-            error
-        );
+            console.error(
+                "Upload page error:",
+                error
+            );
 
-        res.status(500).send(
-            "Failed to load upload page."
-        );
+            res.status(500).send(
+                "Failed to load upload page."
+            );
+
+        }
 
     }
-
-});
+);
 
 
 // ==========================================
@@ -106,7 +143,10 @@ router.post(
             // CHECK LOGIN
             // ======================================
 
-            if (!req.session || !req.session.user) {
+            if (
+                !req.session ||
+                !req.session.user
+            ) {
 
                 return res.status(401).send(
                     "Login required."
@@ -152,6 +192,7 @@ router.post(
                 vendor
             );
 
+
             console.log(
                 "Detection Confidence:",
                 detectedVendor.confidence + "%"
@@ -188,10 +229,12 @@ router.post(
                 "Configuration normalization completed."
             );
 
+
             console.log(
                 "Normalized Vendor:",
                 normalizedConfig.vendor
             );
+
 
             console.log(
                 "Normalized Hostname:",
@@ -203,24 +246,25 @@ router.post(
             // CREATE DEVICE
             // ======================================
 
-            const device = await Device.create({
+            const device =
+                await Device.create({
 
-                user:
-                    req.session.user.id,
+                    user:
+                        req.session.user.id,
 
-                deviceName:
-                    deviceName,
+                    deviceName:
+                        deviceName,
 
-                vendor:
-                    vendor,
+                    vendor:
+                        vendor,
 
-                deviceType:
-                    "Network Device",
+                    deviceType:
+                        "Network Device",
 
-                status:
-                    "Active"
+                    status:
+                        "Active"
 
-            });
+                });
 
 
             // ======================================
@@ -382,11 +426,14 @@ router.post(
             const criticalFindings =
                 auditResult.criticalFindings || 0;
 
+
             const highFindings =
                 auditResult.highFindings || 0;
 
+
             const mediumFindings =
                 auditResult.mediumFindings || 0;
+
 
             const lowFindings =
                 auditResult.lowFindings || 0;
@@ -473,54 +520,65 @@ router.post(
                 "================================"
             );
 
+
             console.log(
                 "AUDIT COMPLETED"
             );
+
 
             console.log(
                 "Vendor:",
                 vendor
             );
 
+
             console.log(
                 "Score:",
                 auditResult.complianceScore + "%"
             );
+
 
             console.log(
                 "Total Checks:",
                 auditResult.totalChecks
             );
 
+
             console.log(
                 "Passed:",
                 auditResult.passedChecks
             );
+
 
             console.log(
                 "Failed:",
                 auditResult.failedChecks
             );
 
+
             console.log(
                 "Critical:",
                 criticalFindings
             );
+
 
             console.log(
                 "High:",
                 highFindings
             );
 
+
             console.log(
                 "Medium:",
                 mediumFindings
             );
 
+
             console.log(
                 "Low:",
                 lowFindings
             );
+
 
             console.log(
                 "================================"
@@ -580,70 +638,82 @@ router.post(
 // CONFIGURATION LIST
 // ==========================================
 
-router.get("/", async (req, res) => {
+router.get(
+    "/",
+    async (req, res) => {
 
-    try {
+        try {
 
-        if (!req.session || !req.session.user) {
+            if (
+                !req.session ||
+                !req.session.user
+            ) {
 
-            return res.status(401).send(
-                "Login required."
+                return res.status(401).send(
+                    "Login required."
+                );
+
+            }
+
+
+            // ======================================
+            // GET ONLY DEVICES OWNED BY USER
+            // ======================================
+
+            const userDevices =
+                await Device.find({
+
+                    user:
+                        req.session.user.id
+
+                }).select("_id");
+
+
+            const deviceIds =
+                userDevices.map(
+                    device => device._id
+                );
+
+
+            const configurations =
+                await Configuration
+                    .find({
+
+                        device: {
+                            $in: deviceIds
+                        }
+
+                    })
+                    .populate("device")
+                    .sort({
+                        createdAt: -1
+                    });
+
+
+            res.render(
+                "pages/configurations",
+                {
+                    configurations
+                }
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "Configuration list error:",
+                error
+            );
+
+
+            res.status(500).send(
+                "Failed to load configurations."
             );
 
         }
 
-
-        // Get only devices owned by logged-in user
-
-        const userDevices =
-            await Device.find({
-                user:
-                    req.session.user.id
-            }).select("_id");
-
-
-        const deviceIds =
-            userDevices.map(
-                device => device._id
-            );
-
-
-        const configurations =
-            await Configuration
-                .find({
-                    device: {
-                        $in: deviceIds
-                    }
-                })
-                .populate("device")
-                .sort({
-                    createdAt: -1
-                });
-
-
-        res.render(
-            "pages/configurations",
-            {
-                configurations
-            }
-        );
-
-
-    } catch (error) {
-
-        console.error(
-            "Configuration list error:",
-            error
-        );
-
-
-        res.status(500).send(
-            "Failed to load configurations."
-        );
-
     }
-
-});
+);
 
 
 module.exports = router;
