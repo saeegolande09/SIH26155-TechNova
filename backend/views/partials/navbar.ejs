@@ -1,14 +1,29 @@
 <header class="top-navbar">
 
+    <!-- MOBILE MENU BUTTON -->
+    <button
+        type="button"
+        class="mobile-menu-btn"
+        id="mobileMenuBtn"
+        aria-label="Open navigation menu"
+        aria-expanded="false"
+    >
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+
     <div class="navbar-brand">
         <a href="/dashboard">
             NET<span>SENTRY</span>
         </a>
     </div>
 
+
     <div class="navbar-right">
 
-        <% if (typeof user !== "undefined" && user) { %>
+        <% if (user) { %>
 
             <div class="navbar-user">
 
@@ -22,12 +37,14 @@
 
             </div>
 
+
             <a
                 href="/configurations/upload"
                 class="navbar-upload"
             >
                 + Upload Configuration
             </a>
+
 
             <a
                 href="/logout"

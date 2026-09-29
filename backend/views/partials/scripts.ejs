@@ -1,47 +1,147 @@
 <script>
 
-    // NETSENTRY AI loaded
-    console.log("NETSENTRY AI loaded");
+document.addEventListener("DOMContentLoaded", function () {
+
+    const menuBtn =
+        document.getElementById("mobileMenuBtn");
+
+    const sidebar =
+        document.querySelector(".sidebar");
 
 
-    // Progress bars
-    document
-        .querySelectorAll(".progress-fill[data-score]")
-        .forEach(function (bar) {
+    if (!menuBtn || !sidebar) {
+        return;
+    }
 
-            const score = Number(
-                bar.dataset.score
+
+    /* Create overlay */
+
+    let overlay =
+        document.querySelector(".sidebar-overlay");
+
+
+    if (!overlay) {
+
+        overlay =
+            document.createElement("div");
+
+        overlay.className =
+            "sidebar-overlay";
+
+        document.body.appendChild(overlay);
+    }
+
+
+    /* Open / Close */
+
+    function toggleSidebar() {
+
+        const isOpen =
+            document.body.classList.toggle(
+                "sidebar-open"
             );
 
-            if (!isNaN(score)) {
+        menuBtn.setAttribute(
+            "aria-expanded",
+            isOpen ? "true" : "false"
+        );
 
-                const safeScore = Math.max(
-                    0,
-                    Math.min(score, 100)
-                );
+        menuBtn.classList.toggle(
+            "active",
+            isOpen
+        );
+    }
 
-                bar.style.width =
-                    safeScore + "%";
-            }
+
+    /* Hamburger click */
+
+    menuBtn.addEventListener(
+        "click",
+        toggleSidebar
+    );
+
+
+    /* Overlay click */
+
+    overlay.addEventListener(
+        "click",
+        function () {
+
+            document.body.classList.remove(
+                "sidebar-open"
+            );
+
+            menuBtn.classList.remove(
+                "active"
+            );
+
+            menuBtn.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+        }
+    );
+
+
+    /* Close after clicking sidebar link */
+
+    sidebar
+        .querySelectorAll("a")
+        .forEach(function (link) {
+
+            link.addEventListener(
+                "click",
+                function () {
+
+                    if (
+                        window.innerWidth <= 768
+                    ) {
+
+                        document.body.classList.remove(
+                            "sidebar-open"
+                        );
+
+                        menuBtn.classList.remove(
+                            "active"
+                        );
+
+                        menuBtn.setAttribute(
+                            "aria-expanded",
+                            "false"
+                        );
+                    }
+
+                }
+            );
 
         });
 
 
-    // Automatically remove alerts
-    setTimeout(function () {
+    /* Close when resizing to desktop */
 
-        document
-            .querySelectorAll(".alert")
-            .forEach(function (alert) {
+    window.addEventListener(
+        "resize",
+        function () {
 
-                alert.style.opacity = "0";
+            if (window.innerWidth > 768) {
 
-                setTimeout(function () {
-                    alert.remove();
-                }, 300);
+                document.body.classList.remove(
+                    "sidebar-open"
+                );
 
-            });
+                menuBtn.classList.remove(
+                    "active"
+                );
 
-    }, 5000);
+                menuBtn.setAttribute(
+                    "aria-expanded",
+                    "false"
+                );
+            }
+
+        }
+    );
+
+});
 
 </script>
