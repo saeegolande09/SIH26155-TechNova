@@ -4,237 +4,682 @@
 
 <%- include("../partials/sidebar") %>
 
-<main>
 
-    <h1>NETSENTRY - Remediation</h1>
+<main class="main-content remediation-page">
+
+    <!-- =========================================
+         PAGE HEADER
+         ========================================= -->
+
+    <div class="page-header">
+
+        <div>
+
+            <h1 class="page-title">
+                Remediation
+            </h1>
+
+            <p class="page-subtitle">
+                Apply, verify, and track the remediation of a security finding.
+            </p>
+
+        </div>
+
+    </div>
+
 
     <%- include("../partials/flash") %>
 
-    <hr>
 
-    <h2>
-        <%= finding.title %>
-    </h2>
+    <!-- =========================================
+         FINDING SUMMARY
+         ========================================= -->
 
-    <p>
-        <strong>Severity:</strong>
-        <%= finding.severity %>
-    </p>
+    <section class="remediation-card card">
 
-    <p>
-        <strong>Category:</strong>
-        <%= finding.category %>
-    </p>
+        <div class="remediation-card-header">
 
-    <p>
-        <strong>Finding Status:</strong>
-        <%= finding.status %>
-    </p>
+            <div>
 
-    <hr>
+                <h2>
+                    <%= finding.title %>
+                </h2>
 
-    <h2>Security Issue</h2>
+                <p>
+                    Security finding requiring remediation.
+                </p>
 
-    <p>
-        <%= finding.description %>
-    </p>
+            </div>
+
+
+            <span
+                class="remediation-status-badge remediation-status-<%= String(remediation.status || 'Pending').toLowerCase() %>"
+            >
+                <%= remediation.status %>
+            </span>
+
+        </div>
+
+
+        <div class="remediation-info-grid">
+
+            <div class="remediation-info-item">
+
+                <span>
+                    Severity
+                </span>
+
+                <strong>
+                    <%= finding.severity %>
+                </strong>
+
+            </div>
+
+
+            <div class="remediation-info-item">
+
+                <span>
+                    Category
+                </span>
+
+                <strong>
+                    <%= finding.category %>
+                </strong>
+
+            </div>
+
+
+            <div class="remediation-info-item">
+
+                <span>
+                    Finding Status
+                </span>
+
+                <strong>
+                    <%= finding.status %>
+                </strong>
+
+            </div>
+
+
+            <div class="remediation-info-item">
+
+                <span>
+                    Fix Type
+                </span>
+
+                <strong>
+                    <%= remediation.fixType %>
+                </strong>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================================
+         SECURITY ISSUE
+         ========================================= -->
+
+    <section class="remediation-card card">
+
+        <div class="remediation-section-header">
+
+            <h2>
+                Security Issue
+            </h2>
+
+            <p>
+                Description of the security issue detected during the audit.
+            </p>
+
+        </div>
+
+
+        <div class="remediation-section-body">
+
+            <p class="remediation-description">
+                <%= finding.description %>
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================================
+         DETECTED CONFIGURATION
+         ========================================= -->
 
     <% if (finding.detectedConfig) { %>
 
-        <h2>Detected Configuration</h2>
+        <section class="remediation-card card">
 
-        <pre><%= finding.detectedConfig %></pre>
+            <div class="remediation-section-header">
+
+                <h2>
+                    Detected Configuration
+                </h2>
+
+                <p>
+                    Configuration responsible for triggering this finding.
+                </p>
+
+            </div>
+
+
+            <div class="remediation-section-body">
+
+                <pre class="remediation-code"><%= finding.detectedConfig %></pre>
+
+            </div>
+
+        </section>
 
     <% } %>
 
-    <hr>
 
-    <h2>Recommended Fix</h2>
 
-    <% if (remediation.recommendedFix) { %>
+    <!-- =========================================
+         RECOMMENDED FIX
+         ========================================= -->
 
-        <p>
-            <%= remediation.recommendedFix %>
-        </p>
+    <section class="remediation-card card">
 
-    <% } else { %>
+        <div class="remediation-section-header">
 
-        <p>
-            No recommended fix is available.
-        </p>
+            <h2>
+                Recommended Fix
+            </h2>
 
-    <% } %>
+            <p>
+                Recommended remediation for this security issue.
+            </p>
 
-    <hr>
+        </div>
 
-    <h2>Remediation Status</h2>
 
-    <p>
-        <strong>Current Status:</strong>
-        <%= remediation.status %>
-    </p>
+        <div class="remediation-section-body">
 
-    <p>
-        <strong>Fix Type:</strong>
-        <%= remediation.fixType %>
-    </p>
+            <% if (remediation.recommendedFix) { %>
+
+                <p class="remediation-description">
+                    <%= remediation.recommendedFix %>
+                </p>
+
+            <% } else { %>
+
+                <p class="remediation-muted">
+                    No recommended fix is available.
+                </p>
+
+            <% } %>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================================
+         REMEDIATION STATUS
+         ========================================= -->
+
+    <section class="remediation-card card">
+
+        <div class="remediation-section-header">
+
+            <div>
+
+                <h2>
+                    Remediation Status
+                </h2>
+
+                <p>
+                    Current remediation workflow state.
+                </p>
+
+            </div>
+
+
+            <span
+                class="remediation-status-badge remediation-status-<%= String(remediation.status || 'Pending').toLowerCase() %>"
+            >
+                <%= remediation.status %>
+            </span>
+
+        </div>
+
+
+        <div class="remediation-info-grid">
+
+            <div class="remediation-info-item">
+
+                <span>
+                    Current Status
+                </span>
+
+                <strong>
+                    <%= remediation.status %>
+                </strong>
+
+            </div>
+
+
+            <div class="remediation-info-item">
+
+                <span>
+                    Fix Type
+                </span>
+
+                <strong>
+                    <%= remediation.fixType %>
+                </strong>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================================
+         SUGGESTED COMMANDS
+         ========================================= -->
 
     <% if (remediation.commands && remediation.commands.length > 0) { %>
 
-        <h3>Suggested Commands</h3>
+        <section class="remediation-card card">
 
-        <pre><% remediation.commands.forEach(command => { %><%= command %>
+            <div class="remediation-section-header">
+
+                <h2>
+                    Suggested Commands
+                </h2>
+
+                <p>
+                    Commands that can be used to apply the recommended configuration change.
+                </p>
+
+            </div>
+
+
+            <div class="remediation-section-body">
+
+                <pre class="remediation-code"><% remediation.commands.forEach(function(command) { %><%= command %>
 <% }) %></pre>
+
+            </div>
+
+        </section>
 
     <% } %>
 
-    <hr>
 
 
-    <!-- ============================= -->
-    <!-- PENDING -->
-    <!-- ============================= -->
+    <!-- =========================================
+         PENDING
+         ========================================= -->
 
     <% if (remediation.status === "Pending") { %>
 
-        <h3>Step 1 - Apply Fix</h3>
+        <section class="remediation-workflow-card card">
 
-        <p>
-            Apply the recommended security fix
-            to the network configuration.
-        </p>
+            <div class="workflow-step">
 
-        <form
-            action="/remediations/<%= finding._id %>/apply"
-            method="POST"
-        >
+                <div class="workflow-step-number">
+                    1
+                </div>
 
-            <button type="submit">
-                Apply Fix
-            </button>
 
-        </form>
+                <div class="workflow-step-content">
+
+                    <h2>
+                        Apply Fix
+                    </h2>
+
+                    <p>
+                        Apply the recommended security fix to the network configuration.
+                    </p>
+
+
+                    <form
+                        action="/remediations/<%= finding._id %>/apply"
+                        method="POST"
+                        class="remediation-form"
+                    >
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary"
+                        >
+                            Apply Fix
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </section>
 
     <% } %>
 
 
-    <!-- ============================= -->
-    <!-- APPLIED -->
-    <!-- ============================= -->
+
+    <!-- =========================================
+         APPLIED
+         ========================================= -->
 
     <% if (remediation.status === "Applied") { %>
 
-        <h3>Step 2 - Verify Fix</h3>
+        <section class="remediation-workflow-card card">
 
-        <p>
-            The fix has been applied to the configuration.
-        </p>
+            <div class="workflow-step">
 
-        <form
-            action="/remediations/<%= finding._id %>/verify"
-            method="POST"
-        >
-
-            <button type="submit">
-                Verify Fix
-            </button>
-
-        </form>
-
-    <% } %>
+                <div class="workflow-step-number">
+                    2
+                </div>
 
 
-    <!-- ============================= -->
-    <!-- VERIFIED -->
-    <!-- ============================= -->
+                <div class="workflow-step-content">
 
-    <% if (remediation.status === "Verified") { %>
+                    <h2>
+                        Verify Fix
+                    </h2>
 
-        <h3>✓ Remediation Verified</h3>
+                    <p>
+                        The fix has been applied to the configuration.
+                        Verify whether the remediation was successful.
+                    </p>
 
-        <p>
-            This finding has been marked as resolved.
-        </p>
 
-        <% if (remediation.verifiedAt) { %>
+                    <form
+                        action="/remediations/<%= finding._id %>/verify"
+                        method="POST"
+                        class="remediation-form"
+                    >
 
-            <p>
-                <strong>Verified At:</strong>
-                <%= new Date(remediation.verifiedAt).toLocaleString() %>
-            </p>
+                        <button
+                            type="submit"
+                            class="btn btn-primary"
+                        >
+                            Verify Fix
+                        </button>
 
-        <% } %>
+                    </form>
 
-        <hr>
+                </div>
 
-        <h2>Re-Audit Configuration</h2>
+            </div>
 
-        <p>
-            Run the security engine again on the
-            updated configuration.
-        </p>
-
-        <a href="/audits/<%= finding.audit %>/reaudit">
-            Start Re-Audit
-        </a>
+        </section>
 
     <% } %>
 
 
-    <!-- ============================= -->
-    <!-- FAILED -->
-    <!-- ============================= -->
+
+   <!-- =========================================
+     VERIFIED
+     ========================================= -->
+
+<% if (remediation.status === "Verified") { %>
+
+    <section class="remediation-workflow-card remediation-success-card card">
+
+        <div class="workflow-step">
+
+            <div class="workflow-step-number workflow-success">
+                ✓
+            </div>
+
+            <div class="workflow-step-content">
+
+                <h2>
+                    Remediation Verified
+                </h2>
+
+                <p>
+                    This finding has been marked as resolved.
+                </p>
+
+                <% if (remediation.verifiedAt) { %>
+
+                    <p class="remediation-muted">
+
+                        <strong>
+                            Verified At:
+                        </strong>
+
+                        <%= new Date(remediation.verifiedAt).toLocaleString() %>
+
+                    </p>
+
+                <% } %>
+
+                <div class="workflow-action">
+
+                    <a
+                        href="/audits/<%= finding.audit %>/reaudit"
+                        class="btn btn-primary"
+                    >
+                        Start Re-Audit
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+<% } %>
+    <!-- =========================================
+         FAILED
+         ========================================= -->
 
     <% if (remediation.status === "Failed") { %>
 
-        <h3>✗ Remediation Failed</h3>
+        <section class="remediation-workflow-card remediation-failed-card card">
 
-        <p>
-            The remediation could not be verified.
-        </p>
+            <div class="workflow-step">
 
-        <form
-            action="/remediations/<%= finding._id %>/apply"
-            method="POST"
-        >
+                <div class="workflow-step-number workflow-failed">
+                    !
+                </div>
 
-            <button type="submit">
-                Try Again
-            </button>
 
-        </form>
+                <div class="workflow-step-content">
+
+                    <h2>
+                        Remediation Failed
+                    </h2>
+
+                    <p>
+                        The remediation could not be verified.
+                        Review the recommended fix and try again.
+                    </p>
+
+
+                    <form
+                        action="/remediations/<%= finding._id %>/apply"
+                        method="POST"
+                        class="remediation-form"
+                    >
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary"
+                        >
+                            Try Again
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </section>
 
     <% } %>
 
 
-    <hr>
 
-    <h2>Navigation</h2>
+    <!-- =========================================
+         NAVIGATION
+         ========================================= -->
 
-    <p>
-        <a href="/dashboard">
-            Back to Dashboard
-        </a>
-    </p>
+    <section class="remediation-navigation">
 
-    <p>
-        <a href="/configurations">
-            View Configurations
-        </a>
-    </p>
+        <div class="section-heading">
 
-    <p>
-        <a href="/configurations/upload">
-            Upload New Configuration
-        </a>
-    </p>
+            <div>
 
-    <p>
-        <a href="/audits">
-            View Audits
-        </a>
-    </p>
+                <h2>
+                    Navigation
+                </h2>
+
+                <p>
+                    Continue working with NETSENTRY.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="remediation-nav-grid">
+
+
+            <a
+                href="/dashboard"
+                class="remediation-nav-card"
+            >
+
+                <span class="remediation-nav-icon">
+                    🏠
+                </span>
+
+                <span class="remediation-nav-content">
+
+                    <strong>
+                        Dashboard
+                    </strong>
+
+                    <small>
+                        Return to dashboard
+                    </small>
+
+                </span>
+
+                <span>
+                    →
+                </span>
+
+            </a>
+
+
+
+            <a
+                href="/configurations"
+                class="remediation-nav-card"
+            >
+
+                <span class="remediation-nav-icon">
+                    📁
+                </span>
+
+                <span class="remediation-nav-content">
+
+                    <strong>
+                        Configurations
+                    </strong>
+
+                    <small>
+                        View configurations
+                    </small>
+
+                </span>
+
+                <span>
+                    →
+                </span>
+
+            </a>
+
+
+
+            <a
+                href="/configurations/upload"
+                class="remediation-nav-card"
+            >
+
+                <span class="remediation-nav-icon">
+                    📤
+                </span>
+
+                <span class="remediation-nav-content">
+
+                    <strong>
+                        Upload Configuration
+                    </strong>
+
+                    <small>
+                        Upload a new configuration
+                    </small>
+
+                </span>
+
+                <span>
+                    →
+                </span>
+
+            </a>
+
+
+
+            <a
+                href="/audits"
+                class="remediation-nav-card"
+            >
+
+                <span class="remediation-nav-icon">
+                    🔍
+                </span>
+
+                <span class="remediation-nav-content">
+
+                    <strong>
+                        Audits
+                    </strong>
+
+                    <small>
+                        View audit history
+                    </small>
+
+                </span>
+
+                <span>
+                    →
+                </span>
+
+            </a>
+
+
+        </div>
+
+    </section>
+
 
 </main>
+
 
 <%- include("../partials/footer") %>

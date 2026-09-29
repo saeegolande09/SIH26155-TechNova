@@ -1,3 +1,47 @@
 <script>
+
+    // NETSENTRY AI loaded
     console.log("NETSENTRY AI loaded");
+
+
+    // Progress bars
+    document
+        .querySelectorAll(".progress-fill[data-score]")
+        .forEach(function (bar) {
+
+            const score = Number(
+                bar.dataset.score
+            );
+
+            if (!isNaN(score)) {
+
+                const safeScore = Math.max(
+                    0,
+                    Math.min(score, 100)
+                );
+
+                bar.style.width =
+                    safeScore + "%";
+            }
+
+        });
+
+
+    // Automatically remove alerts
+    setTimeout(function () {
+
+        document
+            .querySelectorAll(".alert")
+            .forEach(function (alert) {
+
+                alert.style.opacity = "0";
+
+                setTimeout(function () {
+                    alert.remove();
+                }, 300);
+
+            });
+
+    }, 5000);
+
 </script>

@@ -1,347 +1,1242 @@
 <%- include("../partials/head", { title: "Security Posture - NETSENTRY" }) %>
 
 <%- include("../partials/navbar") %>
-
 <%- include("../partials/sidebar") %>
 
-<main>
 
-    <h1>NETSENTRY - Security Posture</h1>
+<main class="main-content">
+
+
+    <!-- =====================================================
+         PAGE HEADER
+         ===================================================== -->
+
+    <div class="page-header">
+
+        <div>
+
+            <h1 class="page-title">
+                Security Posture
+            </h1>
+
+            <p class="page-subtitle">
+                Monitor the overall security health of your network infrastructure.
+            </p>
+
+        </div>
+
+
+        <a
+            href="/configurations/upload"
+            class="btn btn-primary"
+        >
+            + Run New Audit
+        </a>
+
+    </div>
+
 
     <%- include("../partials/flash") %>
 
-    <hr>
 
-    <h2>Overall Security Score</h2>
+    <!-- =====================================================
+         OVERALL SECURITY SCORE
+         ===================================================== -->
 
-    <h1>
-        <%= averageScore %>%
-    </h1>
+    <section class="content-section">
 
-    <p>
-        <strong>Security Posture:</strong>
-        <%= postureStatus %>
-    </p>
+        <div class="card compliance-score-card">
 
-    <hr>
+            <div class="card-header">
 
-    <h2>Security Overview</h2>
+                <div>
 
-    <p>
-        <strong>Total Devices:</strong>
-        <%= totalDevices %>
-    </p>
+                    <h2>
+                        Overall Security Score
+                    </h2>
 
-    <p>
-        <strong>Total Audits:</strong>
-        <%= totalAudits %>
-    </p>
-
-    <p>
-        <strong>Completed Audits:</strong>
-        <%= completedAudits %>
-    </p>
-
-    <p>
-        <strong>Open Findings:</strong>
-        <%= openFindings %>
-    </p>
-
-    <p>
-        <strong>Resolved Findings:</strong>
-        <%= resolvedFindings %>
-    </p>
-
-    <hr>
-
-    <h2>Open Findings by Severity</h2>
-
-    <p>
-        <strong>Critical:</strong>
-        <%= criticalFindings %>
-    </p>
-
-    <p>
-        <strong>High:</strong>
-        <%= highFindings %>
-    </p>
-
-    <p>
-        <strong>Medium:</strong>
-        <%= mediumFindings %>
-    </p>
-
-    <p>
-        <strong>Low:</strong>
-        <%= lowFindings %>
-    </p>
-
-    <hr>
-
-    <h2>Vendor Summary</h2>
-
-    <% if (vendorSummary && vendorSummary.length > 0) { %>
-
-        <% vendorSummary.forEach(function(vendor) { %>
-
-            <div>
-
-                <h3>
-                    <%= vendor._id %>
-                </h3>
-
-                <p>
-                    <strong>Devices:</strong>
-                    <%= vendor.deviceCount %>
-                </p>
-
-                <p>
-                    <strong>Average Security Score:</strong>
-                    <%= Math.round(vendor.averageScore || 0) %>%
-                </p>
-
-            </div>
-
-            <hr>
-
-        <% }); %>
-
-    <% } else { %>
-
-        <p>
-            No vendor data available.
-        </p>
-
-    <% } %>
-
-    <hr>
-
-    <h2>Devices Requiring Attention</h2>
-
-    <% if (riskyDevices && riskyDevices.length > 0) { %>
-
-        <% riskyDevices.forEach(function(device) { %>
-
-            <div>
-
-                <h3>
-                    <%= device.deviceName %>
-                </h3>
-
-                <p>
-                    <strong>Vendor:</strong>
-                    <%= device.vendor %>
-                </p>
-
-                <p>
-                    <strong>Security Score:</strong>
-                    <%= device.securityScore %>%
-                </p>
-
-                <p>
-                    <strong>Status:</strong>
-                    <%= device.status %>
-                </p>
-
-            </div>
-
-            <hr>
-
-        <% }); %>
-
-    <% } else { %>
-
-        <p>
-            No devices currently require attention.
-        </p>
-
-    <% } %>
-
-    <hr>
-
-    <h2>Device Security Posture</h2>
-
-    <% if (devices && devices.length > 0) { %>
-
-        <% devices.forEach(function(device) { %>
-
-            <div>
-
-                <h3>
-                    <%= device.deviceName %>
-                </h3>
-
-                <p>
-                    <strong>Vendor:</strong>
-                    <%= device.vendor %>
-                </p>
-
-                <p>
-                    <strong>Device Type:</strong>
-                    <%= device.deviceType %>
-                </p>
-
-                <p>
-                    <strong>Status:</strong>
-                    <%= device.status %>
-                </p>
-
-                <p>
-                    <strong>Security Score:</strong>
-                    <%= device.securityScore %>%
-                </p>
-
-                <p>
-                    <strong>Last Audit:</strong>
-
-                    <% if (device.lastAudit) { %>
-
-                        <%= new Date(device.lastAudit).toLocaleString() %>
-
-                    <% } else { %>
-
-                        Not audited
-
-                    <% } %>
-
-                </p>
-
-            </div>
-
-            <hr>
-
-        <% }); %>
-
-    <% } else { %>
-
-        <p>
-            No devices available.
-        </p>
-
-    <% } %>
-
-    <hr>
-
-    <h2>Recent Audits</h2>
-
-    <% if (recentAudits && recentAudits.length > 0) { %>
-
-        <% recentAudits.forEach(function(audit) { %>
-
-            <div>
-
-                <h3>
-                    Audit
-                </h3>
-
-                <% if (audit.device) { %>
-
-                    <p>
-                        <strong>Device:</strong>
-                        <%= audit.device.deviceName %>
+                    <p class="card-subtitle">
+                        Combined security posture across audited devices.
                     </p>
 
-                <% } %>
+                </div>
 
-                <p>
-                    <strong>Vendor:</strong>
-                    <%= audit.vendor %>
-                </p>
 
-                <p>
-                    <strong>Status:</strong>
-                    <%= audit.status %>
-                </p>
+                <span class="status-badge">
+                    <%= postureStatus %>
+                </span>
 
-                <p>
-                    <strong>Security Score:</strong>
-                    <%= audit.complianceScore %>%
-                </p>
+            </div>
 
-                <p>
-                    <strong>Failed Checks:</strong>
-                    <%= audit.failedChecks %>
-                </p>
 
-                <p>
-                    <strong>Date:</strong>
-                    <%= audit.createdAt
-                        ? new Date(audit.createdAt).toLocaleString()
-                        : "N/A" %>
-                </p>
+            <div class="score-display">
 
-                <p>
-                    <a href="/audits/<%= audit._id %>">
-                        View Audit
-                    </a>
+                <div class="score-value">
+                    <%= averageScore %>%
+                </div>
+
+
+                <div class="progress-bar">
+
+                    <div
+                        class="progress-fill"
+                        data-score="<%= averageScore %>"
+                    ></div>
+
+                </div>
+
+
+                <p class="score-label">
+
+                    Security Posture:
+
+                    <strong>
+                        <%= postureStatus %>
+                    </strong>
+
                 </p>
 
             </div>
 
-            <hr>
+        </div>
 
-        <% }); %>
+    </section>
 
-    <% } else { %>
 
-        <p>
-            No audits available.
-        </p>
 
-    <% } %>
+    <!-- =====================================================
+         SECURITY OVERVIEW
+         ===================================================== -->
 
-    <hr>
+    <section class="content-section">
 
-    <h2>Quick Actions</h2>
+        <div class="section-heading">
 
-    <p>
-        <a href="/dashboard">
-            Back to Dashboard
-        </a>
-    </p>
+            <div>
 
-    <p>
-        <a href="/configurations">
-            View Configurations
-        </a>
-    </p>
+                <h2>
+                    Security Overview
+                </h2>
 
-    <p>
-        <a href="/configurations/upload">
-            Upload Configuration
-        </a>
-    </p>
+                <p>
+                    Current network security and audit statistics.
+                </p>
 
-    <p>
-        <a href="/risk">
-            Risk Prioritization
-        </a>
-    </p>
+            </div>
 
-    <p>
-        <a href="/exposure">
-            Exposure Analysis
-        </a>
-    </p>
+        </div>
 
-    <p>
-        <a href="/drift">
-            Configuration Drift
-        </a>
-    </p>
 
-    <p>
-        <a href="/comparison">
-            Device Comparison
-        </a>
-    </p>
+        <div class="stats-grid">
 
-    <p>
-        <a href="/reports">
-            Reports
-        </a>
-    </p>
+
+            <!-- TOTAL DEVICES -->
+
+            <div class="stat-card">
+
+                <div class="stat-card-icon">
+                    🖥️
+                </div>
+
+                <div>
+
+                    <span class="stat-card-label">
+                        Total Devices
+                    </span>
+
+                    <strong class="stat-card-value">
+                        <%= totalDevices %>
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- TOTAL AUDITS -->
+
+            <div class="stat-card">
+
+                <div class="stat-card-icon">
+                    🔍
+                </div>
+
+                <div>
+
+                    <span class="stat-card-label">
+                        Total Audits
+                    </span>
+
+                    <strong class="stat-card-value">
+                        <%= totalAudits %>
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- COMPLETED AUDITS -->
+
+            <div class="stat-card">
+
+                <div class="stat-card-icon">
+                    ✓
+                </div>
+
+                <div>
+
+                    <span class="stat-card-label">
+                        Completed Audits
+                    </span>
+
+                    <strong class="stat-card-value text-success">
+                        <%= completedAudits %>
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- OPEN FINDINGS -->
+
+            <div class="stat-card">
+
+                <div class="stat-card-icon">
+                    🚨
+                </div>
+
+                <div>
+
+                    <span class="stat-card-label">
+                        Open Findings
+                    </span>
+
+                    <strong class="stat-card-value text-danger">
+                        <%= openFindings %>
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- RESOLVED FINDINGS -->
+
+            <div class="stat-card">
+
+                <div class="stat-card-icon">
+                    🛡️
+                </div>
+
+                <div>
+
+                    <span class="stat-card-label">
+                        Resolved Findings
+                    </span>
+
+                    <strong class="stat-card-value text-success">
+                        <%= resolvedFindings %>
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         FINDINGS BY SEVERITY
+         ===================================================== -->
+
+    <section class="content-section">
+
+        <div class="section-heading">
+
+            <div>
+
+                <h2>
+                    Open Findings by Severity
+                </h2>
+
+                <p>
+                    Distribution of currently unresolved security findings.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="stats-grid">
+
+
+            <!-- CRITICAL -->
+
+            <div class="stat-card">
+
+                <div class="stat-card-icon">
+                    🔴
+                </div>
+
+                <div>
+
+                    <span class="stat-card-label">
+                        Critical
+                    </span>
+
+                    <strong class="stat-card-value text-danger">
+                        <%= criticalFindings %>
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- HIGH -->
+
+            <div class="stat-card">
+
+                <div class="stat-card-icon">
+                    🟠
+                </div>
+
+                <div>
+
+                    <span class="stat-card-label">
+                        High
+                    </span>
+
+                    <strong class="stat-card-value">
+                        <%= highFindings %>
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- MEDIUM -->
+
+            <div class="stat-card">
+
+                <div class="stat-card-icon">
+                    🟡
+                </div>
+
+                <div>
+
+                    <span class="stat-card-label">
+                        Medium
+                    </span>
+
+                    <strong class="stat-card-value">
+                        <%= mediumFindings %>
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- LOW -->
+
+            <div class="stat-card">
+
+                <div class="stat-card-icon">
+                    🔵
+                </div>
+
+                <div>
+
+                    <span class="stat-card-label">
+                        Low
+                    </span>
+
+                    <strong class="stat-card-value text-primary">
+                        <%= lowFindings %>
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         VENDOR SUMMARY
+         ===================================================== -->
+
+    <section class="content-section">
+
+        <div class="section-heading">
+
+            <div>
+
+                <h2>
+                    Vendor Summary
+                </h2>
+
+                <p>
+                    Security posture grouped by network vendor.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <% if (vendorSummary && vendorSummary.length > 0) { %>
+
+
+            <div class="vendor-grid">
+
+                <% vendorSummary.forEach(function(vendor) { %>
+
+
+                    <div class="vendor-card">
+
+
+                        <div class="vendor-card-icon">
+                            <%= String(vendor._id || "?").charAt(0).toUpperCase() %>
+                        </div>
+
+
+                        <div>
+
+                            <strong>
+                                <%= vendor._id %>
+                            </strong>
+
+
+                            <span>
+                                <%= vendor.deviceCount %>
+                                device<%= vendor.deviceCount == 1 ? "" : "s" %>
+                            </span>
+
+
+                            <span>
+
+                                Average Security Score:
+
+                                <strong>
+                                    <%= Math.round(vendor.averageScore || 0) %>%
+                                </strong>
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                <% }); %>
+
+            </div>
+
+
+        <% } else { %>
+
+
+            <div class="empty-state">
+
+                <div class="empty-state-icon">
+                    📊
+                </div>
+
+                <h3>
+                    No Vendor Data
+                </h3>
+
+                <p>
+                    No vendor data is currently available.
+                </p>
+
+            </div>
+
+
+        <% } %>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         DEVICES REQUIRING ATTENTION
+         ===================================================== -->
+
+    <section class="content-section">
+
+        <div class="section-heading">
+
+            <div>
+
+                <h2>
+                    Devices Requiring Attention
+                </h2>
+
+                <p>
+                    Devices currently requiring security attention.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <% if (riskyDevices && riskyDevices.length > 0) { %>
+
+
+            <div class="findings-list">
+
+
+                <% riskyDevices.forEach(function(device) { %>
+
+
+                    <div class="finding-card">
+
+
+                        <div class="finding-card-header">
+
+
+                            <div>
+
+                                <h3>
+                                    <%= device.deviceName %>
+                                </h3>
+
+
+                                <div class="finding-meta">
+
+                                    <span class="badge">
+                                        <%= device.vendor %>
+                                    </span>
+
+
+                                    <span class="status-badge">
+                                        <%= device.status %>
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <strong class="finding-score">
+                                <%= device.securityScore %>%
+                            </strong>
+
+
+                        </div>
+
+
+                        <div class="progress-bar">
+
+                            <div
+                                class="progress-fill"
+                                data-score="<%= device.securityScore %>"
+                            ></div>
+
+                        </div>
+
+
+                    </div>
+
+
+                <% }); %>
+
+
+            </div>
+
+
+        <% } else { %>
+
+
+            <div class="empty-state">
+
+                <div class="empty-state-icon">
+                    ✓
+                </div>
+
+                <h3>
+                    No Devices Require Attention
+                </h3>
+
+                <p>
+                    No devices currently require attention.
+                </p>
+
+            </div>
+
+
+        <% } %>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         DEVICE SECURITY POSTURE
+         ===================================================== -->
+
+    <section class="content-section">
+
+        <div class="section-heading">
+
+            <div>
+
+                <h2>
+                    Device Security Posture
+                </h2>
+
+                <p>
+                    Security status of all registered network devices.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <% if (devices && devices.length > 0) { %>
+
+
+            <div class="device-grid">
+
+
+                <% devices.forEach(function(device) { %>
+
+
+                    <div class="card device-posture-card">
+
+
+                        <!-- DEVICE HEADER -->
+
+                        <div class="card-header">
+
+
+                            <div>
+
+                                <h3>
+                                    <%= device.deviceName %>
+                                </h3>
+
+
+                                <span class="badge">
+                                    <%= device.vendor %>
+                                </span>
+
+                            </div>
+
+
+                            <span class="status-badge">
+                                <%= device.status %>
+                            </span>
+
+
+                        </div>
+
+
+                        <!-- DEVICE DETAILS -->
+
+                        <div class="detail-grid">
+
+
+                            <div class="detail-item">
+
+                                <span>
+                                    Device Type
+                                </span>
+
+                                <strong>
+                                    <%= device.deviceType %>
+                                </strong>
+
+                            </div>
+
+
+                            <div class="detail-item">
+
+                                <span>
+                                    Security Score
+                                </span>
+
+                                <strong class="text-primary">
+                                    <%= device.securityScore %>%
+                                </strong>
+
+                            </div>
+
+
+                            <div class="detail-item">
+
+                                <span>
+                                    Last Audit
+                                </span>
+
+                                <strong>
+
+                                    <% if (device.lastAudit) { %>
+
+                                        <%= new Date(device.lastAudit).toLocaleString() %>
+
+                                    <% } else { %>
+
+                                        Not audited
+
+                                    <% } %>
+
+                                </strong>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <!-- SCORE BAR -->
+
+                        <div class="progress-bar">
+
+                            <div
+                                class="progress-fill"
+                                data-score="<%= device.securityScore %>"
+                            ></div>
+
+                        </div>
+
+
+                    </div>
+
+
+                <% }); %>
+
+
+            </div>
+
+
+        <% } else { %>
+
+
+            <div class="empty-state">
+
+                <div class="empty-state-icon">
+                    🖥️
+                </div>
+
+                <h3>
+                    No Devices Available
+                </h3>
+
+                <p>
+                    No devices are currently available.
+                </p>
+
+            </div>
+
+
+        <% } %>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         RECENT AUDITS
+         ===================================================== -->
+
+    <section class="content-section">
+
+
+        <div class="section-heading">
+
+
+            <div>
+
+                <h2>
+                    Recent Audits
+                </h2>
+
+                <p>
+                    Latest security audit activity.
+                </p>
+
+            </div>
+
+
+            <a
+                href="/audits"
+                class="btn btn-secondary"
+            >
+                View All Audits
+            </a>
+
+
+        </div>
+
+
+
+        <% if (recentAudits && recentAudits.length > 0) { %>
+
+
+            <div class="audit-list">
+
+
+                <% recentAudits.forEach(function(audit) { %>
+
+
+                    <div class="card audit-item">
+
+
+                        <!-- AUDIT HEADER -->
+
+                        <div class="card-header">
+
+
+                            <div>
+
+                                <h3>
+                                    Audit
+                                </h3>
+
+
+                                <% if (audit.device) { %>
+
+                                    <p class="card-subtitle">
+                                        <%= audit.device.deviceName %>
+                                    </p>
+
+                                <% } %>
+
+                            </div>
+
+
+                            <span class="status-badge">
+                                <%= audit.status %>
+                            </span>
+
+
+                        </div>
+
+
+
+                        <!-- AUDIT INFORMATION -->
+
+                        <div class="audit-detail-grid">
+
+
+                            <div class="audit-detail-item">
+
+                                <span class="audit-detail-label">
+                                    Vendor
+                                </span>
+
+                                <strong>
+                                    <%= audit.vendor %>
+                                </strong>
+
+                            </div>
+
+
+
+                            <div class="audit-detail-item">
+
+                                <span class="audit-detail-label">
+                                    Security Score
+                                </span>
+
+                                <strong class="text-primary">
+                                    <%= audit.complianceScore %>%
+                                </strong>
+
+                            </div>
+
+
+
+                            <div class="audit-detail-item">
+
+                                <span class="audit-detail-label">
+                                    Failed Checks
+                                </span>
+
+                                <strong>
+                                    <%= audit.failedChecks %>
+                                </strong>
+
+                            </div>
+
+
+
+                            <div class="audit-detail-item">
+
+                                <span class="audit-detail-label">
+                                    Date
+                                </span>
+
+                                <strong>
+
+                                    <%= audit.createdAt
+                                        ? new Date(audit.createdAt).toLocaleString()
+                                        : "N/A" %>
+
+                                </strong>
+
+                            </div>
+
+
+                        </div>
+
+
+
+                        <!-- AUDIT ACTION -->
+
+                        <div class="audit-card-footer">
+
+                            <a
+                                href="/audits/<%= audit._id %>"
+                                class="btn btn-secondary btn-sm"
+                            >
+                                View Audit
+                            </a>
+
+                        </div>
+
+
+                    </div>
+
+
+                <% }); %>
+
+
+            </div>
+
+
+        <% } else { %>
+
+
+            <div class="empty-state">
+
+
+                <div class="empty-state-icon">
+                    🔍
+                </div>
+
+
+                <h3>
+                    No Audits Available
+                </h3>
+
+
+                <p>
+                    No recent security audits are available.
+                </p>
+
+
+            </div>
+
+
+        <% } %>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         QUICK ACTIONS
+         ===================================================== -->
+
+    <section class="content-section">
+
+
+        <div class="section-heading">
+
+
+            <div>
+
+                <h2>
+                    Quick Actions
+                </h2>
+
+                <p>
+                    Access NETSENTRY security analysis tools.
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+
+        <div class="quick-actions-grid">
+
+
+            <!-- DASHBOARD -->
+
+            <a
+                href="/dashboard"
+                class="quick-action-card"
+            >
+
+                <span class="quick-action-icon">
+                    ⌂
+                </span>
+
+                <span class="quick-action-content">
+
+                    <strong>
+                        Dashboard
+                    </strong>
+
+                    <small>
+                        Back to dashboard
+                    </small>
+
+                </span>
+
+                <span class="quick-action-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+
+            <!-- CONFIGURATIONS -->
+
+            <a
+                href="/configurations"
+                class="quick-action-card"
+            >
+
+                <span class="quick-action-icon">
+                    📁
+                </span>
+
+                <span class="quick-action-content">
+
+                    <strong>
+                        Configurations
+                    </strong>
+
+                    <small>
+                        View configurations
+                    </small>
+
+                </span>
+
+                <span class="quick-action-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+
+            <!-- UPLOAD CONFIGURATION -->
+
+            <a
+                href="/configurations/upload"
+                class="quick-action-card"
+            >
+
+                <span class="quick-action-icon">
+                    📤
+                </span>
+
+                <span class="quick-action-content">
+
+                    <strong>
+                        Upload Configuration
+                    </strong>
+
+                    <small>
+                        Run a new security audit
+                    </small>
+
+                </span>
+
+                <span class="quick-action-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+
+            <!-- RISK -->
+
+            <a
+                href="/risk"
+                class="quick-action-card"
+            >
+
+                <span class="quick-action-icon">
+                    ⚠️
+                </span>
+
+                <span class="quick-action-content">
+
+                    <strong>
+                        Risk Prioritization
+                    </strong>
+
+                    <small>
+                        Analyze security risks
+                    </small>
+
+                </span>
+
+                <span class="quick-action-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+
+            <!-- EXPOSURE -->
+
+            <a
+                href="/exposure"
+                class="quick-action-card"
+            >
+
+                <span class="quick-action-icon">
+                    🌐
+                </span>
+
+                <span class="quick-action-content">
+
+                    <strong>
+                        Exposure Analysis
+                    </strong>
+
+                    <small>
+                        Analyze attack surface
+                    </small>
+
+                </span>
+
+                <span class="quick-action-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+
+            <!-- DRIFT -->
+
+            <a
+                href="/drift"
+                class="quick-action-card"
+            >
+
+                <span class="quick-action-icon">
+                    🔄
+                </span>
+
+                <span class="quick-action-content">
+
+                    <strong>
+                        Configuration Drift
+                    </strong>
+
+                    <small>
+                        Detect configuration changes
+                    </small>
+
+                </span>
+
+                <span class="quick-action-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+
+            <!-- COMPARISON -->
+
+            <a
+                href="/comparison"
+                class="quick-action-card"
+            >
+
+                <span class="quick-action-icon">
+                    ⚖️
+                </span>
+
+                <span class="quick-action-content">
+
+                    <strong>
+                        Device Comparison
+                    </strong>
+
+                    <small>
+                        Compare configurations
+                    </small>
+
+                </span>
+
+                <span class="quick-action-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+
+            <!-- REPORTS -->
+
+            <a
+                href="/reports"
+                class="quick-action-card"
+            >
+
+                <span class="quick-action-icon">
+                    📄
+                </span>
+
+                <span class="quick-action-content">
+
+                    <strong>
+                        Reports
+                    </strong>
+
+                    <small>
+                        View security reports
+                    </small>
+
+                </span>
+
+                <span class="quick-action-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+        </div>
+
+    </section>
+
 
 </main>
+
 
 <%- include("../partials/footer") %>

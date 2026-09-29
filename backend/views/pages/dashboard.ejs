@@ -4,207 +4,791 @@
 
 <%- include("../partials/sidebar") %>
 
-<main>
+<main class="main-content dashboard-page">
 
-    <h1>NETSENTRY Dashboard</h1>
+    <!-- ================================= -->
+    <!-- PAGE HEADER -->
+    <!-- ================================= -->
+
+    <div class="page-header">
+
+        <div>
+            <h1 class="page-title">
+                NETSENTRY Dashboard
+            </h1>
+
+            <p class="page-subtitle">
+                Monitor your network security posture and configuration audits.
+            </p>
+        </div>
+
+        <a
+            href="/configurations/upload"
+            class="btn btn-primary"
+        >
+            + Upload Configuration
+        </a>
+
+    </div>
 
     <%- include("../partials/flash") %>
 
 
     <!-- ================================= -->
-    <!-- MAIN ACTION -->
+    <!-- CONFIGURATION AUDIT ACTION -->
     <!-- ================================= -->
 
-    <h2>Configuration Audit</h2>
+    <section class="dashboard-hero card">
 
-    <p>
-        Upload a network configuration to start a security audit.
-    </p>
+        <div class="dashboard-hero-content">
 
-    <p>
-        <a href="/configurations/upload">
-            + Upload New Configuration
-        </a>
-    </p>
+            <div>
+                <span class="section-label">
+                    SECURITY AUDIT
+                </span>
 
+                <h2>
+                    Configuration Audit
+                </h2>
 
-    <hr>
+                <p>
+                    Upload a network configuration to start a security audit.
+                    NETSENTRY will analyze the configuration for security and
+                    compliance issues.
+                </p>
+            </div>
+
+            <div class="dashboard-hero-action">
+
+                <a
+                    href="/configurations/upload"
+                    class="btn btn-primary btn-lg"
+                >
+                    Upload New Configuration
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
 
 
     <!-- ================================= -->
     <!-- OVERVIEW -->
     <!-- ================================= -->
 
-    <h2>Overview</h2>
+    <section class="dashboard-section">
 
-    <p>
-        <strong>Total Devices:</strong>
-        <%= totalDevices %>
-    </p>
+        <div class="section-heading">
 
-    <p>
-        <strong>Total Configurations:</strong>
-        <%= totalConfigurations %>
-    </p>
+            <div>
+                <h2>
+                    Overview
+                </h2>
 
-    <p>
-        <strong>Completed Audits:</strong>
-        <%= completedAudits %>
-    </p>
+                <p>
+                    Current security infrastructure summary.
+                </p>
+            </div>
 
-    <p>
-        <strong>Average Security Score:</strong>
-        <%= averageScore %>%
-    </p>
+        </div>
 
 
-    <hr>
+        <div class="stats-grid">
+
+            <!-- TOTAL DEVICES -->
+
+            <div class="stat-card">
+
+                <div class="stat-card-icon">
+                    🖥
+                </div>
+
+                <div class="stat-card-content">
+
+                    <span class="stat-card-label">
+                        Total Devices
+                    </span>
+
+                    <strong class="stat-card-value">
+                        <%= totalDevices %>
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- TOTAL CONFIGURATIONS -->
+
+            <div class="stat-card">
+
+                <div class="stat-card-icon">
+                    📁
+                </div>
+
+                <div class="stat-card-content">
+
+                    <span class="stat-card-label">
+                        Total Configurations
+                    </span>
+
+                    <strong class="stat-card-value">
+                        <%= totalConfigurations %>
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- COMPLETED AUDITS -->
+
+            <div class="stat-card">
+
+                <div class="stat-card-icon">
+                    🔍
+                </div>
+
+                <div class="stat-card-content">
+
+                    <span class="stat-card-label">
+                        Completed Audits
+                    </span>
+
+                    <strong class="stat-card-value">
+                        <%= completedAudits %>
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- SECURITY SCORE -->
+
+            <div class="stat-card">
+
+                <div class="stat-card-icon">
+                    🛡
+                </div>
+
+                <div class="stat-card-content">
+
+                    <span class="stat-card-label">
+                        Average Security Score
+                    </span>
+
+                    <strong class="stat-card-value">
+                        <%= averageScore %>%
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
 
 
     <!-- ================================= -->
-    <!-- OPEN SECURITY FINDINGS -->
+    <!-- SECURITY FINDINGS -->
     <!-- ================================= -->
 
-    <h2>Open Security Findings</h2>
+    <section class="dashboard-section">
 
-    <p>
-        <strong>Critical:</strong>
-        <%= criticalFindings %>
-    </p>
+        <div class="section-heading">
 
-    <p>
-        <strong>High:</strong>
-        <%= highFindings %>
-    </p>
+            <div>
+                <h2>
+                    Open Security Findings
+                </h2>
+
+                <p>
+                    Security issues that currently require attention.
+                </p>
+            </div>
+
+            <a
+                href="/findings"
+                class="btn btn-secondary"
+            >
+                View All Findings
+            </a>
+
+        </div>
 
 
-    <hr>
+        <div class="findings-summary-grid">
+
+            <!-- CRITICAL -->
+
+            <div class="finding-summary-card finding-critical">
+
+                <div class="finding-summary-icon">
+                    !
+                </div>
+
+                <div>
+
+                    <span class="finding-summary-label">
+                        Critical
+                    </span>
+
+                    <strong class="finding-summary-value">
+                        <%= criticalFindings %>
+                    </strong>
+
+                    <span class="finding-summary-description">
+                        Critical open findings
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- HIGH -->
+
+            <div class="finding-summary-card finding-high">
+
+                <div class="finding-summary-icon">
+                    !
+                </div>
+
+                <div>
+
+                    <span class="finding-summary-label">
+                        High
+                    </span>
+
+                    <strong class="finding-summary-value">
+                        <%= highFindings %>
+                    </strong>
+
+                    <span class="finding-summary-description">
+                        High severity findings
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
 
 
     <!-- ================================= -->
     <!-- RECENT AUDITS -->
     <!-- ================================= -->
 
-    <h2>Recent Audits</h2>
+    <section class="dashboard-section">
 
-    <% if (recentAudits && recentAudits.length > 0) { %>
-
-        <% recentAudits.forEach(function(audit) { %>
+        <div class="section-heading">
 
             <div>
-
-                <h3>
-                    <%= audit.device
-                        ? audit.device.deviceName
-                        : "Unknown Device" %>
-                </h3>
+                <h2>
+                    Recent Audits
+                </h2>
 
                 <p>
-                    <strong>Vendor:</strong>
-                    <%= audit.vendor %>
+                    Latest configuration security audits.
                 </p>
+            </div>
 
-                <p>
-                    <strong>Status:</strong>
-                    <%= audit.status %>
-                </p>
+            <a
+                href="/audits"
+                class="btn btn-secondary"
+            >
+                View All Audits
+            </a>
 
-                <p>
-                    <strong>Compliance Score:</strong>
-                    <%= audit.complianceScore %>%
-                </p>
+        </div>
 
-                <p>
-                    <strong>High Findings:</strong>
-                    <%= audit.highFindings %>
-                </p>
 
-                <p>
-                    <a href="/audits/<%= audit._id %>">
-                        View Audit
-                    </a>
-                </p>
+        <% if (recentAudits && recentAudits.length > 0) { %>
+
+            <div class="audit-list">
+
+                <% recentAudits.forEach(function(audit) { %>
+
+                    <div class="audit-card">
+
+                        <!-- AUDIT HEADER -->
+
+                        <div class="audit-card-header">
+
+                            <div>
+
+                                <h3 class="audit-card-title">
+
+                                    <%= audit.device
+                                        ? audit.device.deviceName
+                                        : "Unknown Device" %>
+
+                                </h3>
+
+                                <span class="audit-vendor">
+
+                                    <%= audit.vendor %>
+
+                                </span>
+
+                            </div>
+
+
+                            <span
+                                class="status-badge
+                                <%= audit.status === 'Completed'
+                                    ? 'status-success'
+                                    : 'status-warning' %>"
+                            >
+
+                                <%= audit.status %>
+
+                            </span>
+
+                        </div>
+
+
+                        <!-- AUDIT DETAILS -->
+
+                        <div class="audit-card-body">
+
+                            <div class="audit-detail">
+
+                                <span class="audit-detail-label">
+                                    Vendor
+                                </span>
+
+                                <strong>
+                                    <%= audit.vendor %>
+                                </strong>
+
+                            </div>
+
+
+                            <div class="audit-detail">
+
+                                <span class="audit-detail-label">
+                                    Status
+                                </span>
+
+                                <strong>
+                                    <%= audit.status %>
+                                </strong>
+
+                            </div>
+
+
+                            <div class="audit-detail">
+
+                                <span class="audit-detail-label">
+                                    Compliance Score
+                                </span>
+
+                                <strong class="score-value">
+                                    <%= audit.complianceScore %>%
+                                </strong>
+
+                            </div>
+
+
+                            <div class="audit-detail">
+
+                                <span class="audit-detail-label">
+                                    High Findings
+                                </span>
+
+                                <strong>
+                                    <%= audit.highFindings %>
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- AUDIT FOOTER -->
+
+                        <div class="audit-card-footer">
+
+                            <a
+                                href="/audits/<%= audit._id %>"
+                                class="btn btn-secondary"
+                            >
+                                View Audit →
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                <% }); %>
 
             </div>
 
-            <hr>
+        <% } else { %>
 
-        <% }); %>
+            <div class="empty-state card">
 
-    <% } else { %>
+                <div class="empty-state-icon">
+                    📋
+                </div>
 
-        <p>
-            No audits available.
-        </p>
+                <h3>
+                    No Audits Available
+                </h3>
 
-    <% } %>
+                <p>
+                    Upload a network configuration to start your first security audit.
+                </p>
+
+                <a
+                    href="/configurations/upload"
+                    class="btn btn-primary"
+                >
+                    Upload Configuration
+                </a>
+
+            </div>
+
+        <% } %>
+
+    </section>
 
 
     <!-- ================================= -->
     <!-- QUICK ACTIONS -->
     <!-- ================================= -->
 
-    <h2>Quick Actions</h2>
+    <section class="dashboard-section">
 
-    <p>
-        <a href="/configurations">
-            Configurations
-        </a>
-    </p>
+        <div class="section-heading">
 
-    <p>
-        <a href="/audits">
-            Audits
-        </a>
-    </p>
+            <div>
 
-    <p>
-        <a href="/findings">
-            Security Findings
-        </a>
-    </p>
+                <h2>
+                    Quick Actions
+                </h2>
 
-    <p>
-        <a href="/security-posture">
-            Security Posture
-        </a>
-    </p>
+                <p>
+                    Access important NETSENTRY security modules.
+                </p>
 
-    <p>
-        <a href="/risk">
-            Risk Prioritization
-        </a>
-    </p>
+            </div>
 
-    <p>
-        <a href="/exposure">
-            Exposure Analysis
-        </a>
-    </p>
+        </div>
 
-    <p>
-        <a href="/drift">
-            Configuration Drift
-        </a>
-    </p>
 
-    <p>
-        <a href="/comparison">
-            Device Comparison
-        </a>
-    </p>
+        <div class="quick-actions-grid">
 
-    <p>
-        <a href="/ai-training">
-            AI Training
-        </a>
-    </p>
 
-    <p>
-        <a href="/reports">
-            Reports
-        </a>
-    </p>
+            <!-- CONFIGURATIONS -->
+
+            <a
+                href="/configurations"
+                class="quick-action-card"
+            >
+
+                <span class="quick-action-icon">
+                    📁
+                </span>
+
+                <span class="quick-action-content">
+
+                    <strong>
+                        Configurations
+                    </strong>
+
+                    <small>
+                        Manage network configurations
+                    </small>
+
+                </span>
+
+                <span class="quick-action-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+            <!-- AUDITS -->
+
+            <a
+                href="/audits"
+                class="quick-action-card"
+            >
+
+                <span class="quick-action-icon">
+                    🔍
+                </span>
+
+                <span class="quick-action-content">
+
+                    <strong>
+                        Audits
+                    </strong>
+
+                    <small>
+                        View configuration audits
+                    </small>
+
+                </span>
+
+                <span class="quick-action-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+            <!-- FINDINGS -->
+
+            <a
+                href="/findings"
+                class="quick-action-card"
+            >
+
+                <span class="quick-action-icon">
+                    🚨
+                </span>
+
+                <span class="quick-action-content">
+
+                    <strong>
+                        Security Findings
+                    </strong>
+
+                    <small>
+                        Review detected vulnerabilities
+                    </small>
+
+                </span>
+
+                <span class="quick-action-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+            <!-- SECURITY POSTURE -->
+
+            <a
+                href="/security-posture"
+                class="quick-action-card"
+            >
+
+                <span class="quick-action-icon">
+                    🛡
+                </span>
+
+                <span class="quick-action-content">
+
+                    <strong>
+                        Security Posture
+                    </strong>
+
+                    <small>
+                        View overall security posture
+                    </small>
+
+                </span>
+
+                <span class="quick-action-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+            <!-- RISK -->
+
+            <a
+                href="/risk"
+                class="quick-action-card"
+            >
+
+                <span class="quick-action-icon">
+                    ⚠
+                </span>
+
+                <span class="quick-action-content">
+
+                    <strong>
+                        Risk Prioritization
+                    </strong>
+
+                    <small>
+                        Prioritize security risks
+                    </small>
+
+                </span>
+
+                <span class="quick-action-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+            <!-- EXPOSURE -->
+
+            <a
+                href="/exposure"
+                class="quick-action-card"
+            >
+
+                <span class="quick-action-icon">
+                    🌐
+                </span>
+
+                <span class="quick-action-content">
+
+                    <strong>
+                        Exposure Analysis
+                    </strong>
+
+                    <small>
+                        Analyze network exposure
+                    </small>
+
+                </span>
+
+                <span class="quick-action-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+            <!-- DRIFT -->
+
+            <a
+                href="/drift"
+                class="quick-action-card"
+            >
+
+                <span class="quick-action-icon">
+                    🔄
+                </span>
+
+                <span class="quick-action-content">
+
+                    <strong>
+                        Configuration Drift
+                    </strong>
+
+                    <small>
+                        Detect configuration changes
+                    </small>
+
+                </span>
+
+                <span class="quick-action-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+            <!-- COMPARISON -->
+
+            <a
+                href="/comparison"
+                class="quick-action-card"
+            >
+
+                <span class="quick-action-icon">
+                    ⚖
+                </span>
+
+                <span class="quick-action-content">
+
+                    <strong>
+                        Device Comparison
+                    </strong>
+
+                    <small>
+                        Compare device configurations
+                    </small>
+
+                </span>
+
+                <span class="quick-action-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+            <!-- AI TRAINING -->
+
+            <a
+                href="/ai-training"
+                class="quick-action-card"
+            >
+
+                <span class="quick-action-icon">
+                    🤖
+                </span>
+
+                <span class="quick-action-content">
+
+                    <strong>
+                        AI Training
+                    </strong>
+
+                    <small>
+                        Manage AI security knowledge
+                    </small>
+
+                </span>
+
+                <span class="quick-action-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+            <!-- REPORTS -->
+
+            <a
+                href="/reports"
+                class="quick-action-card"
+            >
+
+                <span class="quick-action-icon">
+                    📄
+                </span>
+
+                <span class="quick-action-content">
+
+                    <strong>
+                        Reports
+                    </strong>
+
+                    <small>
+                        Generate security reports
+                    </small>
+
+                </span>
+
+                <span class="quick-action-arrow">
+                    →
+                </span>
+
+            </a>
+
+        </div>
+
+    </section>
 
 </main>
 

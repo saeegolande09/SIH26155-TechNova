@@ -41,6 +41,13 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // ===============================
+// STATIC FILES
+// ===============================
+
+// Serve CSS, JavaScript, images, etc.
+app.use(express.static(path.join(__dirname, "public")));
+
+// ===============================
 // MONGODB ATLAS
 // ===============================
 
@@ -445,7 +452,6 @@ app.get(
 
             const userId = req.session.user.id;
 
-
             // ==========================================
             // GET CURRENT USER'S DEVICES
             // ==========================================
@@ -454,11 +460,9 @@ app.get(
                 user: userId
             }).select("_id");
 
-
             const deviceIds = devices.map(
                 device => device._id
             );
-
 
             // ==========================================
             // TOTAL DEVICES
@@ -466,7 +470,6 @@ app.get(
 
             const totalDevices =
                 devices.length;
-
 
             // ==========================================
             // TOTAL CONFIGURATIONS
@@ -479,7 +482,6 @@ app.get(
                     }
                 });
 
-
             // ==========================================
             // COMPLETED AUDITS
             // ==========================================
@@ -491,7 +493,6 @@ app.get(
                     },
                     status: "Completed"
                 });
-
 
             // ==========================================
             // AVERAGE SECURITY SCORE
@@ -520,14 +521,12 @@ app.get(
 
                 ]);
 
-
             const averageScore =
                 scoreResult.length > 0
                     ? Math.round(
                         scoreResult[0].averageScore
                     )
                     : 0;
-
 
             // ==========================================
             // CRITICAL FINDINGS
@@ -542,7 +541,6 @@ app.get(
                     status: "Open"
                 });
 
-
             // ==========================================
             // HIGH FINDINGS
             // ==========================================
@@ -555,7 +553,6 @@ app.get(
                     severity: "High",
                     status: "Open"
                 });
-
 
             // ==========================================
             // RECENT AUDITS
@@ -573,7 +570,6 @@ app.get(
                         createdAt: -1
                     })
                     .limit(5);
-
 
             // ==========================================
             // RENDER DASHBOARD
@@ -597,7 +593,6 @@ app.get(
                     recentAudits
                 }
             );
-
 
         } catch (error) {
 

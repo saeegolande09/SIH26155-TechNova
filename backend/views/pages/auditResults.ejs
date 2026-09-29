@@ -4,251 +4,698 @@
 
 <%- include("../partials/sidebar") %>
 
-<main>
+<main class="main-content">
 
-    <h1>NETSENTRY Audit Results</h1>
+    <div class="page-header">
+
+        <div>
+            <h1 class="page-title">Audit Results</h1>
+            <p class="page-subtitle">
+                Security compliance analysis for
+                <strong><%= device.deviceName %></strong>.
+            </p>
+        </div>
+
+        <a href="/audits" class="btn btn-secondary">
+            ← Audit History
+        </a>
+
+    </div>
 
     <%- include("../partials/flash") %>
 
-    <hr>
 
-    <h2>
-        <%= device.deviceName %>
-    </h2>
+    <!-- DEVICE INFORMATION -->
 
-    <p>
-        <strong>Vendor:</strong>
-        <%= device.vendor %>
-    </p>
+    <section class="stats-grid">
 
-    <p>
-        <strong>Audit Status:</strong>
-        <%= audit.status %>
-    </p>
-
-    <hr>
-
-    <h2>Security Compliance Score</h2>
-
-    <h1>
-        <%= audit.complianceScore %>%
-    </h1>
-
-    <hr>
-
-    <h2>Audit Summary</h2>
-
-    <p>
-        <strong>Total Checks:</strong>
-        <%= audit.totalChecks %>
-    </p>
-
-    <p>
-        <strong>Passed Checks:</strong>
-        <%= audit.passedChecks %>
-    </p>
-
-    <p>
-        <strong>Failed Checks:</strong>
-        <%= audit.failedChecks %>
-    </p>
-
-    <p>
-        <strong>Critical Findings:</strong>
-        <%= audit.criticalFindings %>
-    </p>
-
-    <p>
-        <strong>High Findings:</strong>
-        <%= audit.highFindings %>
-    </p>
-
-    <p>
-        <strong>Medium Findings:</strong>
-        <%= audit.mediumFindings %>
-    </p>
-
-    <p>
-        <strong>Low Findings:</strong>
-        <%= audit.lowFindings %>
-    </p>
-
-    <hr>
-
-    <h2>Security Rule Status</h2>
-
-    <%
-        const rules =
-            typeof ruleStatus !== "undefined"
-                ? ruleStatus
-                : {};
-    %>
-
-    <p>
-        <strong>Remote Access:</strong>
-
-        <% if (rules["Remote Access"] === "PASS") { %>
-            PASS
-        <% } else if (rules["Remote Access"] === "FAIL") { %>
-            FAIL
-        <% } else { %>
-            Not Available
-        <% } %>
-    </p>
-
-    <p>
-        <strong>Encryption:</strong>
-
-        <% if (rules["Encryption"] === "PASS") { %>
-            PASS
-        <% } else if (rules["Encryption"] === "FAIL") { %>
-            FAIL
-        <% } else { %>
-            Not Available
-        <% } %>
-    </p>
-
-    <p>
-        <strong>Access Control:</strong>
-
-        <% if (rules["Access Control"] === "PASS") { %>
-            PASS
-        <% } else if (rules["Access Control"] === "FAIL") { %>
-            FAIL
-        <% } else { %>
-            Not Available
-        <% } %>
-    </p>
-
-    <p>
-        <strong>Authentication:</strong>
-
-        <% if (rules["Authentication"] === "PASS") { %>
-            PASS
-        <% } else if (rules["Authentication"] === "FAIL") { %>
-            FAIL
-        <% } else { %>
-            Not Available
-        <% } %>
-    </p>
-
-    <hr>
-
-    <h2>Security Findings</h2>
-
-    <% if (findings && findings.length > 0) { %>
-
-        <% findings.forEach(function(finding) { %>
+        <div class="stat-card">
+            <div class="stat-card-icon">🖥️</div>
 
             <div>
+                <span class="stat-card-label">Device</span>
+                <strong class="stat-card-value">
+                    <%= device.deviceName %>
+                </strong>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-card-icon">🌐</div>
+
+            <div>
+                <span class="stat-card-label">Vendor</span>
+                <strong class="stat-card-value">
+                    <%= device.vendor %>
+                </strong>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-card-icon">📋</div>
+
+            <div>
+                <span class="stat-card-label">Audit Status</span>
+                <strong class="stat-card-value">
+                    <%= audit.status %>
+                </strong>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-card-icon">🛡️</div>
+
+            <div>
+                <span class="stat-card-label">Compliance</span>
+                <strong class="stat-card-value text-primary">
+                    <%= audit.complianceScore %>%
+                </strong>
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- COMPLIANCE SCORE -->
+
+    <section class="content-section">
+
+        <div class="card compliance-score-card">
+
+            <div class="card-header">
+
+                <div>
+                    <h2>Security Compliance Score</h2>
+
+                    <p class="card-subtitle">
+                        Overall configuration security score.
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="score-display">
+
+                <div class="score-value">
+                    <%= audit.complianceScore %>%
+                </div>
+
+                <div class="progress-bar">
+
+                    <div
+                        class="progress-fill"
+                        data-score="<%= audit.complianceScore %>"
+                    ></div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- AUDIT SUMMARY -->
+
+    <section class="content-section">
+
+        <div class="section-heading">
+
+            <div>
+                <h2>Audit Summary</h2>
+
+                <p>
+                    Security checks performed during this audit.
+                </p>
+            </div>
+
+        </div>
+
+        <div class="stats-grid">
+
+            <div class="stat-card">
+                <span class="stat-card-label">Total Checks</span>
+
+                <strong class="stat-card-value">
+                    <%= audit.totalChecks %>
+                </strong>
+            </div>
+
+            <div class="stat-card">
+                <span class="stat-card-label">Passed Checks</span>
+
+                <strong class="stat-card-value text-success">
+                    <%= audit.passedChecks %>
+                </strong>
+            </div>
+
+            <div class="stat-card">
+                <span class="stat-card-label">Failed Checks</span>
+
+                <strong class="stat-card-value text-danger">
+                    <%= audit.failedChecks %>
+                </strong>
+            </div>
+
+            <div class="stat-card">
+                <span class="stat-card-label">Critical</span>
+
+                <strong class="stat-card-value text-danger">
+                    <%= audit.criticalFindings %>
+                </strong>
+            </div>
+
+            <div class="stat-card">
+                <span class="stat-card-label">High</span>
+
+                <strong class="stat-card-value">
+                    <%= audit.highFindings %>
+                </strong>
+            </div>
+
+            <div class="stat-card">
+                <span class="stat-card-label">Medium</span>
+
+                <strong class="stat-card-value">
+                    <%= audit.mediumFindings %>
+                </strong>
+            </div>
+
+            <div class="stat-card">
+                <span class="stat-card-label">Low</span>
+
+                <strong class="stat-card-value text-primary">
+                    <%= audit.lowFindings %>
+                </strong>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- SECURITY RULE STATUS -->
+
+    <section class="content-section">
+
+        <div class="card">
+
+            <div class="card-header">
+
+                <div>
+                    <h2>Security Rule Status</h2>
+
+                    <p class="card-subtitle">
+                        Results from individual security rule categories.
+                    </p>
+                </div>
+
+            </div>
+
+            <%
+                const rules =
+                    typeof ruleStatus !== "undefined"
+                        ? ruleStatus
+                        : {};
+            %>
+
+            <div class="rule-status-grid">
+
+                <!-- REMOTE ACCESS -->
+
+                <div class="rule-status-card">
+
+                    <strong>Remote Access</strong>
+
+                    <% if (rules["Remote Access"] === "PASS") { %>
+
+                        <span class="status-badge status-success">
+                            PASS
+                        </span>
+
+                    <% } else if (rules["Remote Access"] === "FAIL") { %>
+
+                        <span class="status-badge status-danger">
+                            FAIL
+                        </span>
+
+                    <% } else { %>
+
+                        <span class="status-badge">
+                            Not Available
+                        </span>
+
+                    <% } %>
+
+                </div>
+
+
+                <!-- ENCRYPTION -->
+
+                <div class="rule-status-card">
+
+                    <strong>Encryption</strong>
+
+                    <% if (rules["Encryption"] === "PASS") { %>
+
+                        <span class="status-badge status-success">
+                            PASS
+                        </span>
+
+                    <% } else if (rules["Encryption"] === "FAIL") { %>
+
+                        <span class="status-badge status-danger">
+                            FAIL
+                        </span>
+
+                    <% } else { %>
+
+                        <span class="status-badge">
+                            Not Available
+                        </span>
+
+                    <% } %>
+
+                </div>
+
+
+                <!-- ACCESS CONTROL -->
+
+                <div class="rule-status-card">
+
+                    <strong>Access Control</strong>
+
+                    <% if (rules["Access Control"] === "PASS") { %>
+
+                        <span class="status-badge status-success">
+                            PASS
+                        </span>
+
+                    <% } else if (rules["Access Control"] === "FAIL") { %>
+
+                        <span class="status-badge status-danger">
+                            FAIL
+                        </span>
+
+                    <% } else { %>
+
+                        <span class="status-badge">
+                            Not Available
+                        </span>
+
+                    <% } %>
+
+                </div>
+
+
+                <!-- AUTHENTICATION -->
+
+                <div class="rule-status-card">
+
+                    <strong>Authentication</strong>
+
+                    <% if (rules["Authentication"] === "PASS") { %>
+
+                        <span class="status-badge status-success">
+                            PASS
+                        </span>
+
+                    <% } else if (rules["Authentication"] === "FAIL") { %>
+
+                        <span class="status-badge status-danger">
+                            FAIL
+                        </span>
+
+                    <% } else { %>
+
+                        <span class="status-badge">
+                            Not Available
+                        </span>
+
+                    <% } %>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- SECURITY FINDINGS -->
+
+    <section class="content-section">
+
+        <div class="section-heading">
+
+            <div>
+                <h2>Security Findings</h2>
+
+                <p>
+                    Issues detected during configuration analysis.
+                </p>
+            </div>
+
+        </div>
+
+
+        <% if (findings && findings.length > 0) { %>
+
+            <div class="findings-list">
+
+                <% findings.forEach(function(finding) { %>
+
+                    <div class="finding-card">
+
+                        <div class="finding-card-header">
+
+                            <div>
+
+                                <h3>
+                                    <a href="/findings/<%= finding._id %>">
+                                        <%= finding.title %>
+                                    </a>
+                                </h3>
+
+                                <span class="badge">
+                                    <%= finding.category %>
+                                </span>
+
+                            </div>
+
+                            <span class="severity-badge <%= String(finding.severity || '').toLowerCase() %>">
+                                <%= finding.severity %>
+                            </span>
+
+                        </div>
+
+
+                        <div class="detail-section">
+
+                            <h4>Description</h4>
+
+                            <p>
+                                <%= finding.description %>
+                            </p>
+
+                        </div>
+
+
+                        <% if (finding.detectedConfig) { %>
+
+                            <div class="detail-section">
+
+                                <h4>
+                                    Detected Configuration
+                                </h4>
+
+                                <pre class="code-block"><%= finding.detectedConfig %></pre>
+
+                            </div>
+
+                        <% } %>
+
+
+                        <% if (finding.recommendedFix) { %>
+
+                            <div class="detail-section">
+
+                                <h4>
+                                    Recommended Fix
+                                </h4>
+
+                                <p>
+                                    <%= finding.recommendedFix %>
+                                </p>
+
+                            </div>
+
+                        <% } %>
+
+
+                        <div class="finding-card-actions">
+
+                            <a
+                                href="/findings/<%= finding._id %>"
+                                class="btn btn-secondary btn-sm"
+                            >
+                                View Details
+                            </a>
+
+                            <a
+                                href="/remediations/<%= finding._id %>"
+                                class="btn btn-primary btn-sm"
+                            >
+                                Open Remediation
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                <% }); %>
+
+            </div>
+
+
+        <% } else { %>
+
+            <div class="empty-state">
+
+                <div class="empty-state-icon">
+                    ✓
+                </div>
 
                 <h3>
-                    <a href="/findings/<%= finding._id %>">
-                        <%= finding.title %>
-                    </a>
+                    No Security Findings
                 </h3>
 
                 <p>
-                    <strong>Severity:</strong>
-                    <%= finding.severity %>
-                </p>
-
-                <p>
-                    <strong>Category:</strong>
-                    <%= finding.category %>
-                </p>
-
-                <p>
-                    <strong>Description:</strong>
-                    <%= finding.description %>
-                </p>
-
-                <% if (finding.detectedConfig) { %>
-
-                    <p>
-                        <strong>Detected Configuration:</strong>
-                    </p>
-
-                    <pre><%= finding.detectedConfig %></pre>
-
-                <% } %>
-
-                <% if (finding.recommendedFix) { %>
-
-                    <p>
-                        <strong>Recommended Fix:</strong>
-                        <%= finding.recommendedFix %>
-                    </p>
-
-                <% } %>
-
-                <p>
-                    <a href="/remediations/<%= finding._id %>">
-                        Open Remediation
-                    </a>
+                    This configuration passed all security checks.
                 </p>
 
             </div>
 
-            <hr>
+        <% } %>
 
-        <% }); %>
+    </section>
 
-    <% } else { %>
 
-        <h3>No Security Findings</h3>
+    <!-- QUICK ACTIONS -->
 
-        <p>
-            This configuration passed all security checks.
-        </p>
+    <section class="content-section">
 
-    <% } %>
+        <div class="section-heading">
 
-    <hr>
+            <div>
+                <h2>Quick Actions</h2>
+            </div>
 
-    <h2>Quick Actions</h2>
+        </div>
 
-    <p>
-        <a href="/dashboard">
-            Back to Dashboard
-        </a>
-    </p>
 
-    <p>
-        <a href="/audits">
-            Audit History
-        </a>
-    </p>
+        <div class="quick-actions-grid">
 
-    <p>
-        <a href="/configurations">
-            Configurations
-        </a>
-    </p>
+            <a
+                href="/dashboard"
+                class="quick-action-card"
+            >
 
-    <p>
-        <a href="/configurations/upload">
-            Upload Another Configuration
-        </a>
-    </p>
+                <span class="quick-action-icon">
+                    ⌂
+                </span>
 
-    <p>
-        <a href="/security-posture">
-            Security Posture
-        </a>
-    </p>
+                <span class="quick-action-content">
 
-    <p>
-        <a href="/risk">
-            Risk Prioritization
-        </a>
-    </p>
+                    <strong>
+                        Dashboard
+                    </strong>
 
-    <p>
-        <a href="/reports">
-            Reports
-        </a>
-    </p>
+                    <small>
+                        Back to security dashboard
+                    </small>
+
+                </span>
+
+                <span class="quick-action-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+            <a
+                href="/audits"
+                class="quick-action-card"
+            >
+
+                <span class="quick-action-icon">
+                    🔍
+                </span>
+
+                <span class="quick-action-content">
+
+                    <strong>
+                        Audit History
+                    </strong>
+
+                    <small>
+                        View previous audits
+                    </small>
+
+                </span>
+
+                <span class="quick-action-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+            <a
+                href="/configurations"
+                class="quick-action-card"
+            >
+
+                <span class="quick-action-icon">
+                    📁
+                </span>
+
+                <span class="quick-action-content">
+
+                    <strong>
+                        Configurations
+                    </strong>
+
+                    <small>
+                        Manage configurations
+                    </small>
+
+                </span>
+
+                <span class="quick-action-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+            <a
+                href="/configurations/upload"
+                class="quick-action-card"
+            >
+
+                <span class="quick-action-icon">
+                    📤
+                </span>
+
+                <span class="quick-action-content">
+
+                    <strong>
+                        Upload Configuration
+                    </strong>
+
+                    <small>
+                        Run another security audit
+                    </small>
+
+                </span>
+
+                <span class="quick-action-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+            <a
+                href="/security-posture"
+                class="quick-action-card"
+            >
+
+                <span class="quick-action-icon">
+                    🛡️
+                </span>
+
+                <span class="quick-action-content">
+
+                    <strong>
+                        Security Posture
+                    </strong>
+
+                    <small>
+                        View security posture
+                    </small>
+
+                </span>
+
+                <span class="quick-action-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+            <a
+                href="/risk"
+                class="quick-action-card"
+            >
+
+                <span class="quick-action-icon">
+                    ⚠️
+                </span>
+
+                <span class="quick-action-content">
+
+                    <strong>
+                        Risk Prioritization
+                    </strong>
+
+                    <small>
+                        Analyze security risks
+                    </small>
+
+                </span>
+
+                <span class="quick-action-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+            <a
+                href="/reports"
+                class="quick-action-card"
+            >
+
+                <span class="quick-action-icon">
+                    📄
+                </span>
+
+                <span class="quick-action-content">
+
+                    <strong>
+                        Reports
+                    </strong>
+
+                    <small>
+                        View security reports
+                    </small>
+
+                </span>
+
+                <span class="quick-action-arrow">
+                    →
+                </span>
+
+            </a>
+
+        </div>
+
+    </section>
 
 </main>
 

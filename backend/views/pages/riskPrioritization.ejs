@@ -1,236 +1,917 @@
-<%- include("../partials/head", { title: "Risk Prioritization - NETSENTRY" }) %>
+<%- include("../partials/head", { title: "NETSENTRY - Risk Prioritization" }) %>
 
 <%- include("../partials/navbar") %>
-
 <%- include("../partials/sidebar") %>
 
-<main>
+<main class="main-content">
 
-    <h1>
-        NETSENTRY - Risk Prioritization
-    </h1>
+    <!-- Page Header -->
+    <div class="page-header">
+        <div>
+            <h1>Risk Prioritization</h1>
+            <p class="page-description">
+                Identify and prioritize security findings based on severity and risk score.
+            </p>
+        </div>
 
-    <%- include("../partials/flash") %>
+        <div class="page-actions">
+            <a href="/security-posture" class="btn btn-secondary">
+                Security Posture
+            </a>
 
-    <hr>
+            <a href="/reports" class="btn btn-primary">
+                Generate Report
+            </a>
+        </div>
+    </div>
 
-    <h2>
-        Risk Overview
-    </h2>
 
-    <p>
-        <strong>Total Open Findings:</strong>
-        <%= totalOpenFindings %>
-    </p>
+    <!-- Overview -->
+    <section class="stats-grid">
 
-    <hr>
+        <div class="stat-card">
+            <div class="stat-icon">
+                ⚠️
+            </div>
 
-    <h2>
-        Findings by Severity
-    </h2>
+            <div class="stat-content">
+                <span class="stat-label">Open Findings</span>
+                <strong class="stat-value">
+                    <%= totalOpenFindings %>
+                </strong>
+            </div>
+        </div>
 
-    <p>
-        <strong>Critical:</strong>
-        <%= criticalFindings.length %>
-    </p>
 
-    <p>
-        <strong>High:</strong>
-        <%= highFindings.length %>
-    </p>
+        <div class="stat-card">
+            <div class="stat-icon">
+                🔴
+            </div>
 
-    <p>
-        <strong>Medium:</strong>
-        <%= mediumFindings.length %>
-    </p>
+            <div class="stat-content">
+                <span class="stat-label">Critical</span>
+                <strong class="stat-value">
+                    <%= criticalFindings.length %>
+                </strong>
+            </div>
+        </div>
 
-    <p>
-        <strong>Low:</strong>
-        <%= lowFindings.length %>
-    </p>
 
-    <p>
-        <strong>Informational:</strong>
-        <%= informationalFindings ? informationalFindings.length : 0 %>
-    </p>
+        <div class="stat-card">
+            <div class="stat-icon">
+                🟠
+            </div>
 
-    <hr>
+            <div class="stat-content">
+                <span class="stat-label">High</span>
+                <strong class="stat-value">
+                    <%= highFindings.length %>
+                </strong>
+            </div>
+        </div>
 
-    <h2>
-        Highest Priority Finding
-    </h2>
 
+        <div class="stat-card">
+            <div class="stat-icon">
+                🟡
+            </div>
+
+            <div class="stat-content">
+                <span class="stat-label">Medium</span>
+                <strong class="stat-value">
+                    <%= mediumFindings.length %>
+                </strong>
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- Highest Priority Finding -->
     <% if (highestPriorityFinding) { %>
 
-        <h3>
-            <a href="/findings/<%= highestPriorityFinding._id %>">
-                <%= highestPriorityFinding.title %>
-            </a>
-        </h3>
+    <section class="card">
 
-        <p>
-            <strong>Severity:</strong>
-            <%= highestPriorityFinding.severity %>
-        </p>
-
-        <p>
-            <strong>Risk Score:</strong>
-            <%= highestPriorityFinding.riskScore || 0 %>/100
-        </p>
-
-        <p>
-            <strong>Category:</strong>
-            <%= highestPriorityFinding.category %>
-        </p>
-
-        <p>
-            <strong>Device:</strong>
-            <%= highestPriorityFinding.device
-                ? highestPriorityFinding.device.deviceName
-                : "Unknown Device" %>
-        </p>
-
-    <% } else { %>
-
-        <p>
-            No open security findings.
-        </p>
-
-    <% } %>
-
-    <hr>
-
-    <h2>
-        Prioritized Security Findings
-    </h2>
-
-    <% if (findings && findings.length > 0) { %>
-
-        <% findings.forEach(function(finding, index) { %>
-
+        <div class="card-header">
             <div>
-
-                <h3>
-                    #<%= index + 1 %> -
-
-                    <a href="/findings/<%= finding._id %>">
-                        <%= finding.title %>
-                    </a>
-                </h3>
-
-                <p>
-                    <strong>Priority:</strong>
-                    <%= finding.severity %>
+                <h2>Highest Priority Finding</h2>
+                <p class="card-subtitle">
+                    Finding requiring immediate attention
                 </p>
+            </div>
+
+            <span class="badge badge-danger">
+                <%= highestPriorityFinding.severity %>
+            </span>
+        </div>
+
+
+        <div class="finding-card">
+
+            <div class="finding-header">
+
+                <div>
+                    <h3>
+                        <%= highestPriorityFinding.title %>
+                    </h3>
+
+                    <p class="text-muted">
+                        Device:
+                        <strong>
+                            <%= highestPriorityFinding.device?.deviceName || "Unknown Device" %>
+                        </strong>
+                    </p>
+                </div>
+
+                <div class="risk-score">
+                    <span class="risk-score-label">
+                        Risk Score
+                    </span>
+
+                    <strong>
+                        <%= highestPriorityFinding.riskScore %>
+                    </strong>
+                </div>
+
+            </div>
+
+
+            <div class="finding-meta">
+
+                <span class="badge badge-danger">
+                    <%= highestPriorityFinding.severity %>
+                </span>
+
+                <span class="badge badge-neutral">
+                    <%= highestPriorityFinding.category %>
+                </span>
+
+                <span class="badge badge-neutral">
+                    <%= highestPriorityFinding.status %>
+                </span>
+
+            </div>
+
+
+            <div class="finding-description">
+
+                <h4>Description</h4>
 
                 <p>
-                    <strong>Risk Score:</strong>
-                    <%= finding.riskScore || 0 %>/100
-                </p>
-
-                <p>
-                    <strong>Category:</strong>
-                    <%= finding.category %>
-                </p>
-
-                <p>
-                    <strong>Device:</strong>
-                    <%= finding.device
-                        ? finding.device.deviceName
-                        : "Unknown Device" %>
-                </p>
-
-                <p>
-                    <strong>Status:</strong>
-                    <%= finding.status %>
-                </p>
-
-                <p>
-                    <strong>Description:</strong>
-                    <%= finding.description %>
-                </p>
-
-                <p>
-                    <strong>Recommended Fix:</strong>
-                    <%= finding.recommendedFix
-                        || "No recommended fix available." %>
-                </p>
-
-                <p>
-                    <a href="/findings/<%= finding._id %>">
-                        View Finding Details
-                    </a>
-                </p>
-
-                <p>
-                    <a href="/remediations/<%= finding._id %>">
-                        Open Remediation
-                    </a>
+                    <%= highestPriorityFinding.description %>
                 </p>
 
             </div>
 
-            <hr>
 
-        <% }); %>
+            <div class="finding-actions">
 
-    <% } else { %>
+                <a
+                    href="/findings/<%= highestPriorityFinding._id %>"
+                    class="btn btn-primary"
+                >
+                    View Finding
+                </a>
 
-        <h3>
-            No Open Security Findings
-        </h3>
+                <a
+                    href="/remediations/<%= highestPriorityFinding._id %>"
+                    class="btn btn-secondary"
+                >
+                    Recommended Fix
+                </a>
 
-        <p>
-            All current findings are resolved.
-        </p>
+            </div>
+
+        </div>
+
+    </section>
 
     <% } %>
 
-    <hr>
 
-    <h2>Quick Actions</h2>
+    <!-- Critical Findings -->
+    <section class="card">
 
-    <p>
-        <a href="/dashboard">
-            Back to Dashboard
-        </a>
-    </p>
+        <div class="card-header">
+            <div>
+                <h2>Critical Findings</h2>
+                <p class="card-subtitle">
+                    Highest severity security issues
+                </p>
+            </div>
 
-    <p>
-        <a href="/security-posture">
-            Security Posture
-        </a>
-    </p>
+            <span class="badge badge-danger">
+                <%= criticalFindings.length %>
+            </span>
+        </div>
 
-    <p>
-        <a href="/exposure">
-            Exposure Analysis
-        </a>
-    </p>
 
-    <p>
-        <a href="/drift">
-            Configuration Drift
-        </a>
-    </p>
+        <% if (criticalFindings.length > 0) { %>
 
-    <p>
-        <a href="/comparison">
-            Device Comparison
-        </a>
-    </p>
+            <div class="findings-list">
 
-    <p>
-        <a href="/configurations">
-            Configurations
-        </a>
-    </p>
+                <% criticalFindings.forEach(function(finding) { %>
 
-    <p>
-        <a href="/reports">
-            Reports
-        </a>
-    </p>
+                    <div class="finding-card">
+
+                        <div class="finding-header">
+
+                            <div>
+                                <h3>
+                                    <%= finding.title %>
+                                </h3>
+
+                                <p class="text-muted">
+                                    <%= finding.device?.deviceName || "Unknown Device" %>
+                                </p>
+                            </div>
+
+                            <div class="risk-score">
+
+                                <span class="risk-score-label">
+                                    Risk
+                                </span>
+
+                                <strong>
+                                    <%= finding.riskScore %>
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="finding-meta">
+
+                            <span class="badge badge-danger">
+                                Critical
+                            </span>
+
+                            <span class="badge badge-neutral">
+                                <%= finding.category %>
+                            </span>
+
+                            <span class="badge badge-neutral">
+                                <%= finding.status %>
+                            </span>
+
+                        </div>
+
+
+                        <div class="finding-actions">
+
+                            <a
+                                href="/findings/<%= finding._id %>"
+                                class="btn btn-sm btn-secondary"
+                            >
+                                View Details
+                            </a>
+
+                            <a
+                                href="/remediations/<%= finding._id %>"
+                                class="btn btn-sm btn-primary"
+                            >
+                                Fix Issue
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                <% }); %>
+
+            </div>
+
+        <% } else { %>
+
+            <div class="empty-state">
+
+                <div class="empty-state-icon">
+                    ✓
+                </div>
+
+                <h3>No Critical Findings</h3>
+
+                <p>
+                    No critical security findings are currently open.
+                </p>
+
+            </div>
+
+        <% } %>
+
+    </section>
+
+
+    <!-- High Findings -->
+    <section class="card">
+
+        <div class="card-header">
+            <div>
+                <h2>High Risk Findings</h2>
+                <p class="card-subtitle">
+                    High severity issues requiring attention
+                </p>
+            </div>
+
+            <span class="badge badge-warning">
+                <%= highFindings.length %>
+            </span>
+        </div>
+
+
+        <% if (highFindings.length > 0) { %>
+
+            <div class="findings-list">
+
+                <% highFindings.forEach(function(finding) { %>
+
+                    <div class="finding-card">
+
+                        <div class="finding-header">
+
+                            <div>
+                                <h3>
+                                    <%= finding.title %>
+                                </h3>
+
+                                <p class="text-muted">
+                                    <%= finding.device?.deviceName || "Unknown Device" %>
+                                </p>
+                            </div>
+
+                            <div class="risk-score">
+
+                                <span class="risk-score-label">
+                                    Risk
+                                </span>
+
+                                <strong>
+                                    <%= finding.riskScore %>
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="finding-meta">
+
+                            <span class="badge badge-warning">
+                                High
+                            </span>
+
+                            <span class="badge badge-neutral">
+                                <%= finding.category %>
+                            </span>
+
+                            <span class="badge badge-neutral">
+                                <%= finding.status %>
+                            </span>
+
+                        </div>
+
+
+                        <div class="finding-actions">
+
+                            <a
+                                href="/findings/<%= finding._id %>"
+                                class="btn btn-sm btn-secondary"
+                            >
+                                View Details
+                            </a>
+
+                            <a
+                                href="/remediations/<%= finding._id %>"
+                                class="btn btn-sm btn-primary"
+                            >
+                                Fix Issue
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                <% }); %>
+
+            </div>
+
+        <% } else { %>
+
+            <div class="empty-state">
+
+                <h3>No High Risk Findings</h3>
+
+                <p>
+                    No high severity security findings are currently open.
+                </p>
+
+            </div>
+
+        <% } %>
+
+    </section>
+
+
+    <!-- Medium Findings -->
+    <section class="card">
+
+        <div class="card-header">
+            <div>
+                <h2>Medium Risk Findings</h2>
+                <p class="card-subtitle">
+                    Security issues that should be addressed
+                </p>
+            </div>
+
+            <span class="badge badge-warning">
+                <%= mediumFindings.length %>
+            </span>
+        </div>
+
+
+        <% if (mediumFindings.length > 0) { %>
+
+            <div class="findings-list">
+
+                <% mediumFindings.forEach(function(finding) { %>
+
+                    <div class="finding-card">
+
+                        <div class="finding-header">
+
+                            <div>
+                                <h3>
+                                    <%= finding.title %>
+                                </h3>
+
+                                <p class="text-muted">
+                                    <%= finding.device?.deviceName || "Unknown Device" %>
+                                </p>
+                            </div>
+
+                            <div class="risk-score">
+
+                                <span class="risk-score-label">
+                                    Risk
+                                </span>
+
+                                <strong>
+                                    <%= finding.riskScore %>
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="finding-meta">
+
+                            <span class="badge badge-warning">
+                                Medium
+                            </span>
+
+                            <span class="badge badge-neutral">
+                                <%= finding.category %>
+                            </span>
+
+                            <span class="badge badge-neutral">
+                                <%= finding.status %>
+                            </span>
+
+                        </div>
+
+
+                        <div class="finding-actions">
+
+                            <a
+                                href="/findings/<%= finding._id %>"
+                                class="btn btn-sm btn-secondary"
+                            >
+                                View Details
+                            </a>
+
+                            <a
+                                href="/remediations/<%= finding._id %>"
+                                class="btn btn-sm btn-primary"
+                            >
+                                Fix Issue
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                <% }); %>
+
+            </div>
+
+        <% } else { %>
+
+            <div class="empty-state">
+
+                <h3>No Medium Risk Findings</h3>
+
+                <p>
+                    No medium severity security findings are currently open.
+                </p>
+
+            </div>
+
+        <% } %>
+
+    </section>
+
+
+    <!-- Low Findings -->
+    <section class="card">
+
+        <div class="card-header">
+            <div>
+                <h2>Low Risk Findings</h2>
+                <p class="card-subtitle">
+                    Lower priority security observations
+                </p>
+            </div>
+
+            <span class="badge badge-info">
+                <%= lowFindings.length %>
+            </span>
+        </div>
+
+
+        <% if (lowFindings.length > 0) { %>
+
+            <div class="findings-list">
+
+                <% lowFindings.forEach(function(finding) { %>
+
+                    <div class="finding-card">
+
+                        <div class="finding-header">
+
+                            <div>
+                                <h3>
+                                    <%= finding.title %>
+                                </h3>
+
+                                <p class="text-muted">
+                                    <%= finding.device?.deviceName || "Unknown Device" %>
+                                </p>
+                            </div>
+
+                            <div class="risk-score">
+
+                                <span class="risk-score-label">
+                                    Risk
+                                </span>
+
+                                <strong>
+                                    <%= finding.riskScore %>
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="finding-meta">
+
+                            <span class="badge badge-info">
+                                Low
+                            </span>
+
+                            <span class="badge badge-neutral">
+                                <%= finding.category %>
+                            </span>
+
+                            <span class="badge badge-neutral">
+                                <%= finding.status %>
+                            </span>
+
+                        </div>
+
+
+                        <div class="finding-actions">
+
+                            <a
+                                href="/findings/<%= finding._id %>"
+                                class="btn btn-sm btn-secondary"
+                            >
+                                View Details
+                            </a>
+
+                            <a
+                                href="/remediations/<%= finding._id %>"
+                                class="btn btn-sm btn-primary"
+                            >
+                                Fix Issue
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                <% }); %>
+
+            </div>
+
+        <% } else { %>
+
+            <div class="empty-state">
+
+                <h3>No Low Risk Findings</h3>
+
+                <p>
+                    No low severity findings are currently open.
+                </p>
+
+            </div>
+
+        <% } %>
+
+    </section>
+
+
+    <!-- Informational Findings -->
+    <% if (informationalFindings && informationalFindings.length > 0) { %>
+
+    <section class="card">
+
+        <div class="card-header">
+
+            <div>
+                <h2>Informational Findings</h2>
+                <p class="card-subtitle">
+                    Informational security observations
+                </p>
+            </div>
+
+            <span class="badge badge-info">
+                <%= informationalFindings.length %>
+            </span>
+
+        </div>
+
+
+        <div class="findings-list">
+
+            <% informationalFindings.forEach(function(finding) { %>
+
+                <div class="finding-card">
+
+                    <div class="finding-header">
+
+                        <div>
+                            <h3>
+                                <%= finding.title %>
+                            </h3>
+
+                            <p class="text-muted">
+                                <%= finding.device?.deviceName || "Unknown Device" %>
+                            </p>
+                        </div>
+
+                        <div class="risk-score">
+
+                            <span class="risk-score-label">
+                                Risk
+                            </span>
+
+                            <strong>
+                                <%= finding.riskScore %>
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="finding-meta">
+
+                        <span class="badge badge-info">
+                            Informational
+                        </span>
+
+                        <span class="badge badge-neutral">
+                            <%= finding.category %>
+                        </span>
+
+                    </div>
+
+
+                    <div class="finding-actions">
+
+                        <a
+                            href="/findings/<%= finding._id %>"
+                            class="btn btn-sm btn-secondary"
+                        >
+                            View Details
+                        </a>
+
+                    </div>
+
+                </div>
+
+            <% }); %>
+
+        </div>
+
+    </section>
+
+    <% } %>
+
+
+    <!-- All Findings -->
+    <section class="card">
+
+        <div class="card-header">
+
+            <div>
+                <h2>All Findings</h2>
+                <p class="card-subtitle">
+                    Complete security finding overview
+                </p>
+            </div>
+
+        </div>
+
+
+        <% if (findings && findings.length > 0) { %>
+
+        <div class="table-container">
+
+            <table class="data-table">
+
+                <thead>
+
+                    <tr>
+                        <th>Finding</th>
+                        <th>Device</th>
+                        <th>Severity</th>
+                        <th>Risk Score</th>
+                        <th>Category</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    <% findings.forEach(function(finding) { %>
+
+                    <tr>
+
+                        <td>
+                            <strong>
+                                <%= finding.title %>
+                            </strong>
+                        </td>
+
+
+                        <td>
+                            <%= finding.device?.deviceName || "Unknown Device" %>
+                        </td>
+
+
+                        <td>
+
+                            <% if (finding.severity === "Critical") { %>
+
+                                <span class="badge badge-danger">
+                                    Critical
+                                </span>
+
+                            <% } else if (finding.severity === "High") { %>
+
+                                <span class="badge badge-warning">
+                                    High
+                                </span>
+
+                            <% } else if (finding.severity === "Medium") { %>
+
+                                <span class="badge badge-warning">
+                                    Medium
+                                </span>
+
+                            <% } else { %>
+
+                                <span class="badge badge-info">
+                                    <%= finding.severity %>
+                                </span>
+
+                            <% } %>
+
+                        </td>
+
+
+                        <td>
+                            <strong>
+                                <%= finding.riskScore %>
+                            </strong>
+                        </td>
+
+
+                        <td>
+                            <%= finding.category %>
+                        </td>
+
+
+                        <td>
+                            <span class="badge badge-neutral">
+                                <%= finding.status %>
+                            </span>
+                        </td>
+
+
+                        <td>
+
+                            <a
+                                href="/findings/<%= finding._id %>"
+                                class="btn btn-sm btn-secondary"
+                            >
+                                View
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                    <% }); %>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <% } else { %>
+
+            <div class="empty-state">
+
+                <h3>No Findings Available</h3>
+
+                <p>
+                    No security findings are available at the moment.
+                </p>
+
+            </div>
+
+        <% } %>
+
+    </section>
+
+
+    <!-- Quick Actions -->
+    <section class="card">
+
+        <div class="card-header">
+
+            <div>
+                <h2>Quick Actions</h2>
+                <p class="card-subtitle">
+                    Continue your security analysis workflow
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="quick-actions">
+
+            <a href="/security-posture" class="btn btn-secondary">
+                Security Posture
+            </a>
+
+            <a href="/exposure" class="btn btn-secondary">
+                Exposure Analysis
+            </a>
+
+            <a href="/drift" class="btn btn-secondary">
+                Configuration Drift
+            </a>
+
+            <a href="/comparison" class="btn btn-secondary">
+                Device Comparison
+            </a>
+
+            <a href="/configurations" class="btn btn-secondary">
+                Configurations
+            </a>
+
+            <a href="/reports" class="btn btn-primary">
+                Reports
+            </a>
+
+            <a href="/dashboard" class="btn btn-secondary">
+                Dashboard
+            </a>
+
+        </div>
+
+    </section>
 
 </main>
 

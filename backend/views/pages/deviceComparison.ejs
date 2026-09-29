@@ -1,332 +1,794 @@
-<%- include("../partials/head", { title: "Device Comparison - NETSENTRY" }) %>
+<%- include("../partials/head", { title: "NETSENTRY - Device Comparison" }) %>
 
 <%- include("../partials/navbar") %>
-
 <%- include("../partials/sidebar") %>
 
-<main>
+<main class="main-content">
 
-    <h1>
-        NETSENTRY - Device Comparison
-    </h1>
+    <!-- Page Header -->
+    <div class="page-header">
 
-    <%- include("../partials/flash") %>
+        <div>
+            <h1>Device Comparison</h1>
 
-    <hr>
+            <p class="page-description">
+                Compare two network configurations and identify security-impacting changes.
+            </p>
+        </div>
 
-    <h2>
-        Compare Configurations
-    </h2>
+        <div class="page-actions">
 
-    <form
-        action="/comparison/compare"
-        method="POST"
-    >
+            <a href="/drift" class="btn btn-secondary">
+                Configuration Drift
+            </a>
 
-        <h3>
-            Old Configuration
-        </h3>
+            <a href="/security-posture" class="btn btn-primary">
+                Security Posture
+            </a>
 
-        <select
-            name="oldConfigurationId"
-            required
-        >
+        </div>
 
-            <option value="">
-                Select Old Configuration
-            </option>
+    </div>
 
-            <% configurations.forEach(function(config) { %>
 
-                <option
-                    value="<%= config._id %>"
-                    <%= oldConfiguration &&
-                        oldConfiguration._id.toString() ===
-                        config._id.toString()
-                        ? "selected"
-                        : "" %>
-                >
+    <!-- Configuration Selection -->
+    <section class="card">
 
-                    <%= config.fileName %> -
+        <div class="card-header">
 
-                    <%= config.device
-                        ? config.device.deviceName
-                        : "Unknown Device" %>
+            <div>
+                <h2>Compare Devices</h2>
 
-                    -
+                <p class="card-subtitle">
+                    Select two configurations to compare their security posture and configuration changes.
+                </p>
+            </div>
 
-                    <%= config.vendor %>
+        </div>
 
-                </option>
 
-            <% }); %>
+        <form action="/comparison/compare" method="POST">
 
-        </select>
+            <div class="form-grid">
 
-        <br>
-        <br>
+                <!-- Old Configuration -->
+                <div class="form-group">
 
-        <h3>
-            New Configuration
-        </h3>
+                    <label
+                        class="form-label"
+                        for="oldConfigurationId"
+                    >
+                        First Configuration
+                    </label>
 
-        <select
-            name="newConfigurationId"
-            required
-        >
+                    <select
+                        class="form-control"
+                        id="oldConfigurationId"
+                        name="oldConfigurationId"
+                        required
+                    >
 
-            <option value="">
-                Select New Configuration
-            </option>
+                        <option value="">
+                            Select First Configuration
+                        </option>
 
-            <% configurations.forEach(function(config) { %>
+                        <% configurations.forEach(function(config) { %>
 
-                <option
-                    value="<%= config._id %>"
-                    <%= newConfiguration &&
-                        newConfiguration._id.toString() ===
-                        config._id.toString()
-                        ? "selected"
-                        : "" %>
-                >
+                            <option
+                                value="<%= config._id %>"
+                                <%= oldConfiguration &&
+                                    oldConfiguration._id.toString() === config._id.toString()
+                                    ? "selected"
+                                    : "" %>
+                            >
+                                <%= config.fileName %>
+                                -
+                                <%= config.device?.deviceName || "Unknown Device" %>
+                            </option>
 
-                    <%= config.fileName %> -
+                        <% }); %>
 
-                    <%= config.device
-                        ? config.device.deviceName
-                        : "Unknown Device" %>
+                    </select>
 
-                    -
+                </div>
 
-                    <%= config.vendor %>
 
-                </option>
+                <!-- New Configuration -->
+                <div class="form-group">
 
-            <% }); %>
+                    <label
+                        class="form-label"
+                        for="newConfigurationId"
+                    >
+                        Second Configuration
+                    </label>
 
-        </select>
+                    <select
+                        class="form-control"
+                        id="newConfigurationId"
+                        name="newConfigurationId"
+                        required
+                    >
 
-        <br>
-        <br>
+                        <option value="">
+                            Select Second Configuration
+                        </option>
 
-        <button type="submit">
-            Compare Configurations
-        </button>
+                        <% configurations.forEach(function(config) { %>
 
-    </form>
+                            <option
+                                value="<%= config._id %>"
+                                <%= newConfiguration &&
+                                    newConfiguration._id.toString() === config._id.toString()
+                                    ? "selected"
+                                    : "" %>
+                            >
+                                <%= config.fileName %>
+                                -
+                                <%= config.device?.deviceName || "Unknown Device" %>
+                            </option>
+
+                        <% }); %>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="btn btn-primary"
+            >
+                Compare Configurations
+            </button>
+
+        </form>
+
+    </section>
 
 
     <% if (result) { %>
 
-        <hr>
+    <!-- Comparison Overview -->
+    <section class="stats-grid">
 
-        <h2>
-            Comparison Result
-        </h2>
+        <div class="stat-card">
 
-        <h3>
-            Old Configuration
-        </h3>
+            <div class="stat-icon">
+                🔄
+            </div>
 
-        <p>
-            <strong>File:</strong>
-            <%= oldConfiguration.fileName %>
-        </p>
+            <div class="stat-content">
 
-        <p>
-            <strong>Device:</strong>
-            <%= oldConfiguration.device
-                ? oldConfiguration.device.deviceName
-                : "Unknown Device" %>
-        </p>
+                <span class="stat-label">
+                    Drift Detected
+                </span>
 
-        <p>
-            <strong>Vendor:</strong>
-            <%= oldConfiguration.vendor %>
-        </p>
+                <strong class="stat-value">
+                    <%= result.driftDetected ? "Yes" : "No" %>
+                </strong>
 
-        <hr>
+            </div>
 
-        <h3>
-            New Configuration
-        </h3>
+        </div>
 
-        <p>
-            <strong>File:</strong>
-            <%= newConfiguration.fileName %>
-        </p>
 
-        <p>
-            <strong>Device:</strong>
-            <%= newConfiguration.device
-                ? newConfiguration.device.deviceName
-                : "Unknown Device" %>
-        </p>
+        <div class="stat-card">
 
-        <p>
-            <strong>Vendor:</strong>
-            <%= newConfiguration.vendor %>
-        </p>
+            <div class="stat-icon">
+                📝
+            </div>
 
-        <hr>
+            <div class="stat-content">
 
-        <h2>
-            Drift Summary
-        </h2>
+                <span class="stat-label">
+                    Changed Lines
+                </span>
 
-        <p>
-            <strong>Drift Detected:</strong>
-            <%= result.driftDetected ? "Yes" : "No" %>
-        </p>
+                <strong class="stat-value">
+                    <%= result.changedLines %>
+                </strong>
 
-        <p>
-            <strong>Changed Lines:</strong>
-            <%= result.changedLines %>
-        </p>
+            </div>
 
-        <p>
-            <strong>Risk Level:</strong>
-            <%= result.riskLevel %>
-        </p>
+        </div>
 
-        <p>
-            <strong>Security Impact:</strong>
-            <%= result.securityImpact %>
-        </p>
 
-        <hr>
+        <div class="stat-card">
 
-        <h2>
-            Added Configuration
-        </h2>
+            <div class="stat-icon">
+                ⚠️
+            </div>
 
-        <% if (
-            result.added &&
-            result.added.length > 0
-        ) { %>
+            <div class="stat-content">
 
-            <% result.added.forEach(function(line) { %>
+                <span class="stat-label">
+                    Risk Level
+                </span>
 
-                <p>
-                    <strong>+</strong>
-                    <%= line %>
+                <strong class="stat-value">
+                    <%= result.riskLevel %>
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                🛡️
+            </div>
+
+            <div class="stat-content">
+
+                <span class="stat-label">
+                    Security Impact
+                </span>
+
+                <strong class="stat-value">
+                    <%= result.securityImpact %>
+                </strong>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Device Comparison -->
+    <section class="card">
+
+        <div class="card-header">
+
+            <div>
+                <h2>Configuration Comparison</h2>
+
+                <p class="card-subtitle">
+                    Details of the selected configurations.
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="comparison-grid">
+
+            <!-- First Device -->
+            <div class="comparison-panel">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <h3>
+                            First Configuration
+                        </h3>
+
+                    </div>
+
+                </div>
+
+
+                <% if (oldConfiguration) { %>
+
+                    <div class="detail-panel">
+
+                        <div class="detail-row">
+
+                            <span class="detail-label">
+                                File Name
+                            </span>
+
+                            <strong>
+                                <%= oldConfiguration.fileName %>
+                            </strong>
+
+                        </div>
+
+
+                        <div class="detail-row">
+
+                            <span class="detail-label">
+                                Device
+                            </span>
+
+                            <strong>
+                                <%= oldConfiguration.device?.deviceName || "Unknown Device" %>
+                            </strong>
+
+                        </div>
+
+
+                        <div class="detail-row">
+
+                            <span class="detail-label">
+                                Vendor
+                            </span>
+
+                            <strong>
+                                <%= oldConfiguration.device?.vendor || "Unknown" %>
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                <% } %>
+
+            </div>
+
+
+            <!-- Second Device -->
+            <div class="comparison-panel">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <h3>
+                            Second Configuration
+                        </h3>
+
+                    </div>
+
+                </div>
+
+
+                <% if (newConfiguration) { %>
+
+                    <div class="detail-panel">
+
+                        <div class="detail-row">
+
+                            <span class="detail-label">
+                                File Name
+                            </span>
+
+                            <strong>
+                                <%= newConfiguration.fileName %>
+                            </strong>
+
+                        </div>
+
+
+                        <div class="detail-row">
+
+                            <span class="detail-label">
+                                Device
+                            </span>
+
+                            <strong>
+                                <%= newConfiguration.device?.deviceName || "Unknown Device" %>
+                            </strong>
+
+                        </div>
+
+
+                        <div class="detail-row">
+
+                            <span class="detail-label">
+                                Vendor
+                            </span>
+
+                            <strong>
+                                <%= newConfiguration.device?.vendor || "Unknown" %>
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                <% } %>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Drift Status -->
+    <section class="card">
+
+        <div class="card-header">
+
+            <div>
+
+                <h2>Comparison Result</h2>
+
+                <p class="card-subtitle">
+                    Summary of configuration differences.
                 </p>
 
-            <% }); %>
+            </div>
 
-        <% } else { %>
 
-            <p>
-                No configuration lines added.
-            </p>
+            <% if (result.driftDetected) { %>
 
-        <% } %>
+                <span class="badge badge-warning">
+                    Changes Detected
+                </span>
 
-        <hr>
+            <% } else { %>
 
-        <h2>
-            Removed Configuration
-        </h2>
+                <span class="badge badge-success">
+                    No Changes
+                </span>
 
-        <% if (
-            result.removed &&
-            result.removed.length > 0
-        ) { %>
+            <% } %>
 
-            <% result.removed.forEach(function(line) { %>
+        </div>
+
+
+        <div class="detail-panel">
+
+            <div class="detail-row">
+
+                <span class="detail-label">
+                    Configuration Drift
+                </span>
+
+                <strong>
+                    <%= result.driftDetected ? "Detected" : "Not Detected" %>
+                </strong>
+
+            </div>
+
+
+            <div class="detail-row">
+
+                <span class="detail-label">
+                    Changed Lines
+                </span>
+
+                <strong>
+                    <%= result.changedLines %>
+                </strong>
+
+            </div>
+
+
+            <div class="detail-row">
+
+                <span class="detail-label">
+                    Risk Level
+                </span>
+
+                <strong>
+                    <%= result.riskLevel %>
+                </strong>
+
+            </div>
+
+
+            <div class="detail-row">
+
+                <span class="detail-label">
+                    Security Impact
+                </span>
+
+                <strong>
+                    <%= result.securityImpact %>
+                </strong>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Security Impact -->
+    <% if (
+        result.securityImpact &&
+        result.securityImpact !== "None"
+    ) { %>
+
+        <section class="card">
+
+            <div class="card-header">
+
+                <div>
+
+                    <h2>Security Impact</h2>
+
+                    <p class="card-subtitle">
+                        Security significance of the detected configuration changes.
+                    </p>
+
+                </div>
+
+                <span class="badge badge-warning">
+                    Security Impact Detected
+                </span>
+
+            </div>
+
+
+            <div class="finding-card">
+
+                <div class="finding-header">
+
+                    <div>
+
+                        <h3>
+                            Configuration Security Assessment
+                        </h3>
+
+                        <p class="text-muted">
+                            The comparison detected changes that may affect the security posture.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="finding-description">
+
+                    <p>
+                        <%= result.securityImpact %>
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    <% } else { %>
+
+        <section class="card">
+
+            <div class="card-header">
+
+                <div>
+
+                    <h2>Security Impact</h2>
+
+                    <p class="card-subtitle">
+                        Security assessment of the configuration differences.
+                    </p>
+
+                </div>
+
+                <span class="badge badge-success">
+                    No Security Impact
+                </span>
+
+            </div>
+
+
+            <div class="empty-state">
+
+                <div class="empty-state-icon">
+                    ✓
+                </div>
+
+                <h3>
+                    No Security Impact Detected
+                </h3>
 
                 <p>
-                    <strong>-</strong>
-                    <%= line %>
+                    The detected configuration changes do not currently indicate a security impact.
                 </p>
 
-            <% }); %>
+            </div>
 
-        <% } else { %>
-
-            <p>
-                No configuration lines removed.
-            </p>
-
-        <% } %>
-
-        <hr>
-
-        <h2>
-            Security Analysis
-        </h2>
-
-        <% if (result.securityImpact !== "None") { %>
-
-            <p>
-                ⚠ Security-related configuration
-                changes were detected.
-            </p>
-
-            <p>
-                <strong>Risk Level:</strong>
-                <%= result.riskLevel %>
-            </p>
-
-        <% } else { %>
-
-            <p>
-                No security-related configuration
-                changes were detected.
-            </p>
-
-        <% } %>
+        </section>
 
     <% } %>
 
 
-    <hr>
+    <!-- Added Lines -->
+    <section class="card">
 
-    <h2>
-        Quick Actions
-    </h2>
+        <div class="card-header">
 
-    <p>
-        <a href="/dashboard">
-            Back to Dashboard
-        </a>
-    </p>
+            <div>
 
-    <p>
-        <a href="/configurations">
-            View Configurations
-        </a>
-    </p>
+                <h2>Added Configuration</h2>
 
-    <p>
-        <a href="/configurations/upload">
-            Upload Configuration
-        </a>
-    </p>
+                <p class="card-subtitle">
+                    Configuration lines present in the second configuration.
+                </p>
 
-    <p>
-        <a href="/drift">
-            Configuration Drift
-        </a>
-    </p>
+            </div>
 
-    <p>
-        <a href="/security-posture">
-            Security Posture
-        </a>
-    </p>
+            <span class="badge badge-success">
+                <%= result.added.length %>
+            </span>
 
-    <p>
-        <a href="/risk">
-            Risk Prioritization
-        </a>
-    </p>
+        </div>
 
-    <p>
-        <a href="/exposure">
-            Exposure Analysis
-        </a>
-    </p>
+
+        <% if (result.added.length > 0) { %>
+
+            <div class="code-block">
+
+                <% result.added.forEach(function(line) { %>
+
+                    <div class="code-line code-added">
+
+                        <span class="code-prefix">
+                            +
+                        </span>
+
+                        <span>
+                            <%= line %>
+                        </span>
+
+                    </div>
+
+                <% }); %>
+
+            </div>
+
+        <% } else { %>
+
+            <div class="empty-state">
+
+                <h3>
+                    No Added Configuration
+                </h3>
+
+                <p>
+                    No new configuration lines were detected.
+                </p>
+
+            </div>
+
+        <% } %>
+
+    </section>
+
+
+    <!-- Removed Lines -->
+    <section class="card">
+
+        <div class="card-header">
+
+            <div>
+
+                <h2>Removed Configuration</h2>
+
+                <p class="card-subtitle">
+                    Configuration lines present in the first configuration but missing from the second.
+                </p>
+
+            </div>
+
+            <span class="badge badge-danger">
+                <%= result.removed.length %>
+            </span>
+
+        </div>
+
+
+        <% if (result.removed.length > 0) { %>
+
+            <div class="code-block">
+
+                <% result.removed.forEach(function(line) { %>
+
+                    <div class="code-line code-removed">
+
+                        <span class="code-prefix">
+                            −
+                        </span>
+
+                        <span>
+                            <%= line %>
+                        </span>
+
+                    </div>
+
+                <% }); %>
+
+            </div>
+
+        <% } else { %>
+
+            <div class="empty-state">
+
+                <h3>
+                    No Removed Configuration
+                </h3>
+
+                <p>
+                    No configuration lines were removed.
+                </p>
+
+            </div>
+
+        <% } %>
+
+    </section>
+
+
+    <% } else { %>
+
+    <!-- Initial State -->
+    <section class="card">
+
+        <div class="empty-state">
+
+            <div class="empty-state-icon">
+                ⇄
+            </div>
+
+            <h2>
+                Ready for Device Comparison
+            </h2>
+
+            <p>
+                Select two configurations above to compare their
+                contents, detect drift, and identify security-impacting changes.
+            </p>
+
+        </div>
+
+    </section>
+
+    <% } %>
+
+
+    <!-- Quick Actions -->
+    <section class="card">
+
+        <div class="card-header">
+
+            <div>
+
+                <h2>Quick Actions</h2>
+
+                <p class="card-subtitle">
+                    Continue your security analysis workflow.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="quick-actions">
+
+            <a href="/dashboard" class="btn btn-secondary">
+                Dashboard
+            </a>
+
+            <a href="/configurations" class="btn btn-secondary">
+                Configurations
+            </a>
+
+            <a href="/configurations/upload" class="btn btn-primary">
+                Upload Configuration
+            </a>
+
+            <a href="/drift" class="btn btn-secondary">
+                Configuration Drift
+            </a>
+
+            <a href="/security-posture" class="btn btn-secondary">
+                Security Posture
+            </a>
+
+            <a href="/risk" class="btn btn-secondary">
+                Risk Prioritization
+            </a>
+
+            <a href="/exposure" class="btn btn-secondary">
+                Exposure Analysis
+            </a>
+
+        </div>
+
+    </section>
 
 </main>
 

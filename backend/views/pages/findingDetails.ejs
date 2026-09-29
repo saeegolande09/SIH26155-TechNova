@@ -4,141 +4,544 @@
 
 <%- include("../partials/sidebar") %>
 
-<main>
 
-    <h1>NETSENTRY - Finding Details</h1>
+<main class="main-content finding-details-page">
+
+    <!-- =========================================
+         PAGE HEADER
+         ========================================= -->
+
+    <div class="page-header">
+
+        <div>
+
+            <h1 class="page-title">
+                Finding Details
+            </h1>
+
+            <p class="page-subtitle">
+                Detailed analysis of a detected security finding.
+            </p>
+
+        </div>
+
+
+        <a
+            href="/findings"
+            class="btn btn-secondary"
+        >
+            ← Back to Findings
+        </a>
+
+    </div>
+
 
     <%- include("../partials/flash") %>
 
-    <hr>
 
     <% if (!finding) { %>
 
-        <p>Finding not found.</p>
+
+        <!-- =========================================
+             NOT FOUND
+             ========================================= -->
+
+        <section class="finding-empty card">
+
+            <div class="empty-state">
+
+                <div class="empty-state-icon">
+                    🔍
+                </div>
+
+                <h2>
+                    Finding Not Found
+                </h2>
+
+                <p>
+                    The requested security finding could not be found.
+                </p>
+
+                <a
+                    href="/findings"
+                    class="btn btn-primary"
+                >
+                    Back to Findings
+                </a>
+
+            </div>
+
+        </section>
+
 
     <% } else { %>
 
-        <h2>
-            <%= finding.title %>
-        </h2>
 
-        <p>
-            <strong>Severity:</strong>
-            <%= finding.severity %>
-        </p>
+        <!-- =========================================
+             FINDING OVERVIEW
+             ========================================= -->
 
-        <p>
-            <strong>Category:</strong>
-            <%= finding.category || "Other" %>
-        </p>
+        <section class="finding-overview-card card">
 
-        <p>
-            <strong>Status:</strong>
-            <%= finding.status %>
-        </p>
+            <div class="finding-overview-header">
 
-        <hr>
+                <div class="finding-overview-main">
 
-        <h2>Description</h2>
+                    <div class="finding-title-row">
 
-        <p>
-            <%= finding.description %>
-        </p>
+                        <h2>
+                            <%= finding.title %>
+                        </h2>
+
+                        <span
+                            class="finding-severity finding-severity-<%= String(finding.severity || 'low').toLowerCase() %>"
+                        >
+                            <%= finding.severity %>
+                        </span>
+
+                    </div>
+
+
+                    <div class="finding-meta">
+
+                        <span class="finding-meta-badge">
+                            <%= finding.category || "Other" %>
+                        </span>
+
+                        <span class="finding-meta-badge">
+                            <%= finding.status %>
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================================
+             DESCRIPTION
+             ========================================= -->
+
+        <section class="finding-section card">
+
+            <div class="finding-section-header">
+
+                <h2>
+                    Description
+                </h2>
+
+                <p>
+                    Explanation of the detected security issue.
+                </p>
+
+            </div>
+
+
+            <div class="finding-section-body">
+
+                <p class="finding-description-text">
+                    <%= finding.description %>
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================================
+             DETECTED CONFIGURATION
+             ========================================= -->
 
         <% if (finding.detectedConfig) { %>
 
-            <h2>Detected Configuration</h2>
+            <section class="finding-section card">
 
-            <pre><%= finding.detectedConfig %></pre>
+                <div class="finding-section-header">
+
+                    <h2>
+                        Detected Configuration
+                    </h2>
+
+                    <p>
+                        Configuration responsible for triggering this finding.
+                    </p>
+
+                </div>
+
+
+                <div class="finding-section-body">
+
+                    <pre class="finding-code-block"><%= finding.detectedConfig %></pre>
+
+                </div>
+
+            </section>
 
         <% } %>
+
+
+
+        <!-- =========================================
+             AI EXPLANATION
+             ========================================= -->
 
         <% if (finding.aiExplanation) { %>
 
-            <h2>AI Explanation</h2>
+            <section class="finding-section card ai-finding-section">
 
-            <p>
-                <%= finding.aiExplanation %>
-            </p>
+                <div class="finding-section-header">
+
+                    <div>
+
+                        <h2>
+                            AI Explanation
+                        </h2>
+
+                        <p>
+                            AI-generated explanation of the security finding.
+                        </p>
+
+                    </div>
+
+                    <span class="ai-badge">
+                        AI
+                    </span>
+
+                </div>
+
+
+                <div class="finding-section-body">
+
+                    <p class="finding-description-text">
+                        <%= finding.aiExplanation %>
+                    </p>
+
+                </div>
+
+            </section>
 
         <% } %>
+
+
+
+        <!-- =========================================
+             RECOMMENDED FIX
+             ========================================= -->
 
         <% if (finding.recommendedFix) { %>
 
-            <h2>Recommended Fix</h2>
+            <section class="finding-section card remediation-preview-card">
 
-            <p>
-                <%= finding.recommendedFix %>
-            </p>
+                <div class="finding-section-header">
+
+                    <div>
+
+                        <h2>
+                            Recommended Fix
+                        </h2>
+
+                        <p>
+                            Suggested remediation for this security finding.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="finding-section-body">
+
+                    <p class="finding-description-text">
+                        <%= finding.recommendedFix %>
+                    </p>
+
+
+                    <div class="finding-section-actions">
+
+                        <a
+                            href="/remediations/<%= finding._id %>"
+                            class="btn btn-primary"
+                        >
+                            Open Remediation
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </section>
 
         <% } %>
 
-        <hr>
 
-        <h2>Device Information</h2>
 
-        <% if (finding.device) { %>
+        <!-- =========================================
+             DEVICE INFORMATION
+             ========================================= -->
 
-            <p>
-                <strong>Device:</strong>
-                <%= finding.device.deviceName %>
-            </p>
+        <section class="finding-section card">
 
-            <p>
-                <strong>Vendor:</strong>
-                <%= finding.device.vendor %>
-            </p>
+            <div class="finding-section-header">
 
-            <p>
-                <strong>Device Type:</strong>
-                <%= finding.device.deviceType || "Network Device" %>
-            </p>
+                <h2>
+                    Device Information
+                </h2>
 
-            <p>
-                <strong>IP Address:</strong>
-                <%= finding.device.ipAddress || "N/A" %>
-            </p>
+                <p>
+                    Network device associated with this finding.
+                </p>
 
-        <% } else { %>
+            </div>
 
-            <p>Device information unavailable.</p>
 
-        <% } %>
+            <div class="finding-device-grid">
 
-        <hr>
+                <% if (finding.device) { %>
 
-        <h2>Actions</h2>
 
-        <p>
-            <a href="/remediations/<%= finding._id %>">
-                Open Remediation
-            </a>
-        </p>
+                    <div class="finding-device-item">
 
-        <% if (finding.audit) { %>
+                        <span>
+                            Device
+                        </span>
 
-            <p>
-                <a href="/audits/<%= finding.audit._id || finding.audit %>">
-                    View Related Audit
+                        <strong>
+                            <%= finding.device.deviceName %>
+                        </strong>
+
+                    </div>
+
+
+                    <div class="finding-device-item">
+
+                        <span>
+                            Vendor
+                        </span>
+
+                        <strong>
+                            <%= finding.device.vendor %>
+                        </strong>
+
+                    </div>
+
+
+                    <div class="finding-device-item">
+
+                        <span>
+                            Device Type
+                        </span>
+
+                        <strong>
+                            <%= finding.device.deviceType || "Network Device" %>
+                        </strong>
+
+                    </div>
+
+
+                    <div class="finding-device-item">
+
+                        <span>
+                            IP Address
+                        </span>
+
+                        <strong>
+                            <%= finding.device.ipAddress || "N/A" %>
+                        </strong>
+
+                    </div>
+
+
+                <% } else { %>
+
+
+                    <div class="finding-device-unavailable">
+
+                        <span class="empty-state-icon">
+                            🖥️
+                        </span>
+
+                        <p>
+                            Device information unavailable.
+                        </p>
+
+                    </div>
+
+
+                <% } %>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================================
+             ACTIONS
+             ========================================= -->
+
+        <section class="finding-actions-section">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <h2>
+                        Actions
+                    </h2>
+
+                    <p>
+                        Continue working with this security finding.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="finding-actions-grid">
+
+
+                <!-- REMEDIATION -->
+
+                <a
+                    href="/remediations/<%= finding._id %>"
+                    class="finding-action-card"
+                >
+
+                    <span class="finding-action-icon">
+                        🔧
+                    </span>
+
+                    <span class="finding-action-content">
+
+                        <strong>
+                            Open Remediation
+                        </strong>
+
+                        <small>
+                            Apply and verify the recommended fix.
+                        </small>
+
+                    </span>
+
+                    <span class="finding-action-arrow">
+                        →
+                    </span>
+
                 </a>
-            </p>
 
-        <% } %>
 
-        <p>
-            <a href="/findings">
-                Back to Findings
-            </a>
-        </p>
 
-        <p>
-            <a href="/dashboard">
-                Dashboard
-            </a>
-        </p>
+                <!-- RELATED AUDIT -->
+
+                <% if (finding.audit) { %>
+
+                    <a
+                        href="/audits/<%= finding.audit._id || finding.audit %>"
+                        class="finding-action-card"
+                    >
+
+                        <span class="finding-action-icon">
+                            🔍
+                        </span>
+
+                        <span class="finding-action-content">
+
+                            <strong>
+                                Related Audit
+                            </strong>
+
+                            <small>
+                                View the audit associated with this finding.
+                            </small>
+
+                        </span>
+
+                        <span class="finding-action-arrow">
+                            →
+                        </span>
+
+                    </a>
+
+                <% } %>
+
+
+
+                <!-- ALL FINDINGS -->
+
+                <a
+                    href="/findings"
+                    class="finding-action-card"
+                >
+
+                    <span class="finding-action-icon">
+                        🚨
+                    </span>
+
+                    <span class="finding-action-content">
+
+                        <strong>
+                            All Findings
+                        </strong>
+
+                        <small>
+                            View all security findings.
+                        </small>
+
+                    </span>
+
+                    <span class="finding-action-arrow">
+                        →
+                    </span>
+
+                </a>
+
+
+
+                <!-- DASHBOARD -->
+
+                <a
+                    href="/dashboard"
+                    class="finding-action-card"
+                >
+
+                    <span class="finding-action-icon">
+                        🏠
+                    </span>
+
+                    <span class="finding-action-content">
+
+                        <strong>
+                            Dashboard
+                        </strong>
+
+                        <small>
+                            Return to the NETSENTRY dashboard.
+                        </small>
+
+                    </span>
+
+                    <span class="finding-action-arrow">
+                        →
+                    </span>
+
+                </a>
+
+
+            </div>
+
+        </section>
+
 
     <% } %>
 
+
 </main>
+
 
 <%- include("../partials/footer") %>

@@ -1,225 +1,508 @@
 <%- include("../partials/head", { title: "Reports - NETSENTRY" }) %>
 
 <%- include("../partials/navbar") %>
-
 <%- include("../partials/sidebar") %>
 
-<main>
+<main class="main-content">
 
-    <h1>
-        NETSENTRY - Security Reports
-    </h1>
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+
+        <div>
+            <h1 class="page-title">
+                Security Reports
+            </h1>
+
+            <p class="page-subtitle">
+                Generate, view, and download network security audit reports.
+            </p>
+        </div>
+
+    </div>
+
 
     <%- include("../partials/flash") %>
 
-    <hr>
 
-    <h2>
-        Generate Security Report
-    </h2>
+    <!-- GENERATE REPORT -->
+    <section class="content-section">
 
-    <form
-        action="/reports/generate"
-        method="POST"
-    >
+        <div class="card">
 
-        <p>
+            <div class="card-header">
 
-            <label>
-                Select Completed Audit:
-            </label>
+                <div>
+                    <h2>
+                        Generate Security Report
+                    </h2>
 
-            <br>
+                    <p class="card-subtitle">
+                        Select a completed audit to generate a security report.
+                    </p>
+                </div>
 
-            <select
-                name="auditId"
-                required
+                <span class="badge badge-info">
+                    Reporting
+                </span>
+
+            </div>
+
+
+            <form
+                action="/reports/generate"
+                method="POST"
             >
 
-                <option value="">
-                    Select Audit
-                </option>
+                <div class="form-group">
 
-                <% audits.forEach(function(audit) { %>
+                    <label
+                        class="form-label"
+                        for="auditId"
+                    >
+                        Select Completed Audit
+                    </label>
 
-                    <option
-                        value="<%= audit._id %>"
+                    <select
+                        class="form-control"
+                        id="auditId"
+                        name="auditId"
+                        required
                     >
 
-                        Audit:
-                        <%= audit._id %>
+                        <option value="">
+                            Select Audit
+                        </option>
 
-                        -
+                        <% audits.forEach(function(audit) { %>
 
-                        <%= audit.device
-                            ? audit.device.deviceName
-                            : "Unknown Device" %>
+                            <option value="<%= audit._id %>">
 
-                        -
+                                Audit:
+                                <%= audit._id %>
 
-                        <%= audit.vendor %>
+                                -
 
-                        -
+                                <%= audit.device
+                                    ? audit.device.deviceName
+                                    : "Unknown Device" %>
 
-                        Score:
-                        <%= audit.complianceScore %>%
+                                -
 
-                    </option>
+                                <%= audit.vendor %>
 
-                <% }); %>
+                                -
 
-            </select>
+                                Score:
+                                <%= audit.complianceScore %>%
 
-        </p>
+                            </option>
 
-        <button type="submit">
-            Generate Report
-        </button>
+                        <% }); %>
 
-    </form>
+                    </select>
+
+                    <small class="form-help">
+                        Only completed audits should be selected for report generation.
+                    </small>
+
+                </div>
+
+
+                <div class="form-actions">
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                    >
+                        Generate Report
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </section>
 
 
     <% if (generatedReport) { %>
 
-        <hr>
+    <!-- GENERATED REPORT SUCCESS -->
+    <section class="content-section">
 
-        <h2>
-            Report Generated Successfully
-        </h2>
+        <div class="card">
 
-        <p>
-            <strong>Report Name:</strong>
-            <%= generatedReport.reportName %>
-        </p>
+            <div class="card-header">
 
-        <p>
-            <strong>Compliance Score:</strong>
-            <%= generatedReport.complianceScore %>%
-        </p>
+                <div>
+                    <h2>
+                        Report Generated Successfully
+                    </h2>
 
-        <p>
-            <strong>Total Findings:</strong>
-            <%= generatedReport.totalFindings %>
-        </p>
-
-        <p>
-            <strong>Generated At:</strong>
-            <%= generatedReport.generatedAt
-                ? new Date(generatedReport.generatedAt).toLocaleString()
-                : "N/A" %>
-        </p>
-
-        <p>
-            <a
-                href="/reports/download/<%= generatedReport._id %>"
-            >
-                Download Report
-            </a>
-        </p>
-
-    <% } %>
-
-
-    <hr>
-
-    <h2>
-        Generated Reports
-    </h2>
-
-    <% if (reports && reports.length > 0) { %>
-
-        <% reports.forEach(function(report) { %>
-
-            <div>
-
-                <h3>
-                    <%= report.reportName %>
-                </h3>
-
-                <p>
-                    <strong>Device:</strong>
-                    <%= report.device
-                        ? report.device.deviceName
-                        : "Unknown Device" %>
-                </p>
-
-                <p>
-                    <strong>Compliance Score:</strong>
-                    <%= report.complianceScore %>%
-                </p>
-
-                <p>
-                    <strong>Total Findings:</strong>
-                    <%= report.totalFindings %>
-                </p>
-
-                <p>
-                    <strong>Generated At:</strong>
-                    <%= report.generatedAt
-                        ? new Date(report.generatedAt).toLocaleString()
-                        : "N/A" %>
-                </p>
-
-                <% if (report.reportPath) { %>
-
-                    <p>
-                        <a
-                            href="/reports/download/<%= report._id %>"
-                        >
-                            Download Report
-                        </a>
+                    <p class="card-subtitle">
+                        Your security report has been generated.
                     </p>
+                </div>
 
-                <% } %>
+                <span class="badge badge-success">
+                    Generated
+                </span>
 
             </div>
 
-            <hr>
 
-        <% }); %>
+            <div class="detail-grid">
 
-    <% } else { %>
+                <div class="detail-item">
 
-        <p>
-            No reports generated yet.
-        </p>
+                    <span>
+                        Report Name
+                    </span>
+
+                    <strong>
+                        <%= generatedReport.reportName %>
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-item">
+
+                    <span>
+                        Compliance Score
+                    </span>
+
+                    <strong class="text-primary">
+                        <%= generatedReport.complianceScore %>%
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-item">
+
+                    <span>
+                        Total Findings
+                    </span>
+
+                    <strong>
+                        <%= generatedReport.totalFindings %>
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-item">
+
+                    <span>
+                        Generated At
+                    </span>
+
+                    <strong>
+                        <%= generatedReport.generatedAt
+                            ? new Date(generatedReport.generatedAt).toLocaleString()
+                            : "N/A" %>
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-actions">
+
+                <a
+                    href="/reports/download/<%= generatedReport._id %>"
+                    class="btn btn-primary"
+                >
+                    Download Report
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
 
     <% } %>
 
 
-    <h2>
-        Quick Actions
-    </h2>
+    <!-- GENERATED REPORTS -->
+    <section class="content-section">
 
-    <p>
-        <a href="/dashboard">
-            Back to Dashboard
-        </a>
-    </p>
+        <div class="section-heading">
 
-    <p>
-        <a href="/audits">
-            View Audits
-        </a>
-    </p>
+            <div>
+                <h2>
+                    Generated Reports
+                </h2>
 
-    <p>
-        <a href="/configurations">
-            View Configurations
-        </a>
-    </p>
+                <p>
+                    Previously generated security reports.
+                </p>
+            </div>
 
-    <p>
-        <a href="/security-posture">
-            Security Posture
-        </a>
-    </p>
+        </div>
 
-    <p>
-        <a href="/risk">
-            Risk Prioritization
-        </a>
-    </p>
+
+        <% if (reports && reports.length > 0) { %>
+
+            <div class="report-grid">
+
+                <% reports.forEach(function(report) { %>
+
+                    <div class="card report-card">
+
+                        <div class="card-header">
+
+                            <div>
+
+                                <h3>
+                                    <%= report.reportName %>
+                                </h3>
+
+                                <p class="card-subtitle">
+                                    <%= report.device
+                                        ? report.device.deviceName
+                                        : "Unknown Device" %>
+                                </p>
+
+                            </div>
+
+                            <span class="badge badge-info">
+                                Report
+                            </span>
+
+                        </div>
+
+
+                        <div class="detail-grid">
+
+                            <div class="detail-item">
+
+                                <span>
+                                    Device
+                                </span>
+
+                                <strong>
+                                    <%= report.device
+                                        ? report.device.deviceName
+                                        : "Unknown Device" %>
+                                </strong>
+
+                            </div>
+
+
+                            <div class="detail-item">
+
+                                <span>
+                                    Compliance Score
+                                </span>
+
+                                <strong class="text-primary">
+                                    <%= report.complianceScore %>%
+                                </strong>
+
+                            </div>
+
+
+                            <div class="detail-item">
+
+                                <span>
+                                    Total Findings
+                                </span>
+
+                                <strong>
+                                    <%= report.totalFindings %>
+                                </strong>
+
+                            </div>
+
+
+                            <div class="detail-item">
+
+                                <span>
+                                    Generated At
+                                </span>
+
+                                <strong>
+                                    <%= report.generatedAt
+                                        ? new Date(report.generatedAt).toLocaleString()
+                                        : "N/A" %>
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <% if (report.reportPath) { %>
+
+                            <div class="form-actions">
+
+                                <a
+                                    href="/reports/download/<%= report._id %>"
+                                    class="btn btn-secondary btn-sm"
+                                >
+                                    Download Report
+                                </a>
+
+                            </div>
+
+                        <% } %>
+
+                    </div>
+
+                <% }); %>
+
+            </div>
+
+        <% } else { %>
+
+            <div class="card">
+
+                <div class="empty-state">
+
+                    <div class="empty-state-icon">
+                        📄
+                    </div>
+
+                    <h3>
+                        No Reports Generated
+                    </h3>
+
+                    <p>
+                        No reports have been generated yet.
+                        Select a completed audit above to create your first report.
+                    </p>
+
+                </div>
+
+            </div>
+
+        <% } %>
+
+    </section>
+
+
+    <!-- QUICK ACTIONS -->
+    <section class="content-section">
+
+        <div class="section-heading">
+
+            <div>
+                <h2>
+                    Quick Actions
+                </h2>
+
+                <p>
+                    Continue working with NETSENTRY security tools.
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="quick-actions-grid">
+
+            <a
+                href="/dashboard"
+                class="quick-action-card"
+            >
+                <span class="quick-action-icon">
+                    ⌂
+                </span>
+
+                <span class="quick-action-content">
+                    <strong>Dashboard</strong>
+                    <small>Back to dashboard</small>
+                </span>
+
+                <span class="quick-action-arrow">
+                    →
+                </span>
+            </a>
+
+
+            <a
+                href="/audits"
+                class="quick-action-card"
+            >
+                <span class="quick-action-icon">
+                    🔍
+                </span>
+
+                <span class="quick-action-content">
+                    <strong>Audits</strong>
+                    <small>View security audits</small>
+                </span>
+
+                <span class="quick-action-arrow">
+                    →
+                </span>
+            </a>
+
+
+            <a
+                href="/configurations"
+                class="quick-action-card"
+            >
+                <span class="quick-action-icon">
+                    📁
+                </span>
+
+                <span class="quick-action-content">
+                    <strong>Configurations</strong>
+                    <small>View configurations</small>
+                </span>
+
+                <span class="quick-action-arrow">
+                    →
+                </span>
+            </a>
+
+
+            <a
+                href="/security-posture"
+                class="quick-action-card"
+            >
+                <span class="quick-action-icon">
+                    🛡️
+                </span>
+
+                <span class="quick-action-content">
+                    <strong>Security Posture</strong>
+                    <small>View security posture</small>
+                </span>
+
+                <span class="quick-action-arrow">
+                    →
+                </span>
+            </a>
+
+
+            <a
+                href="/risk"
+                class="quick-action-card"
+            >
+                <span class="quick-action-icon">
+                    ⚠️
+                </span>
+
+                <span class="quick-action-content">
+                    <strong>Risk Prioritization</strong>
+                    <small>Analyze security risks</small>
+                </span>
+
+                <span class="quick-action-arrow">
+                    →
+                </span>
+            </a>
+
+        </div>
+
+    </section>
 
 </main>
 

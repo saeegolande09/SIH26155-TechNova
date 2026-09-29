@@ -4,89 +4,401 @@
 
 <%- include("../partials/sidebar") %>
 
-<main>
+<main class="main-content upload-config-page">
 
-    <h1>Upload Network Configuration</h1>
+    <!-- =========================================
+         PAGE HEADER
+         ========================================= -->
+
+    <div class="page-header">
+
+        <div>
+
+            <h1 class="page-title">
+                Upload Network Configuration
+            </h1>
+
+            <p class="page-subtitle">
+                Upload a device configuration for security and compliance analysis.
+            </p>
+
+        </div>
+
+        <a
+            href="/configurations"
+            class="btn btn-secondary"
+        >
+            ← Configurations
+        </a>
+
+    </div>
+
 
     <%- include("../partials/flash") %>
 
-    <hr>
 
-    <form
-        action="/configurations/upload"
-        method="POST"
-        enctype="multipart/form-data"
-    >
+    <!-- =========================================
+         UPLOAD CARD
+         ========================================= -->
 
-        <p>
-            <label>Device Name:</label>
-            <br>
-            <input
-                type="text"
-                name="deviceName"
-                required
+    <section class="upload-config-card card">
+
+        <div class="upload-card-header">
+
+            <div class="upload-card-icon">
+                ↑
+            </div>
+
+            <div>
+
+                <h2>
+                    Configuration Details
+                </h2>
+
+                <p>
+                    Provide the device information and configuration file.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================================
+             FORM
+             ========================================= -->
+
+        <form
+            action="/configurations/upload"
+            method="POST"
+            enctype="multipart/form-data"
+            class="upload-config-form"
+        >
+
+            <!-- DEVICE NAME -->
+
+            <div class="form-group">
+
+                <label
+                    class="form-label"
+                    for="deviceName"
+                >
+                    Device Name
+                </label>
+
+                <input
+                    class="form-control"
+                    type="text"
+                    id="deviceName"
+                    name="deviceName"
+                    placeholder="e.g. Cisco-Router-01"
+                    required
+                >
+
+                <small class="form-help">
+                    Enter a unique name for the network device.
+                </small>
+
+            </div>
+
+
+            <!-- VENDOR -->
+
+            <div class="form-group">
+
+                <label
+                    class="form-label"
+                    for="vendor"
+                >
+                    Vendor
+                </label>
+
+                <select
+                    class="form-control"
+                    id="vendor"
+                    name="vendor"
+                    required
+                >
+
+                    <option value="">
+                        Select Vendor
+                    </option>
+
+                    <option value="Cisco">
+                        Cisco
+                    </option>
+
+                    <option value="Juniper">
+                        Juniper
+                    </option>
+
+                    <option value="Fortinet">
+                        Fortinet
+                    </option>
+
+                </select>
+
+                <small class="form-help">
+                    Select the vendor matching the configuration file.
+                </small>
+
+            </div>
+
+
+            <!-- CONFIGURATION FILE -->
+
+            <div class="form-group">
+
+                <label
+                    class="form-label"
+                    for="configFile"
+                >
+                    Configuration File
+                </label>
+
+                <div class="file-upload-box">
+
+                    <input
+                        type="file"
+                        id="configFile"
+                        name="configFile"
+                        required
+                    >
+
+                    <label
+                        for="configFile"
+                        class="file-upload-label"
+                    >
+
+                        <span class="file-upload-icon">
+                            📄
+                        </span>
+
+                        <span class="file-upload-text">
+
+                            <strong>
+                                Choose Configuration File
+                            </strong>
+
+                            <small>
+                                Select a network device configuration file
+                            </small>
+
+                        </span>
+
+                    </label>
+
+                </div>
+
+                <small class="form-help">
+                    Upload the configuration exported from your network device.
+                </small>
+
+            </div>
+
+
+            <!-- FORM ACTIONS -->
+
+            <div class="form-actions">
+
+                <a
+                    href="/configurations"
+                    class="btn btn-secondary"
+                >
+                    Cancel
+                </a>
+
+                <button
+                    type="submit"
+                    class="btn btn-primary btn-lg"
+                >
+                    Upload Configuration
+                </button>
+
+            </div>
+
+        </form>
+
+    </section>
+
+
+    <!-- =========================================
+         SUPPORTED VENDORS
+         ========================================= -->
+
+    <section class="content-section">
+
+        <div class="section-heading">
+
+            <div>
+
+                <h2>
+                    Supported Vendors
+                </h2>
+
+                <p>
+                    NETSENTRY currently supports multi-vendor configuration auditing.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="vendor-grid">
+
+
+            <div class="vendor-card">
+
+                <div class="vendor-card-icon">
+                    C
+                </div>
+
+                <div>
+
+                    <strong>
+                        Cisco
+                    </strong>
+
+                    <span>
+                        Network routers and switches
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="vendor-card">
+
+                <div class="vendor-card-icon">
+                    J
+                </div>
+
+                <div>
+
+                    <strong>
+                        Juniper
+                    </strong>
+
+                    <span>
+                        Network infrastructure devices
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="vendor-card">
+
+                <div class="vendor-card-icon">
+                    F
+                </div>
+
+                <div>
+
+                    <strong>
+                        Fortinet
+                    </strong>
+
+                    <span>
+                        Firewalls and security devices
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         QUICK ACTIONS
+         ========================================= -->
+
+    <section class="content-section">
+
+        <div class="section-heading">
+
+            <div>
+
+                <h2>
+                    Quick Actions
+                </h2>
+
+                <p>
+                    Continue working with NETSENTRY.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="quick-actions-grid">
+
+
+            <a
+                href="/configurations"
+                class="quick-action-card"
             >
-        </p>
 
-        <p>
-            <label>Vendor:</label>
-            <br>
+                <span class="quick-action-icon">
+                    📁
+                </span>
 
-            <select name="vendor" required>
+                <span class="quick-action-content">
 
-                <option value="">
-                    Select Vendor
-                </option>
+                    <strong>
+                        View Configurations
+                    </strong>
 
-                <option value="Cisco">
-                    Cisco
-                </option>
+                    <small>
+                        Manage uploaded configurations
+                    </small>
 
-                <option value="Juniper">
-                    Juniper
-                </option>
+                </span>
 
-                <option value="Fortinet">
-                    Fortinet
-                </option>
+                <span class="quick-action-arrow">
+                    →
+                </span>
 
-            </select>
-        </p>
+            </a>
 
-        <p>
-            <label>Configuration File:</label>
-            <br>
 
-            <input
-                type="file"
-                name="configFile"
-                required
+            <a
+                href="/dashboard"
+                class="quick-action-card"
             >
-        </p>
 
-        <p>
-            <button type="submit">
-                Upload Configuration
-            </button>
-        </p>
+                <span class="quick-action-icon">
+                    ⌂
+                </span>
 
-    </form>
+                <span class="quick-action-content">
 
-    <hr>
+                    <strong>
+                        Dashboard
+                    </strong>
 
-    <h2>Quick Actions</h2>
+                    <small>
+                        Return to security dashboard
+                    </small>
 
-    <p>
-        <a href="/configurations">
-            View Configurations
-        </a>
-    </p>
+                </span>
 
-    <p>
-        <a href="/dashboard">
-            Dashboard
-        </a>
-    </p>
+                <span class="quick-action-arrow">
+                    →
+                </span>
+
+            </a>
+
+        </div>
+
+    </section>
 
 </main>
 

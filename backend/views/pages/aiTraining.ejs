@@ -1,201 +1,499 @@
 <%- include("../partials/head", { title: "AI Training - NETSENTRY" }) %>
 
 <%- include("../partials/navbar") %>
-
 <%- include("../partials/sidebar") %>
 
-<main>
+<main class="main-content">
 
-    <h1>
-        NETSENTRY - AI Configuration Mapping
-    </h1>
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+
+        <div>
+            <h1 class="page-title">
+                AI Configuration Mapping
+            </h1>
+
+            <p class="page-subtitle">
+                Analyze unknown network configuration commands using the AI-assisted mapping engine.
+            </p>
+        </div>
+
+    </div>
+
 
     <%- include("../partials/flash") %>
 
-    <hr>
 
-    <h2>
-        Analyze Unknown Configuration
-    </h2>
+    <!-- AI ANALYSIS FORM -->
+    <section class="content-section">
 
-    <p>
-        Enter a configuration command that is
-        not currently recognized by the security
-        rule engine.
-    </p>
+        <div class="card">
 
-    <form
-        action="/ai-training/analyze"
-        method="POST"
-    >
+            <div class="card-header">
 
-        <p>
-            <label>
-                Vendor:
-            </label>
-            <br>
+                <div>
+                    <h2>
+                        Analyze Unknown Configuration
+                    </h2>
 
-            <select
-                name="vendor"
-                required
+                    <p class="card-subtitle">
+                        Enter a configuration command that is not currently recognized by the security rule engine.
+                    </p>
+                </div>
+
+                <span class="badge badge-info">
+                    AI Assisted
+                </span>
+
+            </div>
+
+
+            <form
+                action="/ai-training/analyze"
+                method="POST"
             >
 
-                <option value="">
-                    Select Vendor
-                </option>
+                <div class="form-group">
 
-                <option value="Cisco">
-                    Cisco
-                </option>
+                    <label
+                        class="form-label"
+                        for="vendor"
+                    >
+                        Vendor
+                    </label>
 
-                <option value="Juniper">
-                    Juniper
-                </option>
+                    <select
+                        class="form-control"
+                        id="vendor"
+                        name="vendor"
+                        required
+                    >
 
-                <option value="Fortinet">
-                    Fortinet
-                </option>
+                        <option value="">
+                            Select Vendor
+                        </option>
 
-                <option value="Unknown">
-                    Unknown
-                </option>
+                        <option value="Cisco">
+                            Cisco
+                        </option>
 
-            </select>
-        </p>
+                        <option value="Juniper">
+                            Juniper
+                        </option>
 
-        <p>
-            <label>
-                Configuration:
-            </label>
-            <br>
+                        <option value="Fortinet">
+                            Fortinet
+                        </option>
 
-            <textarea
-                name="configLine"
-                rows="6"
-                cols="70"
-                placeholder="Enter configuration command..."
-                required
-            ></textarea>
-        </p>
+                        <option value="Unknown">
+                            Unknown
+                        </option>
 
-        <button type="submit">
-            Analyze Configuration
-        </button>
+                    </select>
 
-    </form>
+                </div>
+
+
+                <div class="form-group">
+
+                    <label
+                        class="form-label"
+                        for="configLine"
+                    >
+                        Configuration
+                    </label>
+
+                    <textarea
+                        class="form-control"
+                        id="configLine"
+                        name="configLine"
+                        rows="7"
+                        placeholder="Enter configuration command..."
+                        required
+                    ></textarea>
+
+                    <small class="form-help">
+                        Enter an unknown or unsupported network configuration command.
+                    </small>
+
+                </div>
+
+
+                <div class="form-actions">
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                    >
+                        Analyze Configuration
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </section>
 
 
     <% if (result) { %>
 
-        <hr>
+    <!-- AI ANALYSIS RESULT -->
+    <section class="content-section">
 
-        <h2>
-            AI Configuration Analysis
-        </h2>
+        <div class="card">
 
-        <p>
-            <strong>Vendor:</strong>
-            <%= result.vendor %>
-        </p>
+            <div class="card-header">
 
-        <p>
-            <strong>Configuration:</strong>
-        </p>
+                <div>
+                    <h2>
+                        AI Configuration Analysis
+                    </h2>
 
-        <pre><%= result.originalConfiguration %></pre>
+                    <p class="card-subtitle">
+                        Analysis generated for the submitted configuration.
+                    </p>
+                </div>
 
-        <hr>
+                <span class="badge badge-info">
+                    Analysis Complete
+                </span>
 
-        <h3>
-            Detected Category
-        </h3>
+            </div>
 
-        <p>
-            <%= result.category %>
-        </p>
 
-        <h3>
-            Possible Meaning
-        </h3>
+            <!-- BASIC INFORMATION -->
+            <div class="detail-grid">
 
-        <p>
-            <%= result.possibleMeaning %>
-        </p>
+                <div class="detail-item">
 
-        <h3>
-            Risk Level
-        </h3>
+                    <span>
+                        Vendor
+                    </span>
 
-        <p>
-            <%= result.riskLevel %>
-        </p>
+                    <strong>
+                        <%= result.vendor %>
+                    </strong>
 
-        <h3>
-            Confidence
-        </h3>
+                </div>
 
-        <p>
-            <%= result.confidence %>%
-        </p>
 
-        <h3>
-            Suggested Action
-        </h3>
+                <div class="detail-item">
 
-        <p>
-            <%= result.suggestedAction %>
-        </p>
+                    <span>
+                        Detected Category
+                    </span>
+
+                    <strong>
+                        <%= result.category %>
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-item">
+
+                    <span>
+                        Risk Level
+                    </span>
+
+                    <strong>
+                        <%= result.riskLevel %>
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-item">
+
+                    <span>
+                        Confidence
+                    </span>
+
+                    <strong class="text-primary">
+                        <%= result.confidence %>%
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ORIGINAL CONFIGURATION -->
+        <div class="card">
+
+            <div class="card-header">
+
+                <div>
+                    <h2>
+                        Original Configuration
+                    </h2>
+
+                    <p class="card-subtitle">
+                        Configuration command submitted for AI analysis.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="code-block">
+
+                <div class="code-line">
+                    <span>
+                        <%= result.originalConfiguration %>
+                    </span>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- POSSIBLE MEANING -->
+        <div class="card">
+
+            <div class="card-header">
+
+                <div>
+                    <h2>
+                        Possible Meaning
+                    </h2>
+
+                    <p class="card-subtitle">
+                        AI interpretation of the configuration command.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="finding-card">
+
+                <p>
+                    <%= result.possibleMeaning %>
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- RISK -->
+        <div class="card">
+
+            <div class="card-header">
+
+                <div>
+                    <h2>
+                        Risk Assessment
+                    </h2>
+
+                    <p class="card-subtitle">
+                        Security risk identified from the analyzed configuration.
+                    </p>
+                </div>
+
+                <span class="badge badge-warning">
+                    <%= result.riskLevel %>
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- SUGGESTED ACTION -->
+        <div class="card">
+
+            <div class="card-header">
+
+                <div>
+                    <h2>
+                        Suggested Action
+                    </h2>
+
+                    <p class="card-subtitle">
+                        Recommended action based on the AI analysis.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="finding-card">
+
+                <p>
+                    <%= result.suggestedAction %>
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
 
     <% } %>
 
 
-    <hr>
+    <!-- QUICK ACTIONS -->
+    <section class="content-section">
 
-    <h2>
-        Quick Actions
-    </h2>
+        <div class="section-heading">
 
-    <p>
-        <a href="/dashboard">
-            Back to Dashboard
-        </a>
-    </p>
+            <div>
+                <h2>
+                    Quick Actions
+                </h2>
 
-    <p>
-        <a href="/configurations">
-            View Configurations
-        </a>
-    </p>
+                <p>
+                    Continue working with NETSENTRY security analysis tools.
+                </p>
+            </div>
 
-    <p>
-        <a href="/configurations/upload">
-            Upload Configuration
-        </a>
-    </p>
+        </div>
 
-    <p>
-        <a href="/security-posture">
-            Security Posture
-        </a>
-    </p>
 
-    <p>
-        <a href="/risk">
-            Risk Prioritization
-        </a>
-    </p>
+        <div class="quick-actions-grid">
 
-    <p>
-        <a href="/exposure">
-            Exposure Analysis
-        </a>
-    </p>
+            <a
+                href="/dashboard"
+                class="quick-action-card"
+            >
+                <span class="quick-action-icon">
+                    ⌂
+                </span>
 
-    <p>
-        <a href="/reports">
-            Reports
-        </a>
-    </p>
+                <span class="quick-action-content">
+                    <strong>Dashboard</strong>
+                    <small>Back to dashboard</small>
+                </span>
+
+                <span class="quick-action-arrow">
+                    →
+                </span>
+            </a>
+
+
+            <a
+                href="/configurations"
+                class="quick-action-card"
+            >
+                <span class="quick-action-icon">
+                    📁
+                </span>
+
+                <span class="quick-action-content">
+                    <strong>Configurations</strong>
+                    <small>View configurations</small>
+                </span>
+
+                <span class="quick-action-arrow">
+                    →
+                </span>
+            </a>
+
+
+            <a
+                href="/configurations/upload"
+                class="quick-action-card"
+            >
+                <span class="quick-action-icon">
+                    📤
+                </span>
+
+                <span class="quick-action-content">
+                    <strong>Upload Configuration</strong>
+                    <small>Run a new security audit</small>
+                </span>
+
+                <span class="quick-action-arrow">
+                    →
+                </span>
+            </a>
+
+
+            <a
+                href="/security-posture"
+                class="quick-action-card"
+            >
+                <span class="quick-action-icon">
+                    🛡️
+                </span>
+
+                <span class="quick-action-content">
+                    <strong>Security Posture</strong>
+                    <small>View security posture</small>
+                </span>
+
+                <span class="quick-action-arrow">
+                    →
+                </span>
+            </a>
+
+
+            <a
+                href="/risk"
+                class="quick-action-card"
+            >
+                <span class="quick-action-icon">
+                    ⚠️
+                </span>
+
+                <span class="quick-action-content">
+                    <strong>Risk Prioritization</strong>
+                    <small>Analyze security risks</small>
+                </span>
+
+                <span class="quick-action-arrow">
+                    →
+                </span>
+            </a>
+
+
+            <a
+                href="/exposure"
+                class="quick-action-card"
+            >
+                <span class="quick-action-icon">
+                    🌐
+                </span>
+
+                <span class="quick-action-content">
+                    <strong>Exposure Analysis</strong>
+                    <small>Analyze attack surface</small>
+                </span>
+
+                <span class="quick-action-arrow">
+                    →
+                </span>
+            </a>
+
+
+            <a
+                href="/reports"
+                class="quick-action-card"
+            >
+                <span class="quick-action-icon">
+                    📄
+                </span>
+
+                <span class="quick-action-content">
+                    <strong>Reports</strong>
+                    <small>View security reports</small>
+                </span>
+
+                <span class="quick-action-arrow">
+                    →
+                </span>
+            </a>
+
+        </div>
+
+    </section>
 
 </main>
 

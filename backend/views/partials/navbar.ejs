@@ -1,21 +1,43 @@
-<header>
+<header class="top-navbar">
 
-    <h2>NETSENTRY AI</h2>
-
-    <% if (user) { %>
-
-        <span>
-            <%= user.username %>
-        </span>
-
-        <a href="/configurations/upload">
-            + Upload Configuration
+    <div class="navbar-brand">
+        <a href="/dashboard">
+            NET<span>SENTRY</span>
         </a>
+    </div>
 
-        <a href="/logout">
-            Logout
-        </a>
+    <div class="navbar-right">
 
-    <% } %>
+        <% if (typeof user !== "undefined" && user) { %>
+
+            <div class="navbar-user">
+
+                <div class="user-avatar">
+                    <%= user.username.charAt(0).toUpperCase() %>
+                </div>
+
+                <span class="navbar-username">
+                    <%= user.username %>
+                </span>
+
+            </div>
+
+            <a
+                href="/configurations/upload"
+                class="navbar-upload"
+            >
+                + Upload Configuration
+            </a>
+
+            <a
+                href="/logout"
+                class="navbar-logout"
+            >
+                Logout
+            </a>
+
+        <% } %>
+
+    </div>
 
 </header>

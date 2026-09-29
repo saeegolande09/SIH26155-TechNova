@@ -1,99 +1,179 @@
 <%- include("../partials/head", { title: "NETSENTRY - Create Account" }) %>
 
-<main>
+<main class="auth-page">
 
-    <h1>NETSENTRY AI</h1>
+    <div class="auth-card">
 
-    <hr>
+        <!-- Logo -->
 
-    <h2>Create Account</h2>
+        <div class="auth-logo">
+            NET<span>SENTRY</span>
+        </div>
 
-    <%- include("../partials/flash") %>
-
-    <form
-        action="/register"
-        method="POST"
-    >
-
-        <p>
-            <label for="username">
-                Username:
-            </label>
-
-            <br>
-
-            <input
-                type="text"
-                id="username"
-                name="username"
-                required
-            >
+        <p class="auth-subtitle">
+            AI-Driven Multi-Vendor Network Security Compliance Auditor
         </p>
 
-        <p>
-            <label for="email">
-                Email:
-            </label>
 
-            <br>
+        <!-- Flash Messages -->
 
-            <input
-                type="email"
-                id="email"
-                name="email"
-                required
+        <%- include("../partials/flash") %>
+
+
+        <!-- Register Heading -->
+
+        <div class="card-header">
+
+            <div>
+
+                <h2>Create Account</h2>
+
+                <p class="card-subtitle">
+                    Create your NETSENTRY security account
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- Register Form -->
+
+        <form
+            action="/register"
+            method="POST"
+        >
+
+            <!-- Username -->
+
+            <div class="form-group">
+
+                <label
+                    class="form-label"
+                    for="username"
+                >
+                    Username
+                </label>
+
+                <input
+                    class="form-control"
+                    type="text"
+                    id="username"
+                    name="username"
+                    placeholder="Choose a username"
+                    required
+                >
+
+            </div>
+
+
+            <!-- Email -->
+
+            <div class="form-group">
+
+                <label
+                    class="form-label"
+                    for="email"
+                >
+                    Email
+                </label>
+
+                <input
+                    class="form-control"
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Enter your email"
+                    required
+                >
+
+            </div>
+
+
+            <!-- Password -->
+
+            <div class="form-group">
+
+                <label
+                    class="form-label"
+                    for="password"
+                >
+                    Password
+                </label>
+
+                <input
+                    class="form-control"
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Create a password"
+                    minlength="6"
+                    required
+                >
+
+                <small class="form-help">
+                    Password must contain at least 6 characters.
+                </small>
+
+            </div>
+
+
+            <!-- Confirm Password -->
+
+            <div class="form-group">
+
+                <label
+                    class="form-label"
+                    for="confirmPassword"
+                >
+                    Confirm Password
+                </label>
+
+                <input
+                    class="form-control"
+                    type="password"
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    placeholder="Re-enter your password"
+                    minlength="6"
+                    required
+                >
+
+            </div>
+
+
+            <!-- Create Account -->
+
+            <button
+                type="submit"
+                class="btn btn-primary btn-lg"
+                style="width: 100%;"
             >
-        </p>
+                Create Account
+            </button>
 
-        <p>
-            <label for="password">
-                Password:
-            </label>
+        </form>
 
-            <br>
 
-            <input
-                type="password"
-                id="password"
-                name="password"
-                minlength="6"
-                required
-            >
-        </p>
+        <!-- Login -->
 
-        <p>
-            <label for="confirmPassword">
-                Confirm Password:
-            </label>
+        <div class="auth-footer">
 
-            <br>
+            <p>
+                Already have an account?
 
-            <input
-                type="password"
-                id="confirmPassword"
-                name="confirmPassword"
-                minlength="6"
-                required
-            >
-        </p>
+                <a
+                    href="/"
+                    class="text-primary"
+                    style="font-weight: 600;"
+                >
+                    Back to Login
+                </a>
+            </p>
 
-        <button type="submit">
-            Create Account
-        </button>
+        </div>
 
-    </form>
-
-    <hr>
-
-    <p>
-        Already have an account?
-    </p>
-
-    <p>
-        <a href="/">
-            Back to Login
-        </a>
-    </p>
+    </div>
 
 </main>
 

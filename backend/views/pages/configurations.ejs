@@ -4,118 +4,481 @@
 
 <%- include("../partials/sidebar") %>
 
-<main>
+<main class="main-content configurations-page">
 
-    <h1>NETSENTRY - Configurations</h1>
+    <!-- =========================================
+         PAGE HEADER
+         ========================================= -->
+
+    <div class="page-header">
+
+        <div>
+
+            <h1 class="page-title">
+                Configurations
+            </h1>
+
+            <p class="page-subtitle">
+                Manage and review uploaded network configurations.
+            </p>
+
+        </div>
+
+        <a
+            href="/configurations/upload"
+            class="btn btn-primary"
+        >
+            + Upload Configuration
+        </a>
+
+    </div>
+
 
     <%- include("../partials/flash") %>
 
-    <hr>
 
-    <h2>Uploaded Configurations</h2>
+    <!-- =========================================
+         CONFIGURATION LIST
+         ========================================= -->
 
-    <% if (!configurations || configurations.length === 0) { %>
+    <section class="content-section">
 
-        <p>No configurations uploaded yet.</p>
+        <div class="section-heading">
 
-    <% } else { %>
+            <div>
 
-        <table border="1" cellpadding="10" cellspacing="0">
+                <h2>
+                    Uploaded Configurations
+                </h2>
 
-            <thead>
-                <tr>
-                    <th>Device</th>
-                    <th>Vendor</th>
-                    <th>File Name</th>
-                    <th>Version</th>
-                    <th>Status</th>
-                    <th>Uploaded At</th>
-                </tr>
-            </thead>
+                <p>
+                    Network configuration files available for security auditing.
+                </p>
 
-            <tbody>
+            </div>
 
-                <% configurations.forEach(configuration => { %>
+            <span class="record-count">
+                <%= configurations ? configurations.length : 0 %>
+                Configurations
+            </span>
 
-                    <tr>
+        </div>
 
-                        <td>
-                            <%= configuration.device
-                                ? configuration.device.deviceName
-                                : "Unknown Device" %>
-                        </td>
 
-                        <td>
-                            <%= configuration.vendor %>
-                        </td>
+        <% if (!configurations || configurations.length === 0) { %>
 
-                        <td>
-                            <%= configuration.fileName %>
-                        </td>
+            <!-- =================================
+                 EMPTY STATE
+                 ================================= -->
 
-                        <td>
-                            <%= configuration.configVersion %>
-                        </td>
+            <div class="empty-state card">
 
-                        <td>
-                            <%= configuration.status %>
-                        </td>
+                <div class="empty-state-icon">
+                    📁
+                </div>
 
-                        <td>
-                            <%= configuration.uploadedAt
-                                ? new Date(configuration.uploadedAt).toLocaleString()
-                                : "N/A" %>
-                        </td>
+                <h3>
+                    No Configurations Uploaded
+                </h3>
 
-                    </tr>
+                <p>
+                    Upload a network configuration to begin
+                    security analysis and compliance auditing.
+                </p>
 
-                <% }) %>
+                <a
+                    href="/configurations/upload"
+                    class="btn btn-primary"
+                >
+                    Upload Configuration
+                </a>
 
-            </tbody>
+            </div>
 
-        </table>
 
-    <% } %>
+        <% } else { %>
 
-    <hr>
 
-    <h2>Quick Actions</h2>
+            <!-- =================================
+                 CONFIGURATION TABLE
+                 ================================= -->
 
-    <p>
-        <a href="/configurations/upload">
-            Upload New Configuration
-        </a>
-    </p>
+            <div class="table-card">
 
-    <p>
-        <a href="/comparison">
-            Compare Configurations
-        </a>
-    </p>
+                <div class="table-wrapper">
 
-    <p>
-        <a href="/exposure">
-            Exposure Analysis
-        </a>
-    </p>
+                    <table class="data-table">
 
-    <p>
-        <a href="/risk">
-            Risk Prioritization
-        </a>
-    </p>
+                        <thead>
 
-    <p>
-        <a href="/drift">
-            Configuration Drift
-        </a>
-    </p>
+                            <tr>
 
-    <p>
-        <a href="/reports">
-            Reports
-        </a>
-    </p>
+                                <th>
+                                    Device
+                                </th>
+
+                                <th>
+                                    Vendor
+                                </th>
+
+                                <th>
+                                    File Name
+                                </th>
+
+                                <th>
+                                    Version
+                                </th>
+
+                                <th>
+                                    Status
+                                </th>
+
+                                <th>
+                                    Uploaded At
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                            <% configurations.forEach(configuration => { %>
+
+                                <tr>
+
+                                    <!-- DEVICE -->
+
+                                    <td>
+
+                                        <div class="table-primary">
+
+                                            <span class="table-icon">
+                                                🖥
+                                            </span>
+
+                                            <strong>
+
+                                                <%= configuration.device
+                                                    ? configuration.device.deviceName
+                                                    : "Unknown Device" %>
+
+                                            </strong>
+
+                                        </div>
+
+                                    </td>
+
+
+                                    <!-- VENDOR -->
+
+                                    <td>
+
+                                        <span
+                                            class="vendor-badge vendor-<%= String(configuration.vendor || '').toLowerCase() %>"
+                                        >
+                                            <%= configuration.vendor %>
+                                        </span>
+
+                                    </td>
+
+
+                                    <!-- FILE NAME -->
+
+                                    <td>
+
+                                        <span
+                                            class="file-name"
+                                            title="<%= configuration.fileName %>"
+                                        >
+                                            <%= configuration.fileName %>
+                                        </span>
+
+                                    </td>
+
+
+                                    <!-- VERSION -->
+
+                                    <td>
+
+                                        <span class="version-badge">
+                                            v<%= configuration.configVersion %>
+                                        </span>
+
+                                    </td>
+
+
+                                    <!-- STATUS -->
+
+                                    <td>
+
+                                        <%
+                                            let statusClass = "status-neutral";
+
+                                            if (configuration.status === "Completed") {
+                                                statusClass = "status-success";
+                                            } else if (
+                                                configuration.status === "Pending" ||
+                                                configuration.status === "Processing"
+                                            ) {
+                                                statusClass = "status-warning";
+                                            } else if (
+                                                configuration.status === "Failed"
+                                            ) {
+                                                statusClass = "status-danger";
+                                            }
+                                        %>
+
+                                        <span
+                                            class="status-badge <%= statusClass %>"
+                                        >
+                                            <%= configuration.status %>
+                                        </span>
+
+                                    </td>
+
+
+                                    <!-- UPLOADED AT -->
+
+                                    <td>
+
+                                        <span class="date-text">
+
+                                            <%= configuration.uploadedAt
+                                                ? new Date(configuration.uploadedAt).toLocaleString()
+                                                : "N/A" %>
+
+                                        </span>
+
+                                    </td>
+
+                                </tr>
+
+                            <% }) %>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+        <% } %>
+
+    </section>
+
+
+    <!-- =========================================
+         QUICK ACTIONS
+         ========================================= -->
+
+    <section class="content-section">
+
+        <div class="section-heading">
+
+            <div>
+
+                <h2>
+                    Quick Actions
+                </h2>
+
+                <p>
+                    Continue working with your network security data.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="quick-actions-grid">
+
+
+            <!-- UPLOAD -->
+
+            <a
+                href="/configurations/upload"
+                class="quick-action-card"
+            >
+
+                <span class="quick-action-icon">
+                    ↑
+                </span>
+
+                <span class="quick-action-content">
+
+                    <strong>
+                        Upload Configuration
+                    </strong>
+
+                    <small>
+                        Add a new network configuration
+                    </small>
+
+                </span>
+
+                <span class="quick-action-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+            <!-- COMPARISON -->
+
+            <a
+                href="/comparison"
+                class="quick-action-card"
+            >
+
+                <span class="quick-action-icon">
+                    ⇄
+                </span>
+
+                <span class="quick-action-content">
+
+                    <strong>
+                        Compare Configurations
+                    </strong>
+
+                    <small>
+                        Compare device configurations
+                    </small>
+
+                </span>
+
+                <span class="quick-action-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+            <!-- EXPOSURE -->
+
+            <a
+                href="/exposure"
+                class="quick-action-card"
+            >
+
+                <span class="quick-action-icon">
+                    ◎
+                </span>
+
+                <span class="quick-action-content">
+
+                    <strong>
+                        Exposure Analysis
+                    </strong>
+
+                    <small>
+                        Analyze network exposure
+                    </small>
+
+                </span>
+
+                <span class="quick-action-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+            <!-- RISK -->
+
+            <a
+                href="/risk"
+                class="quick-action-card"
+            >
+
+                <span class="quick-action-icon">
+                    △
+                </span>
+
+                <span class="quick-action-content">
+
+                    <strong>
+                        Risk Prioritization
+                    </strong>
+
+                    <small>
+                        Prioritize security risks
+                    </small>
+
+                </span>
+
+                <span class="quick-action-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+            <!-- DRIFT -->
+
+            <a
+                href="/drift"
+                class="quick-action-card"
+            >
+
+                <span class="quick-action-icon">
+                    ↻
+                </span>
+
+                <span class="quick-action-content">
+
+                    <strong>
+                        Configuration Drift
+                    </strong>
+
+                    <small>
+                        Detect configuration changes
+                    </small>
+
+                </span>
+
+                <span class="quick-action-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+            <!-- REPORTS -->
+
+            <a
+                href="/reports"
+                class="quick-action-card"
+            >
+
+                <span class="quick-action-icon">
+                    ▤
+                </span>
+
+                <span class="quick-action-content">
+
+                    <strong>
+                        Reports
+                    </strong>
+
+                    <small>
+                        View security audit reports
+                    </small>
+
+                </span>
+
+                <span class="quick-action-arrow">
+                    →
+                </span>
+
+            </a>
+
+        </div>
+
+    </section>
 
 </main>
 

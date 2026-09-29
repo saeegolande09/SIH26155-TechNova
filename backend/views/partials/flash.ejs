@@ -1,17 +1,37 @@
 <% if (typeof success !== "undefined" && success) { %>
-    <div>
-        <%= success %>
+
+    <div class="alert alert-success">
+        <span class="alert-icon">✓</span>
+
+        <div class="alert-content">
+            <%= success %>
+        </div>
     </div>
+
 <% } %>
+
 
 <% if (typeof error !== "undefined" && error) { %>
-    <div>
-        <%= error %>
+
+    <div class="alert alert-danger">
+        <span class="alert-icon">!</span>
+
+        <div class="alert-content">
+            <%= error %>
+        </div>
     </div>
+
 <% } %>
 
+
 <% if (typeof message !== "undefined" && message) { %>
-    <div>
-        <%= message %>
+
+    <div class="alert alert-info">
+        <span class="alert-icon">i</span>
+
+        <div class="alert-content">
+            <%= message %>
+        </div>
     </div>
+
 <% } %>

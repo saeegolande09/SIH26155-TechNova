@@ -4,214 +4,398 @@
 
 <%- include("../partials/sidebar") %>
 
-<main>
+<main class="main-content">
 
-    <h1>NETSENTRY - Audit Details</h1>
+    <div class="page-header">
+
+        <div>
+            <h1 class="page-title">Audit Details</h1>
+            <p class="page-subtitle">
+                Detailed security audit information and findings.
+            </p>
+        </div>
+
+        <a href="/audits" class="btn btn-secondary">
+            ← Back to Audits
+        </a>
+
+    </div>
 
     <%- include("../partials/flash") %>
 
-    <hr>
 
-    <h2>Audit Information</h2>
+    <!-- AUDIT INFORMATION -->
 
-    <p>
-        <strong>Audit ID:</strong>
-        <%= audit._id %>
-    </p>
+    <section class="content-section">
 
-    <p>
-        <strong>Device:</strong>
-        <%= audit.device
-            ? audit.device.deviceName
-            : "Unknown Device" %>
-    </p>
+        <div class="card">
 
-    <p>
-        <strong>Vendor:</strong>
-        <%= audit.vendor || "Unknown" %>
-    </p>
+            <div class="card-header">
+                <div>
+                    <h2>Audit Information</h2>
+                    <p class="card-subtitle">
+                        Device and audit status information.
+                    </p>
+                </div>
+            </div>
 
-    <p>
-        <strong>Status:</strong>
-        <%= audit.status %>
-    </p>
+            <div class="detail-grid">
 
-    <p>
-        <strong>Compliance Score:</strong>
-        <%= audit.complianceScore || 0 %>%
-    </p>
+                <div class="detail-item">
+                    <span>Audit ID</span>
+                    <strong><%= audit._id %></strong>
+                </div>
 
-    <hr>
+                <div class="detail-item">
+                    <span>Device</span>
+                    <strong>
+                        <%= audit.device
+                            ? audit.device.deviceName
+                            : "Unknown Device" %>
+                    </strong>
+                </div>
 
-    <h2>Audit Summary</h2>
+                <div class="detail-item">
+                    <span>Vendor</span>
+                    <strong><%= audit.vendor || "Unknown" %></strong>
+                </div>
 
-    <p>
-        <strong>Total Checks:</strong>
-        <%= audit.totalChecks || 0 %>
-    </p>
+                <div class="detail-item">
+                    <span>Status</span>
+                    <strong><%= audit.status %></strong>
+                </div>
 
-    <p>
-        <strong>Passed Checks:</strong>
-        <%= audit.passedChecks || 0 %>
-    </p>
+                <div class="detail-item">
+                    <span>Compliance Score</span>
+                    <strong class="text-primary">
+                        <%= audit.complianceScore || 0 %>%
+                    </strong>
+                </div>
 
-    <p>
-        <strong>Failed Checks:</strong>
-        <%= audit.failedChecks || 0 %>
-    </p>
+            </div>
 
-    <p>
-        <strong>Critical Findings:</strong>
-        <%= audit.criticalFindings || 0 %>
-    </p>
+        </div>
 
-    <p>
-        <strong>High Findings:</strong>
-        <%= audit.highFindings || 0 %>
-    </p>
+    </section>
 
-    <p>
-        <strong>Medium Findings:</strong>
-        <%= audit.mediumFindings || 0 %>
-    </p>
 
-    <p>
-        <strong>Low Findings:</strong>
-        <%= audit.lowFindings || 0 %>
-    </p>
+    <!-- AUDIT SUMMARY -->
 
-    <hr>
+    <section class="content-section">
 
-    <h2>Configuration</h2>
-
-    <% if (audit.configuration) { %>
-
-        <p>
-            <strong>File Name:</strong>
-            <%= audit.configuration.fileName %>
-        </p>
-
-        <p>
-            <strong>Version:</strong>
-            <%= audit.configuration.configVersion %>
-        </p>
-
-        <p>
-            <strong>Status:</strong>
-            <%= audit.configuration.status %>
-        </p>
-
-        <p>
-            <strong>Uploaded At:</strong>
-            <%= audit.configuration.uploadedAt
-                ? new Date(audit.configuration.uploadedAt).toLocaleString()
-                : "N/A" %>
-        </p>
-
-    <% } else { %>
-
-        <p>
-            Configuration information unavailable.
-        </p>
-
-    <% } %>
-
-    <hr>
-
-    <h2>Security Findings</h2>
-
-    <% if (!findings || findings.length === 0) { %>
-
-        <p>No security findings detected for this audit.</p>
-
-    <% } else { %>
-
-        <% findings.forEach(finding => { %>
-
+        <div class="section-heading">
             <div>
+                <h2>Audit Summary</h2>
+                <p>Security checks and findings overview.</p>
+            </div>
+        </div>
 
-                <h3>
-                    <%= finding.title %>
-                </h3>
+        <div class="stats-grid">
 
-                <p>
-                    <strong>Severity:</strong>
-                    <%= finding.severity %>
-                </p>
+            <div class="stat-card">
+                <span class="stat-card-label">Total Checks</span>
+                <strong class="stat-card-value">
+                    <%= audit.totalChecks || 0 %>
+                </strong>
+            </div>
 
-                <p>
-                    <strong>Category:</strong>
-                    <%= finding.category || "Other" %>
-                </p>
+            <div class="stat-card">
+                <span class="stat-card-label">Passed Checks</span>
+                <strong class="stat-card-value text-success">
+                    <%= audit.passedChecks || 0 %>
+                </strong>
+            </div>
 
-                <p>
-                    <strong>Status:</strong>
-                    <%= finding.status %>
-                </p>
+            <div class="stat-card">
+                <span class="stat-card-label">Failed Checks</span>
+                <strong class="stat-card-value text-danger">
+                    <%= audit.failedChecks || 0 %>
+                </strong>
+            </div>
 
-                <p>
-                    <strong>Description:</strong>
-                    <%= finding.description %>
-                </p>
+            <div class="stat-card">
+                <span class="stat-card-label">Critical</span>
+                <strong class="stat-card-value text-danger">
+                    <%= audit.criticalFindings || 0 %>
+                </strong>
+            </div>
 
-                <% if (finding.detectedConfig) { %>
+            <div class="stat-card">
+                <span class="stat-card-label">High</span>
+                <strong class="stat-card-value">
+                    <%= audit.highFindings || 0 %>
+                </strong>
+            </div>
 
-                    <p>
-                        <strong>Detected Configuration:</strong>
+            <div class="stat-card">
+                <span class="stat-card-label">Medium</span>
+                <strong class="stat-card-value">
+                    <%= audit.mediumFindings || 0 %>
+                </strong>
+            </div>
+
+            <div class="stat-card">
+                <span class="stat-card-label">Low</span>
+                <strong class="stat-card-value text-primary">
+                    <%= audit.lowFindings || 0 %>
+                </strong>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- CONFIGURATION -->
+
+    <section class="content-section">
+
+        <div class="card">
+
+            <div class="card-header">
+                <div>
+                    <h2>Configuration</h2>
+                    <p class="card-subtitle">
+                        Configuration associated with this audit.
                     </p>
+                </div>
+            </div>
 
-                    <pre><%= finding.detectedConfig %></pre>
+            <% if (audit.configuration) { %>
 
-                <% } %>
+                <div class="detail-grid">
 
-                <% if (finding.recommendedFix) { %>
+                    <div class="detail-item">
+                        <span>File Name</span>
+                        <strong>
+                            <%= audit.configuration.fileName %>
+                        </strong>
+                    </div>
 
-                    <p>
-                        <strong>Recommended Fix:</strong>
-                        <%= finding.recommendedFix %>
-                    </p>
+                    <div class="detail-item">
+                        <span>Version</span>
+                        <strong>
+                            <%= audit.configuration.configVersion %>
+                        </strong>
+                    </div>
 
-                <% } %>
+                    <div class="detail-item">
+                        <span>Status</span>
+                        <strong>
+                            <%= audit.configuration.status %>
+                        </strong>
+                    </div>
+
+                    <div class="detail-item">
+                        <span>Uploaded At</span>
+                        <strong>
+                            <%= audit.configuration.uploadedAt
+                                ? new Date(audit.configuration.uploadedAt).toLocaleString()
+                                : "N/A" %>
+                        </strong>
+                    </div>
+
+                </div>
+
+            <% } else { %>
+
+                <div class="empty-state">
+                    <p>Configuration information unavailable.</p>
+                </div>
+
+            <% } %>
+
+        </div>
+
+    </section>
+
+
+    <!-- SECURITY FINDINGS -->
+
+    <section class="content-section">
+
+        <div class="section-heading">
+            <div>
+                <h2>Security Findings</h2>
+                <p>Issues detected during this audit.</p>
+            </div>
+        </div>
+
+        <% if (!findings || findings.length === 0) { %>
+
+            <div class="empty-state">
+
+                <div class="empty-state-icon">✓</div>
+
+                <h3>No Security Findings</h3>
 
                 <p>
-                    <a href="/remediations/<%= finding._id %>">
-                        View Remediation
-                    </a>
+                    No security findings were detected for this audit.
                 </p>
 
             </div>
 
-            <hr>
+        <% } else { %>
 
-        <% }) %>
+            <div class="findings-list">
 
-    <% } %>
+                <% findings.forEach(finding => { %>
 
-    <h2>Actions</h2>
+                    <div class="finding-card">
 
-    <p>
-        <a href="/audits/<%= audit._id %>/reaudit">
-            Re-Audit Configuration
-        </a>
-    </p>
+                        <div class="finding-card-header">
 
-    <p>
-        <a href="/reports">
-            View Reports
-        </a>
-    </p>
+                            <div>
 
-    <p>
-        <a href="/audits">
-            Back to Audits
-        </a>
-    </p>
+                                <h3>
+                                    <%= finding.title %>
+                                </h3>
 
-    <p>
-        <a href="/dashboard">
-            Dashboard
-        </a>
-    </p>
+                                <div class="finding-meta">
+                                    <span class="badge">
+                                        <%= finding.category || "Other" %>
+                                    </span>
+
+                                    <span class="status-badge">
+                                        <%= finding.status %>
+                                    </span>
+                                </div>
+
+                            </div>
+
+                            <span class="severity-badge <%= String(finding.severity || '').toLowerCase() %>">
+                                <%= finding.severity %>
+                            </span>
+
+                        </div>
+
+                        <div class="detail-section">
+
+                            <h4>Description</h4>
+
+                            <p>
+                                <%= finding.description %>
+                            </p>
+
+                        </div>
+
+                        <% if (finding.detectedConfig) { %>
+
+                            <div class="detail-section">
+
+                                <h4>Detected Configuration</h4>
+
+                                <pre class="code-block"><%= finding.detectedConfig %></pre>
+
+                            </div>
+
+                        <% } %>
+
+                        <% if (finding.recommendedFix) { %>
+
+                            <div class="detail-section">
+
+                                <h4>Recommended Fix</h4>
+
+                                <p>
+                                    <%= finding.recommendedFix %>
+                                </p>
+
+                            </div>
+
+                        <% } %>
+
+                        <div class="finding-card-actions">
+
+                            <a
+                                href="/remediations/<%= finding._id %>"
+                                class="btn btn-primary btn-sm"
+                            >
+                                View Remediation
+                            </a>
+
+                            <a
+                                href="/findings/<%= finding._id %>"
+                                class="btn btn-secondary btn-sm"
+                            >
+                                Finding Details
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                <% }) %>
+
+            </div>
+
+        <% } %>
+
+    </section>
+
+
+    <!-- ACTIONS -->
+
+    <section class="content-section">
+
+        <div class="section-heading">
+            <div>
+                <h2>Actions</h2>
+            </div>
+        </div>
+
+        <div class="quick-actions-grid">
+
+            <a
+                href="/audits/<%= audit._id %>/reaudit"
+                class="quick-action-card"
+            >
+                <span class="quick-action-icon">🔄</span>
+
+                <span class="quick-action-content">
+                    <strong>Re-Audit Configuration</strong>
+                    <small>Run the security engine again</small>
+                </span>
+
+                <span class="quick-action-arrow">→</span>
+            </a>
+
+            <a href="/reports" class="quick-action-card">
+                <span class="quick-action-icon">📄</span>
+
+                <span class="quick-action-content">
+                    <strong>View Reports</strong>
+                    <small>Open security reports</small>
+                </span>
+
+                <span class="quick-action-arrow">→</span>
+            </a>
+
+            <a href="/audits" class="quick-action-card">
+                <span class="quick-action-icon">🔍</span>
+
+                <span class="quick-action-content">
+                    <strong>Back to Audits</strong>
+                    <small>View audit history</small>
+                </span>
+
+                <span class="quick-action-arrow">→</span>
+            </a>
+
+            <a href="/dashboard" class="quick-action-card">
+                <span class="quick-action-icon">⌂</span>
+
+                <span class="quick-action-content">
+                    <strong>Dashboard</strong>
+                    <small>Return to dashboard</small>
+                </span>
+
+                <span class="quick-action-arrow">→</span>
+            </a>
+
+        </div>
+
+    </section>
 
 </main>
 

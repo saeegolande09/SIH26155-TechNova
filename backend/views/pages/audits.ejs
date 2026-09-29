@@ -4,144 +4,256 @@
 
 <%- include("../partials/sidebar") %>
 
-<main>
+<main class="main-content">
 
-    <h1>NETSENTRY - Security Audits</h1>
+    <div class="page-header">
+        <div>
+            <h1 class="page-title">Security Audits</h1>
+            <p class="page-subtitle">
+                Review configuration audit history and compliance results.
+            </p>
+        </div>
+
+        <a href="/configurations/upload" class="btn btn-primary">
+            + New Audit
+        </a>
+    </div>
 
     <%- include("../partials/flash") %>
 
-    <hr>
+    <section class="content-section">
 
-    <h2>Audit History</h2>
+        <div class="card">
 
-    <% if (!audits || audits.length === 0) { %>
+            <div class="card-header">
+                <div>
+                    <h2>Audit History</h2>
+                    <p class="card-subtitle">
+                        Previous security audits performed by NETSENTRY.
+                    </p>
+                </div>
+            </div>
 
-        <p>No audits available.</p>
+            <% if (!audits || audits.length === 0) { %>
 
-    <% } else { %>
+                <div class="empty-state">
+                    <div class="empty-state-icon">🔍</div>
+                    <h3>No Audits Available</h3>
+                    <p>
+                        No security audits have been performed yet.
+                    </p>
 
-        <table border="1" cellpadding="10" cellspacing="0">
+                    <a
+                        href="/configurations/upload"
+                        class="btn btn-primary"
+                    >
+                        Upload Configuration
+                    </a>
+                </div>
 
-            <thead>
-                <tr>
-                    <th>Device</th>
-                    <th>Vendor</th>
-                    <th>Status</th>
-                    <th>Compliance Score</th>
-                    <th>Total Checks</th>
-                    <th>Failed Checks</th>
-                    <th>Critical</th>
-                    <th>High</th>
-                    <th>Medium</th>
-                    <th>Low</th>
-                    <th>Completed At</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
+            <% } else { %>
 
-            <tbody>
+                <div class="table-wrapper">
 
-                <% audits.forEach(audit => { %>
+                    <table class="data-table">
 
-                    <tr>
+                        <thead>
+                            <tr>
+                                <th>Device</th>
+                                <th>Vendor</th>
+                                <th>Status</th>
+                                <th>Score</th>
+                                <th>Checks</th>
+                                <th>Failed</th>
+                                <th>Critical</th>
+                                <th>High</th>
+                                <th>Medium</th>
+                                <th>Low</th>
+                                <th>Completed</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
 
-                        <td>
-                            <%= audit.device
-                                ? audit.device.deviceName
-                                : "Unknown Device" %>
-                        </td>
+                        <tbody>
 
-                        <td>
-                            <%= audit.vendor || "Unknown" %>
-                        </td>
+                            <% audits.forEach(audit => { %>
 
-                        <td>
-                            <%= audit.status %>
-                        </td>
+                                <tr>
 
-                        <td>
-                            <%= audit.complianceScore || 0 %>%
-                        </td>
+                                    <td>
+                                        <strong>
+                                            <%= audit.device
+                                                ? audit.device.deviceName
+                                                : "Unknown Device" %>
+                                        </strong>
+                                    </td>
 
-                        <td>
-                            <%= audit.totalChecks || 0 %>
-                        </td>
+                                    <td>
+                                        <span class="badge badge-info">
+                                            <%= audit.vendor || "Unknown" %>
+                                        </span>
+                                    </td>
 
-                        <td>
-                            <%= audit.failedChecks || 0 %>
-                        </td>
+                                    <td>
+                                        <span class="status-badge">
+                                            <%= audit.status %>
+                                        </span>
+                                    </td>
 
-                        <td>
-                            <%= audit.criticalFindings || 0 %>
-                        </td>
+                                    <td>
+                                        <strong class="text-primary">
+                                            <%= audit.complianceScore || 0 %>%
+                                        </strong>
+                                    </td>
 
-                        <td>
-                            <%= audit.highFindings || 0 %>
-                        </td>
+                                    <td>
+                                        <%= audit.totalChecks || 0 %>
+                                    </td>
 
-                        <td>
-                            <%= audit.mediumFindings || 0 %>
-                        </td>
+                                    <td>
+                                        <%= audit.failedChecks || 0 %>
+                                    </td>
 
-                        <td>
-                            <%= audit.lowFindings || 0 %>
-                        </td>
+                                    <td>
+                                        <span class="severity-badge critical">
+                                            <%= audit.criticalFindings || 0 %>
+                                        </span>
+                                    </td>
 
-                        <td>
-                            <%= audit.completedAt
-                                ? new Date(audit.completedAt).toLocaleString()
-                                : "N/A" %>
-                        </td>
+                                    <td>
+                                        <span class="severity-badge high">
+                                            <%= audit.highFindings || 0 %>
+                                        </span>
+                                    </td>
 
-                        <td>
-                            <a href="/audits/<%= audit._id %>">
-                                View Audit
-                            </a>
-                        </td>
+                                    <td>
+                                        <span class="severity-badge medium">
+                                            <%= audit.mediumFindings || 0 %>
+                                        </span>
+                                    </td>
 
-                    </tr>
+                                    <td>
+                                        <span class="severity-badge low">
+                                            <%= audit.lowFindings || 0 %>
+                                        </span>
+                                    </td>
 
-                <% }) %>
+                                    <td>
+                                        <%= audit.completedAt
+                                            ? new Date(audit.completedAt).toLocaleString()
+                                            : "N/A" %>
+                                    </td>
 
-            </tbody>
+                                    <td>
+                                        <a
+                                            href="/audits/<%= audit._id %>"
+                                            class="btn btn-secondary btn-sm"
+                                        >
+                                            View
+                                        </a>
+                                    </td>
 
-        </table>
+                                </tr>
 
-    <% } %>
+                            <% }) %>
 
-    <hr>
+                        </tbody>
 
-    <h2>Quick Actions</h2>
+                    </table>
 
-    <p>
-        <a href="/configurations/upload">
-            Upload Configuration
-        </a>
-    </p>
+                </div>
 
-    <p>
-        <a href="/findings">
-            View Security Findings
-        </a>
-    </p>
+            <% } %>
 
-    <p>
-        <a href="/security-posture">
-            Security Posture
-        </a>
-    </p>
+        </div>
 
-    <p>
-        <a href="/risk">
-            Risk Prioritization
-        </a>
-    </p>
+    </section>
 
-    <p>
-        <a href="/reports">
-            Reports
-        </a>
-    </p>
+
+    <section class="content-section">
+
+        <div class="section-heading">
+            <div>
+                <h2>Quick Actions</h2>
+                <p>Continue working with NETSENTRY.</p>
+            </div>
+        </div>
+
+        <div class="quick-actions-grid">
+
+            <a
+                href="/configurations/upload"
+                class="quick-action-card"
+            >
+                <span class="quick-action-icon">📤</span>
+
+                <span class="quick-action-content">
+                    <strong>Upload Configuration</strong>
+                    <small>Start a new security audit</small>
+                </span>
+
+                <span class="quick-action-arrow">→</span>
+            </a>
+
+            <a
+                href="/findings"
+                class="quick-action-card"
+            >
+                <span class="quick-action-icon">🚨</span>
+
+                <span class="quick-action-content">
+                    <strong>Security Findings</strong>
+                    <small>Review detected security issues</small>
+                </span>
+
+                <span class="quick-action-arrow">→</span>
+            </a>
+
+            <a
+                href="/security-posture"
+                class="quick-action-card"
+            >
+                <span class="quick-action-icon">🛡️</span>
+
+                <span class="quick-action-content">
+                    <strong>Security Posture</strong>
+                    <small>View overall security posture</small>
+                </span>
+
+                <span class="quick-action-arrow">→</span>
+            </a>
+
+            <a
+                href="/risk"
+                class="quick-action-card"
+            >
+                <span class="quick-action-icon">⚠️</span>
+
+                <span class="quick-action-content">
+                    <strong>Risk Prioritization</strong>
+                    <small>Analyze security risks</small>
+                </span>
+
+                <span class="quick-action-arrow">→</span>
+            </a>
+
+            <a
+                href="/reports"
+                class="quick-action-card"
+            >
+                <span class="quick-action-icon">📄</span>
+
+                <span class="quick-action-content">
+                    <strong>Reports</strong>
+                    <small>View generated security reports</small>
+                </span>
+
+                <span class="quick-action-arrow">→</span>
+            </a>
+
+        </div>
+
+    </section>
 
 </main>
 
