@@ -12682,3 +12682,89 @@ body > main.netsentry-home {
         border-right: none !important;
     }
 }
+/* =========================================================
+   FINAL PHONE BORDER FIX
+   ONLY MOBILE — PC/DESKTOP UNTOUCHED
+   ========================================================= */
+
+@media screen and (max-width: 768px) {
+
+    html,
+    body {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+
+        margin: 0 !important;
+        padding: 0 !important;
+
+        border: 0 !important;
+        outline: 0 !important;
+
+        overflow-x: hidden !important;
+    }
+
+
+    /* Remove vertical page/container borders */
+
+    body > * {
+        border-left: 0 !important;
+        border-right: 0 !important;
+        outline-left: 0 !important;
+        outline-right: 0 !important;
+    }
+
+
+    /* Main landing content */
+
+    main {
+        width: 100% !important;
+        max-width: 100% !important;
+
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+
+        box-sizing: border-box !important;
+
+        border-left: 0 !important;
+        border-right: 0 !important;
+
+        outline: 0 !important;
+    }
+
+
+    /* Sections */
+
+    section,
+    header,
+    footer,
+    .container,
+    .page-container,
+    .content,
+    .content-wrapper,
+    .page-content {
+        max-width: 100% !important;
+
+        box-sizing: border-box !important;
+
+        border-left: 0 !important;
+        border-right: 0 !important;
+
+        outline: 0 !important;
+    }
+
+
+    /* Remove pseudo-element vertical lines */
+
+    body::before,
+    body::after,
+    main::before,
+    main::after,
+    section::before,
+    section::after {
+        border-left: 0 !important;
+        border-right: 0 !important;
+
+        outline: 0 !important;
+    }
+}
