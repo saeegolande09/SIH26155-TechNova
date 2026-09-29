@@ -8307,3 +8307,4327 @@ iframe {
         font-size: 14px;
     }
 }
+
+/* =========================================================
+   NETSENTRY HOME / LANDING PAGE
+   ========================================================= */
+
+.netsentry-home {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    background: #f8fafc;
+    color: #0f172a;
+    overflow: hidden;
+}
+
+.netsentry-home * {
+    box-sizing: border-box;
+}
+
+/* ---------- GLOBAL ---------- */
+
+.home-container {
+    width: min(1180px, 92%);
+    margin: 0 auto;
+}
+
+.home-section {
+    padding: 90px 0;
+}
+
+.home-section-header {
+    max-width: 760px;
+    margin: 0 auto 55px;
+    text-align: center;
+}
+
+.home-section-label {
+    display: inline-block;
+    margin-bottom: 12px;
+    padding: 7px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 999px;
+    background: #ffffff;
+    color: #2563eb;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.home-section-header h2 {
+    margin: 0 0 15px;
+    font-size: 38px;
+    line-height: 1.15;
+    font-weight: 800;
+    color: #0f172a;
+}
+
+.home-section-header p {
+    margin: 0;
+    color: #64748b;
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.home-hero {
+    position: relative;
+    min-height: 680px;
+    padding: 90px 0 75px;
+    background:
+        radial-gradient(circle at 80% 20%, rgba(37, 99, 235, 0.10), transparent 30%),
+        radial-gradient(circle at 10% 80%, rgba(14, 165, 233, 0.08), transparent 30%),
+        #ffffff;
+}
+
+.home-hero-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    align-items: center;
+    gap: 70px;
+}
+
+.home-hero-content {
+    max-width: 650px;
+}
+
+.home-hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 22px;
+    padding: 8px 15px;
+    border: 1px solid #bfdbfe;
+    border-radius: 999px;
+    background: #eff6ff;
+    color: #2563eb;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.home-hero-badge::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #2563eb;
+}
+
+.home-hero h1 {
+    margin: 0 0 22px;
+    font-size: clamp(44px, 5vw, 68px);
+    line-height: 1.02;
+    letter-spacing: -2px;
+    font-weight: 900;
+    color: #0f172a;
+}
+
+.home-hero h1 span {
+    color: #2563eb;
+}
+
+.home-hero-description {
+    max-width: 610px;
+    margin: 0 0 32px;
+    color: #64748b;
+    font-size: 18px;
+    line-height: 1.75;
+}
+
+.home-hero-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+
+.home-btn-primary,
+.home-btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 0 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 700;
+    transition: 0.2s ease;
+}
+
+.home-btn-primary {
+    background: #2563eb;
+    color: #ffffff;
+    border: 1px solid #2563eb;
+}
+
+.home-btn-primary:hover {
+    background: #1d4ed8;
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+
+.home-btn-secondary {
+    background: #ffffff;
+    color: #0f172a;
+    border: 1px solid #cbd5e1;
+}
+
+.home-btn-secondary:hover {
+    background: #f8fafc;
+    border-color: #94a3b8;
+    transform: translateY(-2px);
+}
+
+
+/* ---------- HERO TERMINAL ---------- */
+
+.home-hero-visual {
+    width: 100%;
+}
+
+.home-terminal {
+    width: 100%;
+    overflow: hidden;
+    border: 1px solid #cbd5e1;
+    border-radius: 14px;
+    background: #0f172a;
+    box-shadow: 0 25px 60px rgba(15, 23, 42, 0.18);
+}
+
+.home-terminal-header {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    height: 45px;
+    padding: 0 16px;
+    background: #1e293b;
+    border-bottom: 1px solid #334155;
+}
+
+.home-terminal-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #64748b;
+}
+
+.home-terminal-title {
+    margin-left: 8px;
+    color: #94a3b8;
+    font-size: 12px;
+    font-family: monospace;
+}
+
+.home-terminal-body {
+    padding: 25px;
+    font-family: Consolas, Monaco, monospace;
+    font-size: 13px;
+    line-height: 2;
+}
+
+.home-terminal-line {
+    color: #94a3b8;
+}
+
+.home-terminal-green {
+    color: #4ade80;
+}
+
+.home-terminal-blue {
+    color: #60a5fa;
+}
+
+.home-terminal-yellow {
+    color: #facc15;
+}
+
+.home-terminal-white {
+    color: #f8fafc;
+}
+
+.home-terminal-progress {
+    height: 7px;
+    margin: 12px 0 18px;
+    overflow: hidden;
+    border-radius: 10px;
+    background: #334155;
+}
+
+.home-terminal-progress span {
+    display: block;
+    width: 82%;
+    height: 100%;
+    border-radius: inherit;
+    background: #2563eb;
+}
+
+
+/* ---------- VENDOR STRIP ---------- */
+
+.home-vendor-strip {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin-top: 38px;
+}
+
+.home-vendor-strip span {
+    color: #94a3b8;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.home-vendor-item {
+    padding: 8px 14px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    background: #ffffff;
+    color: #334155 !important;
+    font-size: 12px !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+}
+
+
+/* =========================================================
+   ABOUT
+   ========================================================= */
+
+.home-about {
+    background: #ffffff;
+}
+
+.home-about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 70px;
+    align-items: center;
+}
+
+.home-about-content h2 {
+    margin: 0 0 20px;
+    font-size: 38px;
+    line-height: 1.15;
+}
+
+.home-about-content p {
+    margin: 0 0 18px;
+    color: #64748b;
+    line-height: 1.8;
+    font-size: 16px;
+}
+
+.home-about-points {
+    display: grid;
+    gap: 13px;
+    margin-top: 28px;
+}
+
+.home-about-point {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.home-about-point-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 30px;
+    width: 30px;
+    height: 30px;
+    border-radius: 6px;
+    background: #eff6ff;
+    color: #2563eb;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.home-about-point strong {
+    display: block;
+    margin-bottom: 3px;
+    color: #0f172a;
+}
+
+.home-about-point p {
+    margin: 0;
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   PROBLEM SECTION
+   ========================================================= */
+
+.home-problem {
+    background: #f8fafc;
+}
+
+.home-problem-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+}
+
+.home-problem-card {
+    padding: 28px;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    background: #ffffff;
+}
+
+.home-problem-number {
+    margin-bottom: 15px;
+    color: #2563eb;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.home-problem-card h3 {
+    margin: 0 0 10px;
+    font-size: 19px;
+}
+
+.home-problem-card p {
+    margin: 0;
+    color: #64748b;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   FEATURES
+   ========================================================= */
+
+.home-features {
+    background: #ffffff;
+}
+
+.home-feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.home-feature-card {
+    position: relative;
+    min-height: 220px;
+    padding: 27px;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    background: #ffffff;
+    transition: 0.25s ease;
+}
+
+.home-feature-card:hover {
+    border-color: #93c5fd;
+    box-shadow: 0 14px 35px rgba(15, 23, 42, 0.08);
+    transform: translateY(-4px);
+}
+
+.home-feature-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    margin-bottom: 20px;
+    border-radius: 9px;
+    background: #eff6ff;
+    color: #2563eb;
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.home-feature-card h3 {
+    margin: 0 0 10px;
+    font-size: 17px;
+    line-height: 1.35;
+}
+
+.home-feature-card p {
+    margin: 0;
+    color: #64748b;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   SECURITY CHECKS
+   ========================================================= */
+
+.home-security {
+    background: #f8fafc;
+}
+
+.home-security-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+.home-security-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 65px;
+    padding: 15px;
+    border: 1px solid #e2e8f0;
+    border-radius: 9px;
+    background: #ffffff;
+}
+
+.home-security-check {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 28px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #eff6ff;
+    color: #2563eb;
+    font-size: 12px;
+    font-weight: 900;
+}
+
+.home-security-item span:last-child {
+    color: #334155;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   SUPPORTED VENDORS
+   ========================================================= */
+
+.home-vendors {
+    background: #ffffff;
+}
+
+.home-vendor-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.home-vendor-card {
+    padding: 40px 30px;
+    text-align: center;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    background: #ffffff;
+    transition: 0.25s ease;
+}
+
+.home-vendor-card:hover {
+    border-color: #93c5fd;
+    transform: translateY(-4px);
+    box-shadow: 0 15px 35px rgba(15, 23, 42, 0.08);
+}
+
+.home-vendor-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 20px;
+    border-radius: 12px;
+    background: #f1f5f9;
+    color: #2563eb;
+    font-size: 24px;
+    font-weight: 900;
+}
+
+.home-vendor-card h3 {
+    margin: 0 0 8px;
+    font-size: 20px;
+}
+
+.home-vendor-card p {
+    margin: 0;
+    color: #64748b;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   HOW IT WORKS
+   ========================================================= */
+
+.home-workflow {
+    background: #f8fafc;
+}
+
+.home-workflow-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+    align-items: start;
+}
+
+.home-workflow-step {
+    position: relative;
+    text-align: center;
+}
+
+.home-workflow-step:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 24px;
+    left: calc(50% + 28px);
+    width: calc(100% - 55px);
+    height: 1px;
+    background: #cbd5e1;
+}
+
+.home-workflow-number {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 16px;
+    border: 1px solid #bfdbfe;
+    border-radius: 50%;
+    background: #eff6ff;
+    color: #2563eb;
+    font-weight: 800;
+}
+
+.home-workflow-step h3 {
+    margin: 0 0 7px;
+    font-size: 14px;
+}
+
+.home-workflow-step p {
+    margin: 0;
+    color: #64748b;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   AI SECTION
+   ========================================================= */
+
+.home-ai {
+    background: #0f172a;
+    color: #ffffff;
+}
+
+.home-ai .home-section-label {
+    border-color: #334155;
+    background: #1e293b;
+    color: #60a5fa;
+}
+
+.home-ai .home-section-header h2 {
+    color: #ffffff;
+}
+
+.home-ai .home-section-header p {
+    color: #94a3b8;
+}
+
+.home-ai-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: center;
+}
+
+.home-ai-content h3 {
+    margin: 0 0 18px;
+    font-size: 30px;
+}
+
+.home-ai-content p {
+    margin: 0 0 18px;
+    color: #94a3b8;
+    line-height: 1.8;
+}
+
+.home-ai-list {
+    display: grid;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.home-ai-list-item {
+    display: flex;
+    gap: 10px;
+    color: #cbd5e1;
+    font-size: 14px;
+}
+
+.home-ai-list-item::before {
+    content: "✓";
+    color: #60a5fa;
+    font-weight: 800;
+}
+
+.home-ai-code {
+    padding: 25px;
+    border: 1px solid #334155;
+    border-radius: 12px;
+    background: #020617;
+    font-family: Consolas, Monaco, monospace;
+}
+
+.home-ai-code-header {
+    margin-bottom: 18px;
+    color: #64748b;
+    font-size: 12px;
+}
+
+.home-ai-code-line {
+    color: #94a3b8;
+    font-size: 13px;
+    line-height: 2;
+}
+
+.home-ai-code-danger {
+    color: #f87171;
+}
+
+.home-ai-code-success {
+    color: #4ade80;
+}
+
+.home-ai-confidence {
+    margin-top: 20px;
+    padding-top: 18px;
+    border-top: 1px solid #1e293b;
+}
+
+.home-ai-confidence-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    color: #94a3b8;
+    font-size: 12px;
+}
+
+.home-ai-confidence-bar {
+    height: 7px;
+    overflow: hidden;
+    border-radius: 10px;
+    background: #1e293b;
+}
+
+.home-ai-confidence-bar span {
+    display: block;
+    width: 94%;
+    height: 100%;
+    border-radius: inherit;
+    background: #4ade80;
+}
+
+
+/* =========================================================
+   COMPLIANCE
+   ========================================================= */
+
+.home-compliance {
+    background: #ffffff;
+}
+
+.home-compliance-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+.home-compliance-card {
+    padding: 30px;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    background: #ffffff;
+}
+
+.home-compliance-card h3 {
+    margin: 0 0 12px;
+    font-size: 20px;
+}
+
+.home-compliance-card p {
+    margin: 0;
+    color: #64748b;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.home-compliance-bar {
+    height: 10px;
+    margin-top: 22px;
+    overflow: hidden;
+    border-radius: 10px;
+    background: #e2e8f0;
+}
+
+.home-compliance-bar span {
+    display: block;
+    width: 78%;
+    height: 100%;
+    border-radius: inherit;
+    background: #2563eb;
+}
+
+
+/* =========================================================
+   REMEDIATION
+   ========================================================= */
+
+.home-remediation {
+    background: #f8fafc;
+}
+
+.home-remediation-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+}
+
+.home-remediation-card {
+    padding: 28px 22px;
+    text-align: center;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    background: #ffffff;
+}
+
+.home-remediation-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    margin: 0 auto 18px;
+    border-radius: 50%;
+    background: #eff6ff;
+    color: #2563eb;
+    font-weight: 900;
+}
+
+.home-remediation-card h3 {
+    margin: 0 0 8px;
+    font-size: 16px;
+}
+
+.home-remediation-card p {
+    margin: 0;
+    color: #64748b;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   CTA
+   ========================================================= */
+
+.home-cta {
+    padding: 90px 0;
+    background: #ffffff;
+}
+
+.home-cta-box {
+    padding: 65px 40px;
+    text-align: center;
+    border: 1px solid #bfdbfe;
+    border-radius: 16px;
+    background:
+        radial-gradient(circle at 50% 0%, rgba(37, 99, 235, 0.12), transparent 55%),
+        #eff6ff;
+}
+
+.home-cta-box h2 {
+    margin: 0 0 15px;
+    color: #0f172a;
+    font-size: 38px;
+}
+
+.home-cta-box p {
+    max-width: 650px;
+    margin: 0 auto 28px;
+    color: #64748b;
+    line-height: 1.7;
+}
+
+.home-cta-buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+
+/* =========================================================
+   HOME FOOTER
+   ========================================================= */
+
+.home-footer {
+    padding: 28px 0;
+    border-top: 1px solid #e2e8f0;
+    background: #ffffff;
+}
+
+.home-footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.home-footer-brand {
+    color: #0f172a;
+    font-size: 18px;
+    font-weight: 900;
+}
+
+.home-footer-brand span {
+    color: #2563eb;
+}
+
+.home-footer p {
+    margin: 0;
+    color: #94a3b8;
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+    .home-hero-grid {
+        gap: 40px;
+    }
+
+    .home-feature-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .home-security-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .home-workflow-grid {
+        grid-template-columns: repeat(4, 1fr);
+        row-gap: 35px;
+    }
+
+    .home-workflow-step:nth-child(4)::after {
+        display: none;
+    }
+
+    .home-remediation-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+@media (max-width: 900px) {
+
+    .home-section {
+        padding: 70px 0;
+    }
+
+    .home-hero {
+        min-height: auto;
+        padding: 65px 0;
+    }
+
+    .home-hero-grid,
+    .home-about-grid,
+    .home-ai-grid,
+    .home-compliance-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .home-hero-content {
+        max-width: 100%;
+        text-align: center;
+    }
+
+    .home-hero-description {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .home-hero-buttons {
+        justify-content: center;
+    }
+
+    .home-vendor-strip {
+        justify-content: center;
+    }
+
+    .home-hero-visual {
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    .home-problem-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .home-vendor-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .home-workflow-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .home-workflow-step::after {
+        display: none !important;
+    }
+}
+
+
+@media (max-width: 700px) {
+
+    .home-section {
+        padding: 55px 0;
+    }
+
+    .home-container {
+        width: 90%;
+    }
+
+    .home-section-header {
+        margin-bottom: 35px;
+    }
+
+    .home-section-header h2 {
+        font-size: 29px;
+    }
+
+    .home-section-header p {
+        font-size: 14px;
+    }
+
+    .home-hero {
+        padding: 45px 0 55px;
+    }
+
+    .home-hero h1 {
+        font-size: 42px;
+        letter-spacing: -1.5px;
+    }
+
+    .home-hero-description {
+        font-size: 15px;
+    }
+
+    .home-hero-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .home-btn-primary,
+    .home-btn-secondary {
+        width: 100%;
+    }
+
+    .home-terminal-body {
+        padding: 18px;
+        font-size: 11px;
+    }
+
+    .home-feature-grid,
+    .home-security-grid,
+    .home-vendor-grid,
+    .home-remediation-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .home-feature-card {
+        min-height: auto;
+    }
+
+    .home-workflow-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+    .home-ai-content h3 {
+        font-size: 25px;
+    }
+
+    .home-ai-code {
+        padding: 18px;
+    }
+
+    .home-cta {
+        padding: 60px 0;
+    }
+
+    .home-cta-box {
+        padding: 45px 22px;
+    }
+
+    .home-cta-box h2 {
+        font-size: 29px;
+    }
+
+    .home-cta-buttons {
+        flex-direction: column;
+    }
+
+    .home-footer-inner {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+
+@media (max-width: 450px) {
+
+    .home-hero h1 {
+        font-size: 36px;
+    }
+
+    .home-terminal {
+        border-radius: 9px;
+    }
+
+    .home-terminal-body {
+        font-size: 10px;
+    }
+
+    .home-vendor-strip {
+        gap: 7px;
+    }
+
+    .home-vendor-item {
+        padding: 7px 10px;
+    }
+
+    .home-about-content h2 {
+        font-size: 29px;
+    }
+
+    .home-feature-card,
+    .home-problem-card,
+    .home-compliance-card {
+        padding: 22px;
+    }
+}
+
+/* =========================================================
+   NETSENTRY HOME PAGE - FINAL OVERRIDE
+   ========================================================= */
+
+/* HOME MUST NOT USE DASHBOARD LAYOUT */
+body > main.netsentry-home {
+    display: block !important;
+
+    width: 100% !important;
+    max-width: none !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    min-height: 100vh;
+
+    box-sizing: border-box;
+    overflow-x: hidden;
+
+    background: #f8fafc;
+}
+
+/* Remove any global main styling */
+.netsentry-home {
+    position: relative;
+    left: 0 !important;
+    right: auto !important;
+
+    width: 100% !important;
+    max-width: none !important;
+
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-top: 0 !important;
+}
+
+/* HOME CONTAINER */
+.netsentry-home .home-container {
+    width: min(1180px, 92%) !important;
+    max-width: 1180px !important;
+
+    margin-left: auto !important;
+    margin-right: auto !important;
+
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+/* HERO */
+.netsentry-home .home-hero {
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 90px 0 75px !important;
+
+    min-height: 680px;
+
+    background:
+        radial-gradient(
+            circle at 80% 20%,
+            rgba(37, 99, 235, 0.10),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 10% 80%,
+            rgba(14, 165, 233, 0.08),
+            transparent 30%
+        ),
+        #ffffff;
+}
+
+/* HERO GRID */
+.netsentry-home .home-hero-grid {
+    display: grid !important;
+
+    grid-template-columns:
+        minmax(0, 1.05fr)
+        minmax(0, 0.95fr) !important;
+
+    align-items: center;
+
+    gap: 70px;
+
+    width: 100%;
+}
+
+/* HERO CONTENT */
+.netsentry-home .home-hero-content {
+    width: 100%;
+    max-width: 650px;
+
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* HERO TITLE */
+.netsentry-home .home-hero h1 {
+    margin: 0 0 22px !important;
+
+    font-size: clamp(44px, 5vw, 68px) !important;
+    line-height: 1.02 !important;
+
+    font-weight: 900;
+
+    color: #0f172a;
+}
+
+/* HERO DESCRIPTION */
+.netsentry-home .home-hero-description {
+    max-width: 610px;
+
+    margin: 0 0 32px !important;
+
+    color: #64748b;
+
+    font-size: 18px;
+    line-height: 1.75;
+}
+
+/* HERO VISUAL */
+.netsentry-home .home-hero-visual {
+    width: 100%;
+    max-width: none;
+
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* TERMINAL */
+.netsentry-home .home-terminal {
+    width: 100%;
+
+    margin: 0 !important;
+
+    overflow: hidden;
+
+    border: 1px solid #cbd5e1;
+    border-radius: 14px;
+
+    background: #0f172a;
+
+    box-shadow:
+        0 25px 60px rgba(15, 23, 42, 0.18);
+}
+
+/* VENDOR STRIP */
+.netsentry-home .home-vendor-strip {
+    display: flex !important;
+
+    flex-wrap: wrap;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-top: 38px !important;
+}
+
+
+/* =========================================================
+   SECTIONS
+   ========================================================= */
+
+.netsentry-home .home-section {
+    display: block !important;
+
+    width: 100% !important;
+
+    margin: 0 !important;
+
+    padding: 90px 0 !important;
+
+    box-sizing: border-box;
+}
+
+.netsentry-home .home-section-header {
+    width: 100%;
+    max-width: 760px;
+
+    margin: 0 auto 55px !important;
+
+    padding: 0 !important;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   ABOUT
+   ========================================================= */
+
+.netsentry-home .home-about {
+    background: #ffffff;
+}
+
+.netsentry-home .home-about-grid {
+    display: grid !important;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(0, 1fr) !important;
+
+    gap: 70px;
+
+    align-items: center;
+
+    width: 100%;
+}
+
+
+/* =========================================================
+   PROBLEM
+   ========================================================= */
+
+.netsentry-home .home-problem {
+    background: #f8fafc;
+}
+
+.netsentry-home .home-problem-grid {
+    display: grid !important;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr)) !important;
+
+    gap: 22px;
+
+    width: 100%;
+}
+
+
+/* =========================================================
+   FEATURES
+   ========================================================= */
+
+.netsentry-home .home-features {
+    background: #ffffff;
+}
+
+.netsentry-home .home-feature-grid {
+    display: grid !important;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr)) !important;
+
+    gap: 20px;
+
+    width: 100%;
+}
+
+.netsentry-home .home-feature-card {
+    width: 100%;
+    min-width: 0;
+
+    margin: 0 !important;
+}
+
+
+/* =========================================================
+   SECURITY CHECKS
+   ========================================================= */
+
+.netsentry-home .home-security {
+    background: #f8fafc;
+}
+
+.netsentry-home .home-security-grid {
+    display: grid !important;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr)) !important;
+
+    gap: 15px;
+
+    width: 100%;
+}
+
+
+/* =========================================================
+   VENDORS
+   ========================================================= */
+
+.netsentry-home .home-vendor-grid {
+    display: grid !important;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr)) !important;
+
+    gap: 24px;
+
+    width: 100%;
+}
+
+
+/* =========================================================
+   WORKFLOW
+   ========================================================= */
+
+.netsentry-home .home-workflow-grid {
+    display: grid !important;
+
+    grid-template-columns:
+        repeat(7, minmax(0, 1fr)) !important;
+
+    gap: 10px;
+
+    width: 100%;
+}
+
+
+/* =========================================================
+   AI
+   ========================================================= */
+
+.netsentry-home .home-ai {
+    background: #0f172a;
+}
+
+.netsentry-home .home-ai-grid {
+    display: grid !important;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(0, 1fr) !important;
+
+    gap: 50px;
+
+    align-items: center;
+
+    width: 100%;
+}
+
+
+/* =========================================================
+   COMPLIANCE
+   ========================================================= */
+
+.netsentry-home .home-compliance-grid {
+    display: grid !important;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr)) !important;
+
+    gap: 25px;
+
+    width: 100%;
+}
+
+
+/* =========================================================
+   REMEDIATION
+   ========================================================= */
+
+.netsentry-home .home-remediation-grid {
+    display: grid !important;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr)) !important;
+
+    gap: 18px;
+
+    width: 100%;
+}
+
+
+/* =========================================================
+   CTA
+   ========================================================= */
+
+.netsentry-home .home-cta {
+    width: 100% !important;
+
+    margin: 0 !important;
+
+    padding: 90px 0 !important;
+
+    background: #ffffff;
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.netsentry-home .home-footer {
+    width: 100%;
+
+    margin: 0 !important;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+    .netsentry-home .home-feature-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr)) !important;
+    }
+
+    .netsentry-home .home-security-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr)) !important;
+    }
+
+    .netsentry-home .home-workflow-grid {
+        grid-template-columns:
+            repeat(4, minmax(0, 1fr)) !important;
+    }
+
+    .netsentry-home .home-remediation-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr)) !important;
+    }
+}
+
+
+@media (max-width: 900px) {
+
+    .netsentry-home .home-hero-grid,
+    .netsentry-home .home-about-grid,
+    .netsentry-home .home-ai-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .netsentry-home .home-problem-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .netsentry-home .home-vendor-grid {
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr)) !important;
+    }
+
+    .netsentry-home .home-workflow-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr)) !important;
+    }
+
+    .netsentry-home .home-compliance-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+
+@media (max-width: 700px) {
+
+    .netsentry-home .home-container {
+        width: 90% !important;
+    }
+
+    .netsentry-home .home-hero {
+        padding: 55px 0 !important;
+        min-height: auto;
+    }
+
+    .netsentry-home .home-hero-grid {
+        gap: 40px;
+    }
+
+    .netsentry-home .home-feature-grid,
+    .netsentry-home .home-security-grid,
+    .netsentry-home .home-vendor-grid,
+    .netsentry-home .home-remediation-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .netsentry-home .home-workflow-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .netsentry-home .home-section {
+        padding: 60px 0 !important;
+    }
+
+    .netsentry-home .home-hero h1 {
+        font-size: 42px !important;
+    }
+
+    .netsentry-home .home-hero-buttons {
+        flex-direction: column;
+    }
+
+    .netsentry-home .home-btn-primary,
+    .netsentry-home .home-btn-secondary {
+        width: 100%;
+    }
+}
+/* =========================================================
+   NETSENTRY AI - HOME PAGE
+   FINAL CSS FOR CURRENT home.ejs
+   ========================================================= */
+
+.netsentry-home {
+    width: 100%;
+    min-height: 100vh;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #f8fafc;
+    color: #0f172a;
+    overflow-x: hidden;
+}
+
+.netsentry-home *,
+.netsentry-home *::before,
+.netsentry-home *::after {
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   CONTAINER / GLOBAL
+   ========================================================= */
+
+.netsentry-home a {
+    text-decoration: none;
+}
+
+.netsentry-home p {
+    margin-top: 0;
+}
+
+.netsentry-home h1,
+.netsentry-home h2,
+.netsentry-home h3 {
+    color: #0f172a;
+}
+
+.netsentry-home .section-eyebrow {
+    display: inline-block;
+    margin-bottom: 12px;
+    color: #2563eb;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.netsentry-home .home-hero {
+    width: 100%;
+    min-height: 680px;
+    margin: 0;
+    padding: 90px 7% 80px;
+
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center;
+    gap: 70px;
+
+    background:
+        radial-gradient(
+            circle at 15% 50%,
+            rgba(14, 165, 233, 0.10),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 85% 20%,
+            rgba(37, 99, 235, 0.10),
+            transparent 35%
+        ),
+        #ffffff;
+}
+
+
+/* HERO CONTENT */
+
+.netsentry-home .home-hero-content {
+    width: 100%;
+    max-width: 680px;
+}
+
+.netsentry-home .home-badge {
+    display: inline-flex;
+    align-items: center;
+
+    margin-bottom: 22px;
+    padding: 8px 15px;
+
+    border: 1px solid #bfdbfe;
+    border-radius: 999px;
+
+    background: #eff6ff;
+    color: #2563eb;
+
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+}
+
+
+.netsentry-home .home-hero h1 {
+    margin: 0 0 24px;
+
+    font-size: clamp(44px, 5vw, 70px);
+    line-height: 1.03;
+    letter-spacing: -2px;
+    font-weight: 900;
+
+    color: #0f172a;
+}
+
+
+.netsentry-home .home-hero h1 span {
+    display: block;
+    color: #2563eb;
+}
+
+
+.netsentry-home .home-hero-description {
+    max-width: 620px;
+
+    margin: 0 0 32px;
+
+    color: #64748b;
+
+    font-size: 17px;
+    line-height: 1.75;
+}
+
+
+/* HERO BUTTONS */
+
+.netsentry-home .home-hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+
+    margin-bottom: 35px;
+}
+
+
+/* Vendor strip */
+
+.netsentry-home .home-vendor-strip {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    color: #94a3b8;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+
+.netsentry-home .home-vendor-strip strong {
+    padding: 7px 12px;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+
+    background: #ffffff;
+
+    color: #334155;
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   HERO TERMINAL
+   ========================================================= */
+
+.netsentry-home .home-hero-visual {
+    width: 100%;
+    max-width: 620px;
+    margin-left: auto;
+}
+
+
+.netsentry-home .security-terminal {
+    width: 100%;
+
+    overflow: hidden;
+
+    border: 1px solid #334155;
+    border-radius: 16px;
+
+    background: #0f172a;
+
+    box-shadow:
+        0 25px 70px rgba(15, 23, 42, 0.20);
+}
+
+
+.netsentry-home .terminal-header {
+    display: flex;
+    align-items: center;
+
+    min-height: 48px;
+    padding: 0 18px;
+
+    border-bottom: 1px solid #334155;
+
+    background: #1e293b;
+
+    color: #94a3b8;
+
+    font-family: Consolas, Monaco, monospace;
+    font-size: 12px;
+}
+
+
+.netsentry-home .terminal-dots {
+    display: flex;
+    gap: 7px;
+    margin-right: 15px;
+}
+
+
+.netsentry-home .terminal-dots span {
+    width: 9px;
+    height: 9px;
+
+    border-radius: 50%;
+
+    background: #64748b;
+}
+
+
+.netsentry-home .terminal-body {
+    padding: 28px;
+
+    font-family: Consolas, Monaco, monospace;
+    font-size: 14px;
+    line-height: 2;
+}
+
+
+.netsentry-home .terminal-line {
+    color: #cbd5e1;
+}
+
+
+.netsentry-home .terminal-green {
+    color: #4ade80;
+}
+
+
+.netsentry-home .terminal-yellow {
+    color: #facc15;
+}
+
+
+.netsentry-home .terminal-red {
+    color: #f87171;
+}
+
+
+.netsentry-home .terminal-blue {
+    color: #60a5fa;
+}
+
+
+.netsentry-home .terminal-progress {
+    margin-top: 20px;
+}
+
+
+.netsentry-home .terminal-progress-bar {
+    width: 100%;
+    height: 8px;
+
+    overflow: hidden;
+
+    border-radius: 10px;
+
+    background: #334155;
+}
+
+
+.netsentry-home .terminal-progress-bar span {
+    display: block;
+
+    width: 87%;
+    height: 100%;
+
+    border-radius: inherit;
+
+    background: #2563eb;
+}
+
+
+.netsentry-home .terminal-progress small {
+    display: block;
+    margin-top: 8px;
+
+    color: #94a3b8;
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   COMMON SECTION
+   ========================================================= */
+
+.netsentry-home .home-section {
+    width: 100%;
+    margin: 0;
+    padding: 90px 7%;
+}
+
+
+.netsentry-home .home-section-heading {
+    max-width: 800px;
+    margin: 0 auto 50px;
+
+    text-align: center;
+}
+
+
+.netsentry-home .home-section-heading h2 {
+    margin: 0 0 15px;
+
+    font-size: 38px;
+    line-height: 1.15;
+    font-weight: 800;
+
+    color: #0f172a;
+}
+
+
+.netsentry-home .home-section-heading p {
+    margin: 0;
+
+    color: #64748b;
+
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   ABOUT
+   ========================================================= */
+
+.netsentry-home .home-about {
+    background: #ffffff;
+}
+
+
+.netsentry-home .home-about-grid {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(0, 1fr);
+
+    gap: 70px;
+
+    align-items: center;
+}
+
+
+.netsentry-home .home-about-content p {
+    margin-bottom: 20px;
+
+    color: #64748b;
+
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+
+.netsentry-home .home-about-card {
+    padding: 40px;
+
+    border: 1px solid #dbeafe;
+    border-radius: 16px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #eff6ff,
+            #ffffff
+        );
+
+    box-shadow:
+        0 15px 40px rgba(37, 99, 235, 0.07);
+}
+
+
+.netsentry-home .about-card-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 54px;
+    height: 54px;
+
+    margin-bottom: 20px;
+
+    border-radius: 12px;
+
+    background: #2563eb;
+
+    font-size: 24px;
+}
+
+
+.netsentry-home .home-about-card h3 {
+    margin: 0 0 12px;
+
+    font-size: 25px;
+}
+
+
+.netsentry-home .home-about-card p {
+    margin: 0;
+
+    color: #64748b;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   PROBLEM
+   ========================================================= */
+
+.netsentry-home .home-problem {
+    background: #f8fafc;
+}
+
+
+.netsentry-home .home-problem-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 20px;
+}
+
+
+.netsentry-home .problem-card {
+    min-height: 230px;
+
+    padding: 28px;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+
+    background: #ffffff;
+
+    transition: 0.25s ease;
+}
+
+
+.netsentry-home .problem-card:hover {
+    transform: translateY(-4px);
+
+    border-color: #93c5fd;
+
+    box-shadow:
+        0 15px 35px rgba(15, 23, 42, 0.07);
+}
+
+
+.netsentry-home .problem-icon {
+    margin-bottom: 18px;
+
+    font-size: 25px;
+}
+
+
+.netsentry-home .problem-card h3 {
+    margin: 0 0 10px;
+
+    font-size: 18px;
+}
+
+
+.netsentry-home .problem-card p {
+    margin: 0;
+
+    color: #64748b;
+
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   FEATURES
+   ========================================================= */
+
+.netsentry-home .home-features {
+    background: #ffffff;
+}
+
+
+.netsentry-home .feature-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 20px;
+}
+
+
+.netsentry-home .feature-card {
+    min-height: 230px;
+
+    padding: 28px;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+
+    background: #ffffff;
+
+    transition: 0.25s ease;
+}
+
+
+.netsentry-home .feature-card:hover {
+    transform: translateY(-5px);
+
+    border-color: #93c5fd;
+
+    box-shadow:
+        0 16px 40px rgba(15, 23, 42, 0.08);
+}
+
+
+.netsentry-home .feature-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 46px;
+    height: 46px;
+
+    margin-bottom: 20px;
+
+    border-radius: 10px;
+
+    background: #eff6ff;
+
+    font-size: 20px;
+}
+
+
+.netsentry-home .feature-card h3 {
+    margin: 0 0 10px;
+
+    font-size: 17px;
+    line-height: 1.4;
+}
+
+
+.netsentry-home .feature-card p {
+    margin: 0;
+
+    color: #64748b;
+
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   SECURITY CHECKS
+   ========================================================= */
+
+.netsentry-home .home-checks {
+    background: #f8fafc;
+}
+
+
+.netsentry-home .security-check-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 15px;
+}
+
+
+.netsentry-home .security-check {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    min-height: 62px;
+
+    padding: 15px 18px;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 9px;
+
+    background: #ffffff;
+
+    color: #334155;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+.netsentry-home .security-check > span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex: 0 0 27px;
+
+    width: 27px;
+    height: 27px;
+
+    border-radius: 50%;
+
+    background: #dcfce7;
+
+    color: #16a34a;
+
+    font-weight: 900;
+}
+
+
+/* =========================================================
+   VENDORS
+   ========================================================= */
+
+.netsentry-home .home-vendors {
+    background: #ffffff;
+}
+
+
+.netsentry-home .vendor-showcase {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 24px;
+}
+
+
+.netsentry-home .vendor-showcase-card {
+    padding: 38px 30px;
+
+    text-align: center;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+
+    background: #ffffff;
+
+    transition: 0.25s ease;
+}
+
+
+.netsentry-home .vendor-showcase-card:hover {
+    transform: translateY(-5px);
+
+    border-color: #93c5fd;
+
+    box-shadow:
+        0 16px 40px rgba(15, 23, 42, 0.08);
+}
+
+
+.netsentry-home .vendor-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 70px;
+    height: 70px;
+
+    margin: 0 auto 20px;
+
+    border-radius: 14px;
+
+    background: #eff6ff;
+
+    color: #2563eb;
+
+    font-size: 28px;
+    font-weight: 900;
+}
+
+
+.netsentry-home .vendor-showcase-card h3 {
+    margin: 0 0 10px;
+
+    font-size: 20px;
+}
+
+
+.netsentry-home .vendor-showcase-card p {
+    margin: 0;
+
+    color: #64748b;
+
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   WORKFLOW
+   ========================================================= */
+
+.netsentry-home .home-workflow {
+    background: #f8fafc;
+}
+
+
+.netsentry-home .workflow {
+    display: flex;
+    align-items: flex-start;
+
+    width: 100%;
+}
+
+
+.netsentry-home .workflow-step {
+    flex: 1;
+
+    min-width: 0;
+
+    text-align: center;
+}
+
+
+.netsentry-home .workflow-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 52px;
+    height: 52px;
+
+    margin: 0 auto 15px;
+
+    border: 1px solid #bfdbfe;
+    border-radius: 50%;
+
+    background: #eff6ff;
+
+    color: #2563eb;
+
+    font-size: 14px;
+    font-weight: 900;
+}
+
+
+.netsentry-home .workflow-step h3 {
+    margin: 0 0 7px;
+
+    font-size: 15px;
+}
+
+
+.netsentry-home .workflow-step p {
+    max-width: 140px;
+
+    margin: 0 auto;
+
+    color: #64748b;
+
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+
+.netsentry-home .workflow-line {
+    flex: 0 0 35px;
+
+    height: 1px;
+
+    margin-top: 26px;
+
+    background: #cbd5e1;
+}
+
+
+/* =========================================================
+   AI
+   ========================================================= */
+
+.netsentry-home .home-ai {
+    background: #0f172a;
+}
+
+
+.netsentry-home .home-ai-grid {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(0, 1fr);
+
+    gap: 70px;
+
+    align-items: center;
+}
+
+
+.netsentry-home .home-ai .section-eyebrow {
+    color: #60a5fa;
+}
+
+
+.netsentry-home .home-ai h2 {
+    margin: 0 0 20px;
+
+    color: #ffffff;
+
+    font-size: 38px;
+    line-height: 1.15;
+}
+
+
+.netsentry-home .home-ai p {
+    color: #94a3b8;
+
+    line-height: 1.8;
+}
+
+
+.netsentry-home .ai-points {
+    display: grid;
+
+    gap: 12px;
+
+    margin-top: 25px;
+}
+
+
+.netsentry-home .ai-points > div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    color: #cbd5e1;
+
+    font-size: 14px;
+}
+
+
+.netsentry-home .ai-points span {
+    color: #4ade80;
+
+    font-weight: 900;
+}
+
+
+.netsentry-home .ai-analysis-card {
+    padding: 28px;
+
+    border: 1px solid #334155;
+    border-radius: 14px;
+
+    background: #020617;
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.25);
+}
+
+
+.netsentry-home .ai-card-header {
+    margin-bottom: 20px;
+
+    color: #64748b;
+
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+
+.netsentry-home .ai-config-line {
+    padding: 15px;
+
+    border-radius: 8px;
+
+    background: #0f172a;
+
+    color: #60a5fa;
+
+    font-family: Consolas, Monaco, monospace;
+
+    font-size: 13px;
+}
+
+
+.netsentry-home .ai-analysis-result {
+    margin-top: 20px;
+}
+
+
+.netsentry-home .ai-result-label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #4ade80;
+
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+
+.netsentry-home .ai-analysis-result strong {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #ffffff;
+
+    font-size: 16px;
+}
+
+
+.netsentry-home .ai-analysis-result p {
+    margin: 0;
+
+    color: #94a3b8;
+
+    font-size: 13px;
+}
+
+
+.netsentry-home .ai-confidence {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-top: 22px;
+    padding-top: 18px;
+
+    border-top: 1px solid #1e293b;
+
+    color: #94a3b8;
+
+    font-size: 12px;
+}
+
+
+.netsentry-home .ai-confidence strong {
+    color: #4ade80;
+    font-size: 16px;
+}
+
+
+/* =========================================================
+   COMPLIANCE
+   ========================================================= */
+
+.netsentry-home .home-compliance {
+    background: #ffffff;
+}
+
+
+.netsentry-home .compliance-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 20px;
+}
+
+
+.netsentry-home .compliance-card {
+    padding: 28px;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+
+    background: #ffffff;
+}
+
+
+.netsentry-home .compliance-icon {
+    margin-bottom: 18px;
+
+    font-size: 25px;
+}
+
+
+.netsentry-home .compliance-card h3 {
+    margin: 0 0 10px;
+
+    font-size: 17px;
+}
+
+
+.netsentry-home .compliance-card p {
+    margin: 0;
+
+    color: #64748b;
+
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   REMEDIATION
+   ========================================================= */
+
+.netsentry-home .home-remediation {
+    background: #f8fafc;
+}
+
+
+.netsentry-home .home-remediation-content {
+    max-width: 850px;
+
+    margin: auto;
+
+    text-align: center;
+}
+
+
+.netsentry-home .home-remediation-content h2 {
+    margin: 0 0 18px;
+
+    font-size: 38px;
+}
+
+
+.netsentry-home .home-remediation-content p {
+    margin: 0 auto 30px;
+
+    max-width: 720px;
+
+    color: #64748b;
+
+    line-height: 1.8;
+}
+
+
+.netsentry-home .remediation-flow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    gap: 15px;
+}
+
+
+.netsentry-home .remediation-flow span {
+    padding: 10px 17px;
+
+    border: 1px solid #bfdbfe;
+    border-radius: 999px;
+
+    background: #ffffff;
+
+    color: #2563eb;
+
+    font-size: 13px;
+    font-weight: 700;
+}
+
+
+.netsentry-home .remediation-flow b {
+    color: #94a3b8;
+}
+
+
+/* =========================================================
+   CTA
+   ========================================================= */
+
+.netsentry-home .home-cta {
+    width: 100%;
+
+    padding: 90px 7%;
+
+    background: #ffffff;
+}
+
+
+.netsentry-home .home-cta-content {
+    max-width: 900px;
+
+    margin: auto;
+
+    padding: 65px 40px;
+
+    text-align: center;
+
+    border: 1px solid #bfdbfe;
+    border-radius: 18px;
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(37, 99, 235, 0.12),
+            transparent 60%
+        ),
+        #eff6ff;
+}
+
+
+.netsentry-home .home-cta-content h2 {
+    margin: 0 0 15px;
+
+    font-size: 40px;
+}
+
+
+.netsentry-home .home-cta-content p {
+    max-width: 650px;
+
+    margin: 0 auto 28px;
+
+    color: #64748b;
+
+    line-height: 1.7;
+}
+
+
+.netsentry-home .home-cta-actions {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    gap: 12px;
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.netsentry-home .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 46px;
+
+    padding: 0 22px;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    transition: 0.2s ease;
+}
+
+
+.netsentry-home .btn-primary {
+    border: 1px solid #2563eb;
+
+    background: #2563eb;
+
+    color: #ffffff;
+}
+
+
+.netsentry-home .btn-primary:hover {
+    background: #1d4ed8;
+
+    color: #ffffff;
+
+    transform: translateY(-2px);
+}
+
+
+.netsentry-home .btn-secondary {
+    border: 1px solid #cbd5e1;
+
+    background: #ffffff;
+
+    color: #0f172a;
+}
+
+
+.netsentry-home .btn-secondary:hover {
+    border-color: #94a3b8;
+
+    background: #f8fafc;
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.netsentry-home .home-footer {
+    display: grid;
+
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+
+    gap: 25px;
+
+    padding: 28px 7%;
+
+    border-top: 1px solid #e2e8f0;
+
+    background: #ffffff;
+}
+
+
+.netsentry-home .home-footer-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+
+.netsentry-home .home-footer-brand strong {
+    color: #0f172a;
+
+    font-size: 18px;
+}
+
+
+.netsentry-home .home-footer-brand span {
+    color: #94a3b8;
+
+    font-size: 11px;
+}
+
+
+.netsentry-home .home-footer-links {
+    display: flex;
+    gap: 22px;
+}
+
+
+.netsentry-home .home-footer-links a {
+    color: #64748b;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+.netsentry-home .home-footer-links a:hover {
+    color: #2563eb;
+}
+
+
+.netsentry-home .home-footer > p {
+    margin: 0;
+
+    text-align: right;
+
+    color: #94a3b8;
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+    .netsentry-home .home-hero {
+        padding-left: 5%;
+        padding-right: 5%;
+
+        gap: 40px;
+    }
+
+    .netsentry-home .home-section {
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+
+    .netsentry-home .home-problem-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .netsentry-home .feature-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .netsentry-home .security-check-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .netsentry-home .compliance-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .netsentry-home .home-footer {
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 800px) {
+
+    .netsentry-home .home-hero {
+        grid-template-columns: 1fr;
+
+        min-height: auto;
+
+        padding-top: 60px;
+        padding-bottom: 60px;
+
+        text-align: center;
+    }
+
+    .netsentry-home .home-hero-content {
+        max-width: 100%;
+    }
+
+    .netsentry-home .home-hero-description {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .netsentry-home .home-hero-actions {
+        justify-content: center;
+    }
+
+    .netsentry-home .home-vendor-strip {
+        justify-content: center;
+    }
+
+    .netsentry-home .home-hero-visual {
+        max-width: 650px;
+
+        margin: auto;
+    }
+
+    .netsentry-home .home-about-grid {
+        grid-template-columns: 1fr;
+        gap: 35px;
+    }
+
+    .netsentry-home .vendor-showcase {
+        grid-template-columns: 1fr;
+    }
+
+    .netsentry-home .home-ai-grid {
+        grid-template-columns: 1fr;
+        gap: 35px;
+    }
+
+    .netsentry-home .workflow {
+        display: grid;
+
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+
+        gap: 30px;
+    }
+
+    .netsentry-home .workflow-line {
+        display: none;
+    }
+
+    .netsentry-home .home-footer {
+        grid-template-columns: 1fr;
+
+        text-align: center;
+    }
+
+    .netsentry-home .home-footer-brand {
+        align-items: center;
+    }
+
+    .netsentry-home .home-footer-links {
+        justify-content: center;
+    }
+
+    .netsentry-home .home-footer > p {
+        text-align: center;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .netsentry-home .home-section {
+        padding-top: 60px;
+        padding-bottom: 60px;
+    }
+
+    .netsentry-home .home-hero {
+        padding-left: 6%;
+        padding-right: 6%;
+    }
+
+    .netsentry-home .home-hero h1 {
+        font-size: 42px;
+        letter-spacing: -1px;
+    }
+
+    .netsentry-home .home-hero-description {
+        font-size: 15px;
+    }
+
+    .netsentry-home .home-hero-actions {
+        flex-direction: column;
+    }
+
+    .netsentry-home .home-hero-actions .btn {
+        width: 100%;
+    }
+
+    .netsentry-home .home-section {
+        padding-left: 6%;
+        padding-right: 6%;
+    }
+
+    .netsentry-home .home-section-heading h2,
+    .netsentry-home .home-ai h2,
+    .netsentry-home .home-remediation-content h2 {
+        font-size: 30px;
+    }
+
+    .netsentry-home .home-problem-grid,
+    .netsentry-home .feature-grid,
+    .netsentry-home .security-check-grid,
+    .netsentry-home .compliance-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .netsentry-home .workflow {
+        grid-template-columns: 1fr;
+    }
+
+    .netsentry-home .terminal-body {
+        padding: 20px;
+
+        font-size: 11px;
+    }
+
+    .netsentry-home .home-cta {
+        padding-left: 6%;
+        padding-right: 6%;
+    }
+
+    .netsentry-home .home-cta-content {
+        padding: 45px 20px;
+    }
+
+    .netsentry-home .home-cta-content h2 {
+        font-size: 30px;
+    }
+
+    .netsentry-home .home-footer {
+        padding-left: 6%;
+        padding-right: 6%;
+    }
+
+    .netsentry-home .home-footer-links {
+        flex-wrap: wrap;
+    }
+}
+
+
+@media (max-width: 400px) {
+
+    .netsentry-home .home-hero h1 {
+        font-size: 35px;
+    }
+
+    .netsentry-home .home-badge {
+        font-size: 10px;
+    }
+
+    .netsentry-home .home-about-card,
+    .netsentry-home .feature-card,
+    .netsentry-home .problem-card,
+    .netsentry-home .compliance-card {
+        padding: 22px;
+    }
+}
+/* =========================================================
+   NETSENTRY AI HOME PAGE
+   FINAL RESPONSIVE + OVERFLOW + WORKFLOW FIX
+   ========================================================= */
+
+
+/* =========================================================
+   GLOBAL HOME RESET
+   ========================================================= */
+
+body > main.netsentry-home {
+    width: 100% !important;
+    max-width: 100% !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    box-sizing: border-box !important;
+
+    overflow-x: hidden !important;
+}
+
+
+.netsentry-home,
+.netsentry-home *,
+.netsentry-home *::before,
+.netsentry-home *::after {
+    box-sizing: border-box !important;
+}
+
+
+.netsentry-home {
+    width: 100% !important;
+    max-width: 100% !important;
+
+    min-height: 100vh;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    overflow-x: hidden !important;
+
+    background: #f8fafc;
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.netsentry-home .home-hero {
+
+    width: 100% !important;
+    max-width: 100% !important;
+
+    min-height: 680px;
+
+    margin: 0 !important;
+
+    padding: 90px 6vw 80px !important;
+
+    display: grid !important;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(0, 1fr) !important;
+
+    align-items: center;
+
+    gap: 60px;
+
+    overflow: hidden !important;
+
+    background:
+        radial-gradient(
+            circle at 15% 50%,
+            rgba(14, 165, 233, 0.10),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 85% 20%,
+            rgba(37, 99, 235, 0.10),
+            transparent 35%
+        ),
+        #ffffff;
+}
+
+
+.netsentry-home .home-hero-content {
+
+    width: 100% !important;
+    max-width: 680px !important;
+
+    min-width: 0 !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+
+.netsentry-home .home-hero h1 {
+
+    max-width: 680px;
+
+    margin: 0 0 24px !important;
+
+    font-size: clamp(44px, 5vw, 70px) !important;
+
+    line-height: 1.03 !important;
+
+    letter-spacing: -2px;
+
+    font-weight: 900;
+
+    overflow-wrap: break-word;
+}
+
+
+.netsentry-home .home-hero-description {
+
+    max-width: 620px !important;
+
+    margin: 0 0 32px !important;
+
+    color: #64748b;
+
+    font-size: 17px;
+
+    line-height: 1.75;
+}
+
+
+.netsentry-home .home-hero-actions {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    align-items: center;
+
+    gap: 14px;
+
+    margin-bottom: 35px;
+}
+
+
+.netsentry-home .home-vendor-strip {
+
+    display: flex;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    margin: 0 !important;
+}
+
+
+.netsentry-home .home-hero-visual {
+
+    width: 100% !important;
+    max-width: 620px !important;
+
+    min-width: 0 !important;
+
+    margin: 0 auto !important;
+    padding: 0 !important;
+}
+
+
+.netsentry-home .security-terminal {
+
+    width: 100% !important;
+    max-width: 100% !important;
+
+    min-width: 0 !important;
+
+    margin: 0 !important;
+
+    overflow: hidden !important;
+
+    border-radius: 16px;
+}
+
+
+.netsentry-home .terminal-body {
+
+    width: 100%;
+
+    min-width: 0 !important;
+
+    overflow: hidden !important;
+}
+
+
+.netsentry-home .terminal-line {
+
+    min-width: 0 !important;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   COMMON SECTIONS
+   ========================================================= */
+
+.netsentry-home .home-section,
+.netsentry-home .home-cta {
+
+    width: 100% !important;
+    max-width: 100% !important;
+
+    margin: 0 !important;
+
+    box-sizing: border-box !important;
+
+    overflow: hidden !important;
+}
+
+
+/* =========================================================
+   ABOUT
+   ========================================================= */
+
+.netsentry-home .home-about-grid {
+
+    display: grid !important;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(0, 1fr) !important;
+
+    gap: 60px;
+
+    width: 100% !important;
+    max-width: 100% !important;
+
+    min-width: 0 !important;
+}
+
+
+.netsentry-home .home-about-grid > * {
+
+    min-width: 0 !important;
+
+    max-width: 100% !important;
+}
+
+
+/* =========================================================
+   PROBLEM
+   ========================================================= */
+
+.netsentry-home .home-problem-grid {
+
+    display: grid !important;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr)) !important;
+
+    gap: 20px;
+
+    width: 100% !important;
+
+    min-width: 0 !important;
+}
+
+
+.netsentry-home .problem-card {
+
+    min-width: 0 !important;
+
+    max-width: 100% !important;
+}
+
+
+/* =========================================================
+   FEATURES
+   ========================================================= */
+
+.netsentry-home .feature-grid {
+
+    display: grid !important;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr)) !important;
+
+    gap: 20px;
+
+    width: 100% !important;
+
+    min-width: 0 !important;
+}
+
+
+.netsentry-home .feature-card {
+
+    width: 100% !important;
+
+    min-width: 0 !important;
+
+    max-width: 100% !important;
+}
+
+
+/* =========================================================
+   SECURITY CHECKS
+   ========================================================= */
+
+.netsentry-home .security-check-grid {
+
+    display: grid !important;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr)) !important;
+
+    gap: 15px;
+
+    width: 100% !important;
+
+    min-width: 0 !important;
+}
+
+
+.netsentry-home .security-check {
+
+    min-width: 0 !important;
+
+    max-width: 100% !important;
+}
+
+
+/* =========================================================
+   VENDORS
+   ========================================================= */
+
+.netsentry-home .vendor-showcase {
+
+    display: grid !important;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr)) !important;
+
+    gap: 24px;
+
+    width: 100% !important;
+
+    min-width: 0 !important;
+}
+
+
+.netsentry-home .vendor-showcase-card {
+
+    min-width: 0 !important;
+
+    max-width: 100% !important;
+}
+
+
+/* =========================================================
+   HOW NETSENTRY WORKS
+   =========================================================
+   
+   IMPORTANT FIX:
+   Old flex + workflow-line was causing text overlap.
+   Now each step gets its own grid column.
+   ========================================================= */
+
+.netsentry-home .home-workflow {
+
+    width: 100% !important;
+
+    overflow: hidden !important;
+}
+
+
+.netsentry-home .workflow {
+
+    display: grid !important;
+
+    grid-template-columns:
+        repeat(7, minmax(0, 1fr)) !important;
+
+    align-items: start;
+
+    gap: 0;
+
+    width: 100% !important;
+    max-width: 100% !important;
+
+    min-width: 0 !important;
+
+    margin: 0 !important;
+    padding: 10px 0 0 !important;
+}
+
+
+/* Each workflow step */
+
+.netsentry-home .workflow-step {
+
+    position: relative;
+
+    width: 100% !important;
+    min-width: 0 !important;
+
+    padding: 0 12px !important;
+
+    text-align: center;
+}
+
+
+/* Number */
+
+.netsentry-home .workflow-number {
+
+    position: relative;
+
+    z-index: 3;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 52px;
+    height: 52px;
+
+    margin: 0 auto 18px;
+
+    border: 1px solid #bfdbfe;
+
+    border-radius: 50%;
+
+    background: #eff6ff;
+
+    color: #2563eb;
+
+    font-size: 14px;
+
+    font-weight: 900;
+}
+
+
+/* Connector line */
+
+.netsentry-home .workflow-line {
+
+    display: block !important;
+
+    position: absolute;
+
+    z-index: 1;
+
+    top: 26px;
+
+    left: calc(50% + 26px);
+
+    width: calc(100% - 52px);
+
+    height: 1px;
+
+    margin: 0 !important;
+
+    background: #cbd5e1;
+
+    pointer-events: none;
+}
+
+
+/* Last step has no line */
+
+.netsentry-home .workflow-step:last-child .workflow-line {
+
+    display: none !important;
+}
+
+
+/* Workflow title */
+
+.netsentry-home .workflow-step h3 {
+
+    position: relative;
+
+    z-index: 4;
+
+    display: block;
+
+    width: 100%;
+
+    margin: 0 0 8px !important;
+
+    padding: 0 !important;
+
+    color: #0f172a;
+
+    font-size: 16px;
+
+    line-height: 1.35;
+
+    font-weight: 800;
+
+    white-space: normal;
+
+    overflow-wrap: break-word;
+}
+
+
+/* Workflow description */
+
+.netsentry-home .workflow-step p {
+
+    position: relative;
+
+    z-index: 4;
+
+    display: block;
+
+    width: 100%;
+
+    max-width: 145px;
+
+    margin: 0 auto !important;
+
+    padding: 0 !important;
+
+    color: #64748b;
+
+    font-size: 13px;
+
+    line-height: 1.65;
+
+    white-space: normal;
+
+    overflow-wrap: break-word;
+}
+
+
+/* =========================================================
+   AI SECTION
+   ========================================================= */
+
+.netsentry-home .home-ai-grid {
+
+    display: grid !important;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(0, 1fr) !important;
+
+    gap: 60px;
+
+    width: 100% !important;
+
+    min-width: 0 !important;
+}
+
+
+.netsentry-home .home-ai-grid > * {
+
+    min-width: 0 !important;
+
+    max-width: 100% !important;
+}
+
+
+.netsentry-home .ai-analysis-card {
+
+    width: 100% !important;
+
+    max-width: 100% !important;
+
+    min-width: 0 !important;
+
+    overflow: hidden !important;
+}
+
+
+/* =========================================================
+   COMPLIANCE
+   ========================================================= */
+
+.netsentry-home .compliance-grid {
+
+    display: grid !important;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr)) !important;
+
+    gap: 20px;
+
+    width: 100% !important;
+
+    min-width: 0 !important;
+}
+
+
+.netsentry-home .compliance-card {
+
+    min-width: 0 !important;
+
+    max-width: 100% !important;
+}
+
+
+/* =========================================================
+   REMEDIATION
+   ========================================================= */
+
+.netsentry-home .remediation-flow {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    gap: 15px;
+
+    width: 100%;
+}
+
+
+/* =========================================================
+   CTA
+   ========================================================= */
+
+.netsentry-home .home-cta {
+
+    padding-left: 6% !important;
+
+    padding-right: 6% !important;
+}
+
+
+.netsentry-home .home-cta-content {
+
+    width: 100%;
+
+    max-width: 1000px;
+
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.netsentry-home .home-footer {
+
+    width: 100% !important;
+    max-width: 100% !important;
+
+    box-sizing: border-box !important;
+
+    overflow: hidden !important;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+    .netsentry-home .home-hero {
+
+        grid-template-columns:
+            minmax(0, 1fr)
+            minmax(0, 1fr) !important;
+
+        gap: 35px;
+
+        padding-left: 5vw !important;
+        padding-right: 5vw !important;
+    }
+
+
+    .netsentry-home .home-problem-grid {
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr)) !important;
+    }
+
+
+    .netsentry-home .feature-grid {
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr)) !important;
+    }
+
+
+    .netsentry-home .security-check-grid {
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr)) !important;
+    }
+
+
+    .netsentry-home .compliance-grid {
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr)) !important;
+    }
+
+
+    /* Workflow: 4 columns */
+
+    .netsentry-home .workflow {
+
+        grid-template-columns:
+            repeat(4, minmax(0, 1fr)) !important;
+
+        row-gap: 45px;
+    }
+
+
+    .netsentry-home .workflow-step:nth-child(4) .workflow-line,
+    .netsentry-home .workflow-step:nth-child(7) .workflow-line {
+
+        display: none !important;
+    }
+}
+
+
+/* =========================================================
+   TABLET / SMALL LAPTOP
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .netsentry-home .home-hero {
+
+        grid-template-columns: 1fr !important;
+
+        min-height: auto;
+
+        gap: 50px;
+
+        padding-top: 70px !important;
+        padding-bottom: 70px !important;
+    }
+
+
+    .netsentry-home .home-hero-content {
+
+        max-width: 800px !important;
+
+        margin: 0 auto !important;
+
+        text-align: center;
+    }
+
+
+    .netsentry-home .home-hero-description {
+
+        margin-left: auto !important;
+
+        margin-right: auto !important;
+    }
+
+
+    .netsentry-home .home-hero-actions {
+
+        justify-content: center;
+    }
+
+
+    .netsentry-home .home-vendor-strip {
+
+        justify-content: center;
+    }
+
+
+    .netsentry-home .home-hero-visual {
+
+        max-width: 700px !important;
+
+        margin: 0 auto !important;
+    }
+
+
+    .netsentry-home .home-about-grid {
+
+        grid-template-columns: 1fr !important;
+
+        gap: 40px;
+    }
+
+
+    .netsentry-home .home-ai-grid {
+
+        grid-template-columns: 1fr !important;
+
+        gap: 40px;
+    }
+
+
+    .netsentry-home .vendor-showcase {
+
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr)) !important;
+    }
+}
+
+
+/* =========================================================
+   PHONE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .netsentry-home {
+
+        overflow-x: hidden !important;
+    }
+
+
+    /* Hero */
+
+    .netsentry-home .home-hero {
+
+        display: block !important;
+
+        width: 100% !important;
+
+        padding: 55px 5vw 60px !important;
+    }
+
+
+    .netsentry-home .home-hero-content {
+
+        width: 100% !important;
+
+        text-align: center;
+
+        margin-bottom: 45px !important;
+    }
+
+
+    .netsentry-home .home-hero h1 {
+
+        max-width: 100% !important;
+
+        font-size: 40px !important;
+
+        line-height: 1.05 !important;
+
+        letter-spacing: -1px !important;
+    }
+
+
+    .netsentry-home .home-hero-description {
+
+        max-width: 100% !important;
+
+        font-size: 15px !important;
+
+        line-height: 1.7 !important;
+    }
+
+
+    .netsentry-home .home-hero-actions {
+
+        width: 100%;
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 10px;
+    }
+
+
+    .netsentry-home .home-hero-actions .btn {
+
+        width: 100% !important;
+    }
+
+
+    .netsentry-home .home-vendor-strip {
+
+        justify-content: center;
+
+        gap: 7px;
+    }
+
+
+    /* Terminal */
+
+    .netsentry-home .home-hero-visual {
+
+        width: 100% !important;
+
+        max-width: 100% !important;
+    }
+
+
+    .netsentry-home .security-terminal {
+
+        width: 100% !important;
+
+        max-width: 100% !important;
+
+        border-radius: 12px;
+    }
+
+
+    .netsentry-home .terminal-body {
+
+        padding: 18px !important;
+
+        font-size: 11px !important;
+    }
+
+
+    .netsentry-home .terminal-line {
+
+        font-size: 11px !important;
+    }
+
+
+    /* Common section */
+
+    .netsentry-home .home-section {
+
+        padding-left: 5vw !important;
+
+        padding-right: 5vw !important;
+
+        padding-top: 60px !important;
+
+        padding-bottom: 60px !important;
+    }
+
+
+    /* Problem */
+
+    .netsentry-home .home-problem-grid {
+
+        grid-template-columns: 1fr !important;
+    }
+
+
+    /* Features */
+
+    .netsentry-home .feature-grid {
+
+        grid-template-columns: 1fr !important;
+    }
+
+
+    /* Security */
+
+    .netsentry-home .security-check-grid {
+
+        grid-template-columns: 1fr !important;
+    }
+
+
+    /* Vendors */
+
+    .netsentry-home .vendor-showcase {
+
+        grid-template-columns: 1fr !important;
+    }
+
+
+    /* =====================================================
+       WORKFLOW PHONE
+       ===================================================== */
+
+    .netsentry-home .workflow {
+
+        display: grid !important;
+
+        grid-template-columns: 1fr !important;
+
+        gap: 0 !important;
+
+        width: 100% !important;
+
+        padding: 0 !important;
+    }
+
+
+    .netsentry-home .workflow-step {
+
+        display: grid !important;
+
+        grid-template-columns: 58px minmax(0, 1fr);
+
+        column-gap: 18px;
+
+        align-items: start;
+
+        width: 100% !important;
+
+        padding: 0 0 35px !important;
+
+        text-align: left;
+    }
+
+
+    .netsentry-home .workflow-number {
+
+        grid-column: 1;
+
+        grid-row: 1 / span 2;
+
+        width: 50px;
+
+        height: 50px;
+
+        margin: 0 !important;
+    }
+
+
+    .netsentry-home .workflow-step h3 {
+
+        grid-column: 2;
+
+        grid-row: 1;
+
+        width: 100%;
+
+        margin: 3px 0 7px !important;
+
+        font-size: 16px;
+
+        text-align: left;
+    }
+
+
+    .netsentry-home .workflow-step p {
+
+        grid-column: 2;
+
+        grid-row: 2;
+
+        width: 100%;
+
+        max-width: none;
+
+        margin: 0 !important;
+
+        font-size: 13px;
+
+        text-align: left;
+    }
+
+
+    /* Vertical connector */
+
+    .netsentry-home .workflow-line {
+
+        display: block !important;
+
+        position: absolute;
+
+        top: 50px;
+
+        left: 24px;
+
+        width: 1px;
+
+        height: calc(100% - 50px);
+
+        margin: 0 !important;
+
+        background: #cbd5e1;
+    }
+
+
+    .netsentry-home .workflow-step:last-child {
+
+        padding-bottom: 0 !important;
+    }
+
+
+    .netsentry-home .workflow-step:last-child .workflow-line {
+
+        display: none !important;
+    }
+
+
+    /* AI */
+
+    .netsentry-home .home-ai-grid {
+
+        grid-template-columns: 1fr !important;
+    }
+
+
+    /* Compliance */
+
+    .netsentry-home .compliance-grid {
+
+        grid-template-columns: 1fr !important;
+    }
+
+
+    /* Remediation */
+
+    .netsentry-home .remediation-flow {
+
+        flex-direction: column;
+
+        gap: 10px;
+    }
+
+
+    .netsentry-home .remediation-flow b {
+
+        transform: rotate(90deg);
+    }
+
+
+    /* CTA */
+
+    .netsentry-home .home-cta {
+
+        padding: 60px 5vw !important;
+    }
+
+
+    .netsentry-home .home-cta-content {
+
+        padding: 45px 20px !important;
+    }
+
+
+    /* Footer */
+
+    .netsentry-home .home-footer {
+
+        display: flex !important;
+
+        flex-direction: column;
+
+        align-items: center;
+
+        gap: 18px;
+
+        text-align: center;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL PHONE
+   ========================================================= */
+
+@media (max-width: 400px) {
+
+    .netsentry-home .home-hero h1 {
+
+        font-size: 34px !important;
+    }
+
+
+    .netsentry-home .home-badge {
+
+        font-size: 10px !important;
+
+        padding: 7px 11px !important;
+    }
+
+
+    .netsentry-home .home-section-heading h2 {
+
+        font-size: 29px !important;
+    }
+
+
+    .netsentry-home .terminal-body {
+
+        padding: 15px !important;
+
+        font-size: 10px !important;
+    }
+
+
+    .netsentry-home .terminal-line {
+
+        font-size: 10px !important;
+    }
+}

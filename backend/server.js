@@ -215,10 +215,23 @@ app.use(
 );
 
 // ===============================
-// LOGIN PAGE
+// HOME PAGE
 // ===============================
 
 app.get("/", (req, res) => {
+
+    if (req.session.user) {
+        return res.redirect("/dashboard");
+    }
+
+    res.render("pages/home");
+});
+
+// ===============================
+// LOGIN PAGE
+// ===============================
+
+app.get("/login", (req, res) => {
 
     if (req.session.user) {
         return res.redirect("/dashboard");
