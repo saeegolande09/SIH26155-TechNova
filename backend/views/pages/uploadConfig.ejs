@@ -1,0 +1,93 @@
+<%- include("../partials/head", { title: "Upload Configuration - NETSENTRY" }) %>
+
+<%- include("../partials/navbar") %>
+
+<%- include("../partials/sidebar") %>
+
+<main>
+
+    <h1>Upload Network Configuration</h1>
+
+    <%- include("../partials/flash") %>
+
+    <hr>
+
+    <form
+        action="/configurations/upload"
+        method="POST"
+        enctype="multipart/form-data"
+    >
+
+        <p>
+            <label>Device Name:</label>
+            <br>
+            <input
+                type="text"
+                name="deviceName"
+                required
+            >
+        </p>
+
+        <p>
+            <label>Vendor:</label>
+            <br>
+
+            <select name="vendor" required>
+
+                <option value="">
+                    Select Vendor
+                </option>
+
+                <option value="Cisco">
+                    Cisco
+                </option>
+
+                <option value="Juniper">
+                    Juniper
+                </option>
+
+                <option value="Fortinet">
+                    Fortinet
+                </option>
+
+            </select>
+        </p>
+
+        <p>
+            <label>Configuration File:</label>
+            <br>
+
+            <input
+                type="file"
+                name="configFile"
+                required
+            >
+        </p>
+
+        <p>
+            <button type="submit">
+                Upload Configuration
+            </button>
+        </p>
+
+    </form>
+
+    <hr>
+
+    <h2>Quick Actions</h2>
+
+    <p>
+        <a href="/configurations">
+            View Configurations
+        </a>
+    </p>
+
+    <p>
+        <a href="/dashboard">
+            Dashboard
+        </a>
+    </p>
+
+</main>
+
+<%- include("../partials/footer") %>

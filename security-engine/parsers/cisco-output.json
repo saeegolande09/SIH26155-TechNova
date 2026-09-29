@@ -1,0 +1,34 @@
+﻿{
+  "success": true,
+  "vendor": "Cisco",
+  "hostname": "R1",
+  "interfaces": [
+    {
+      "name": "GigabitEthernet0/0",
+      "configuration": [
+        "ip address 192.168.1.1 255.255.255.0",
+        "no shutdown",
+        "transport input ssh",
+        "login",
+        "permit tcp any any eq 23",
+        "permit tcp any any eq 80",
+        "deny ip any any"
+      ]
+    }
+  ],
+  "accessLists": [
+    "ip access-list extended OUTSIDE-IN"
+  ],
+  "services": [
+    {
+      "service": "SSH",
+      "status": "Enabled"
+    }
+  ],
+  "authentication": [
+    {
+      "type": "Enable Password",
+      "security": "Plaintext"
+    }
+  ]
+}

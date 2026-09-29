@@ -1,0 +1,148 @@
+<%- include("../partials/head", { title: "Audits - NETSENTRY" }) %>
+
+<%- include("../partials/navbar") %>
+
+<%- include("../partials/sidebar") %>
+
+<main>
+
+    <h1>NETSENTRY - Security Audits</h1>
+
+    <%- include("../partials/flash") %>
+
+    <hr>
+
+    <h2>Audit History</h2>
+
+    <% if (!audits || audits.length === 0) { %>
+
+        <p>No audits available.</p>
+
+    <% } else { %>
+
+        <table border="1" cellpadding="10" cellspacing="0">
+
+            <thead>
+                <tr>
+                    <th>Device</th>
+                    <th>Vendor</th>
+                    <th>Status</th>
+                    <th>Compliance Score</th>
+                    <th>Total Checks</th>
+                    <th>Failed Checks</th>
+                    <th>Critical</th>
+                    <th>High</th>
+                    <th>Medium</th>
+                    <th>Low</th>
+                    <th>Completed At</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <% audits.forEach(audit => { %>
+
+                    <tr>
+
+                        <td>
+                            <%= audit.device
+                                ? audit.device.deviceName
+                                : "Unknown Device" %>
+                        </td>
+
+                        <td>
+                            <%= audit.vendor || "Unknown" %>
+                        </td>
+
+                        <td>
+                            <%= audit.status %>
+                        </td>
+
+                        <td>
+                            <%= audit.complianceScore || 0 %>%
+                        </td>
+
+                        <td>
+                            <%= audit.totalChecks || 0 %>
+                        </td>
+
+                        <td>
+                            <%= audit.failedChecks || 0 %>
+                        </td>
+
+                        <td>
+                            <%= audit.criticalFindings || 0 %>
+                        </td>
+
+                        <td>
+                            <%= audit.highFindings || 0 %>
+                        </td>
+
+                        <td>
+                            <%= audit.mediumFindings || 0 %>
+                        </td>
+
+                        <td>
+                            <%= audit.lowFindings || 0 %>
+                        </td>
+
+                        <td>
+                            <%= audit.completedAt
+                                ? new Date(audit.completedAt).toLocaleString()
+                                : "N/A" %>
+                        </td>
+
+                        <td>
+                            <a href="/audits/<%= audit._id %>">
+                                View Audit
+                            </a>
+                        </td>
+
+                    </tr>
+
+                <% }) %>
+
+            </tbody>
+
+        </table>
+
+    <% } %>
+
+    <hr>
+
+    <h2>Quick Actions</h2>
+
+    <p>
+        <a href="/configurations/upload">
+            Upload Configuration
+        </a>
+    </p>
+
+    <p>
+        <a href="/findings">
+            View Security Findings
+        </a>
+    </p>
+
+    <p>
+        <a href="/security-posture">
+            Security Posture
+        </a>
+    </p>
+
+    <p>
+        <a href="/risk">
+            Risk Prioritization
+        </a>
+    </p>
+
+    <p>
+        <a href="/reports">
+            Reports
+        </a>
+    </p>
+
+</main>
+
+<%- include("../partials/footer") %>

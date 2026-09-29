@@ -1,0 +1,21 @@
+<header>
+
+    <h2>NETSENTRY AI</h2>
+
+    <% if (user) { %>
+
+        <span>
+            <%= user.username %>
+        </span>
+
+        <a href="/configurations/upload">
+            + Upload Configuration
+        </a>
+
+        <a href="/logout">
+            Logout
+        </a>
+
+    <% } %>
+
+</header>

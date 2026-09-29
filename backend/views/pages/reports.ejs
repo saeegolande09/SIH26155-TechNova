@@ -1,0 +1,226 @@
+<%- include("../partials/head", { title: "Reports - NETSENTRY" }) %>
+
+<%- include("../partials/navbar") %>
+
+<%- include("../partials/sidebar") %>
+
+<main>
+
+    <h1>
+        NETSENTRY - Security Reports
+    </h1>
+
+    <%- include("../partials/flash") %>
+
+    <hr>
+
+    <h2>
+        Generate Security Report
+    </h2>
+
+    <form
+        action="/reports/generate"
+        method="POST"
+    >
+
+        <p>
+
+            <label>
+                Select Completed Audit:
+            </label>
+
+            <br>
+
+            <select
+                name="auditId"
+                required
+            >
+
+                <option value="">
+                    Select Audit
+                </option>
+
+                <% audits.forEach(function(audit) { %>
+
+                    <option
+                        value="<%= audit._id %>"
+                    >
+
+                        Audit:
+                        <%= audit._id %>
+
+                        -
+
+                        <%= audit.device
+                            ? audit.device.deviceName
+                            : "Unknown Device" %>
+
+                        -
+
+                        <%= audit.vendor %>
+
+                        -
+
+                        Score:
+                        <%= audit.complianceScore %>%
+
+                    </option>
+
+                <% }); %>
+
+            </select>
+
+        </p>
+
+        <button type="submit">
+            Generate Report
+        </button>
+
+    </form>
+
+
+    <% if (generatedReport) { %>
+
+        <hr>
+
+        <h2>
+            Report Generated Successfully
+        </h2>
+
+        <p>
+            <strong>Report Name:</strong>
+            <%= generatedReport.reportName %>
+        </p>
+
+        <p>
+            <strong>Compliance Score:</strong>
+            <%= generatedReport.complianceScore %>%
+        </p>
+
+        <p>
+            <strong>Total Findings:</strong>
+            <%= generatedReport.totalFindings %>
+        </p>
+
+        <p>
+            <strong>Generated At:</strong>
+            <%= generatedReport.generatedAt
+                ? new Date(generatedReport.generatedAt).toLocaleString()
+                : "N/A" %>
+        </p>
+
+        <p>
+            <a
+                href="/reports/download/<%= generatedReport._id %>"
+            >
+                Download Report
+            </a>
+        </p>
+
+    <% } %>
+
+
+    <hr>
+
+    <h2>
+        Generated Reports
+    </h2>
+
+    <% if (reports && reports.length > 0) { %>
+
+        <% reports.forEach(function(report) { %>
+
+            <div>
+
+                <h3>
+                    <%= report.reportName %>
+                </h3>
+
+                <p>
+                    <strong>Device:</strong>
+                    <%= report.device
+                        ? report.device.deviceName
+                        : "Unknown Device" %>
+                </p>
+
+                <p>
+                    <strong>Compliance Score:</strong>
+                    <%= report.complianceScore %>%
+                </p>
+
+                <p>
+                    <strong>Total Findings:</strong>
+                    <%= report.totalFindings %>
+                </p>
+
+                <p>
+                    <strong>Generated At:</strong>
+                    <%= report.generatedAt
+                        ? new Date(report.generatedAt).toLocaleString()
+                        : "N/A" %>
+                </p>
+
+                <% if (report.reportPath) { %>
+
+                    <p>
+                        <a
+                            href="/reports/download/<%= report._id %>"
+                        >
+                            Download Report
+                        </a>
+                    </p>
+
+                <% } %>
+
+            </div>
+
+            <hr>
+
+        <% }); %>
+
+    <% } else { %>
+
+        <p>
+            No reports generated yet.
+        </p>
+
+    <% } %>
+
+
+    <h2>
+        Quick Actions
+    </h2>
+
+    <p>
+        <a href="/dashboard">
+            Back to Dashboard
+        </a>
+    </p>
+
+    <p>
+        <a href="/audits">
+            View Audits
+        </a>
+    </p>
+
+    <p>
+        <a href="/configurations">
+            View Configurations
+        </a>
+    </p>
+
+    <p>
+        <a href="/security-posture">
+            Security Posture
+        </a>
+    </p>
+
+    <p>
+        <a href="/risk">
+            Risk Prioritization
+        </a>
+    </p>
+
+</main>
+
+<%- include("../partials/footer") %>

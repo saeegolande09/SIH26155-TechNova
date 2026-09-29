@@ -1,0 +1,240 @@
+<%- include("../partials/head", { title: "Remediation - NETSENTRY" }) %>
+
+<%- include("../partials/navbar") %>
+
+<%- include("../partials/sidebar") %>
+
+<main>
+
+    <h1>NETSENTRY - Remediation</h1>
+
+    <%- include("../partials/flash") %>
+
+    <hr>
+
+    <h2>
+        <%= finding.title %>
+    </h2>
+
+    <p>
+        <strong>Severity:</strong>
+        <%= finding.severity %>
+    </p>
+
+    <p>
+        <strong>Category:</strong>
+        <%= finding.category %>
+    </p>
+
+    <p>
+        <strong>Finding Status:</strong>
+        <%= finding.status %>
+    </p>
+
+    <hr>
+
+    <h2>Security Issue</h2>
+
+    <p>
+        <%= finding.description %>
+    </p>
+
+    <% if (finding.detectedConfig) { %>
+
+        <h2>Detected Configuration</h2>
+
+        <pre><%= finding.detectedConfig %></pre>
+
+    <% } %>
+
+    <hr>
+
+    <h2>Recommended Fix</h2>
+
+    <% if (remediation.recommendedFix) { %>
+
+        <p>
+            <%= remediation.recommendedFix %>
+        </p>
+
+    <% } else { %>
+
+        <p>
+            No recommended fix is available.
+        </p>
+
+    <% } %>
+
+    <hr>
+
+    <h2>Remediation Status</h2>
+
+    <p>
+        <strong>Current Status:</strong>
+        <%= remediation.status %>
+    </p>
+
+    <p>
+        <strong>Fix Type:</strong>
+        <%= remediation.fixType %>
+    </p>
+
+    <% if (remediation.commands && remediation.commands.length > 0) { %>
+
+        <h3>Suggested Commands</h3>
+
+        <pre><% remediation.commands.forEach(command => { %><%= command %>
+<% }) %></pre>
+
+    <% } %>
+
+    <hr>
+
+
+    <!-- ============================= -->
+    <!-- PENDING -->
+    <!-- ============================= -->
+
+    <% if (remediation.status === "Pending") { %>
+
+        <h3>Step 1 - Apply Fix</h3>
+
+        <p>
+            Apply the recommended security fix
+            to the network configuration.
+        </p>
+
+        <form
+            action="/remediations/<%= finding._id %>/apply"
+            method="POST"
+        >
+
+            <button type="submit">
+                Apply Fix
+            </button>
+
+        </form>
+
+    <% } %>
+
+
+    <!-- ============================= -->
+    <!-- APPLIED -->
+    <!-- ============================= -->
+
+    <% if (remediation.status === "Applied") { %>
+
+        <h3>Step 2 - Verify Fix</h3>
+
+        <p>
+            The fix has been applied to the configuration.
+        </p>
+
+        <form
+            action="/remediations/<%= finding._id %>/verify"
+            method="POST"
+        >
+
+            <button type="submit">
+                Verify Fix
+            </button>
+
+        </form>
+
+    <% } %>
+
+
+    <!-- ============================= -->
+    <!-- VERIFIED -->
+    <!-- ============================= -->
+
+    <% if (remediation.status === "Verified") { %>
+
+        <h3>✓ Remediation Verified</h3>
+
+        <p>
+            This finding has been marked as resolved.
+        </p>
+
+        <% if (remediation.verifiedAt) { %>
+
+            <p>
+                <strong>Verified At:</strong>
+                <%= new Date(remediation.verifiedAt).toLocaleString() %>
+            </p>
+
+        <% } %>
+
+        <hr>
+
+        <h2>Re-Audit Configuration</h2>
+
+        <p>
+            Run the security engine again on the
+            updated configuration.
+        </p>
+
+        <a href="/audits/<%= finding.audit %>/reaudit">
+            Start Re-Audit
+        </a>
+
+    <% } %>
+
+
+    <!-- ============================= -->
+    <!-- FAILED -->
+    <!-- ============================= -->
+
+    <% if (remediation.status === "Failed") { %>
+
+        <h3>✗ Remediation Failed</h3>
+
+        <p>
+            The remediation could not be verified.
+        </p>
+
+        <form
+            action="/remediations/<%= finding._id %>/apply"
+            method="POST"
+        >
+
+            <button type="submit">
+                Try Again
+            </button>
+
+        </form>
+
+    <% } %>
+
+
+    <hr>
+
+    <h2>Navigation</h2>
+
+    <p>
+        <a href="/dashboard">
+            Back to Dashboard
+        </a>
+    </p>
+
+    <p>
+        <a href="/configurations">
+            View Configurations
+        </a>
+    </p>
+
+    <p>
+        <a href="/configurations/upload">
+            Upload New Configuration
+        </a>
+    </p>
+
+    <p>
+        <a href="/audits">
+            View Audits
+        </a>
+    </p>
+
+</main>
+
+<%- include("../partials/footer") %>

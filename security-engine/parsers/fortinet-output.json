@@ -1,0 +1,50 @@
+﻿{
+  "success": true,
+  "vendor": "Fortinet",
+  "hostname": "\"FGT-01\"",
+  "interfaces": [
+    {
+      "name": "\"port1\"",
+      "configuration": [
+        "set ip 192.168.1.1 255.255.255.0",
+        "set allowaccess ping https ssh http"
+      ]
+    }
+  ],
+  "firewallPolicies": [
+    {
+      "id": "1",
+      "configuration": [
+        "set name \"Allow-Web\"",
+        "set srcintf \"port1\"",
+        "set dstintf \"port2\"",
+        "set action accept",
+        "set service \"HTTP\" \"HTTPS\""
+      ]
+    }
+  ],
+  "services": [
+    {
+      "service": "SSH",
+      "status": "Enabled"
+    },
+    {
+      "service": "HTTP",
+      "status": "Enabled"
+    },
+    {
+      "service": "HTTPS",
+      "status": "Enabled"
+    }
+  ],
+  "authentication": [
+    {
+      "type": "Admin User",
+      "configuration": "edit \"admin\""
+    },
+    {
+      "type": "Admin Password",
+      "configuration": "set password \"example-password\""
+    }
+  ]
+}

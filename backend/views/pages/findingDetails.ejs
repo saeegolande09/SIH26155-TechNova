@@ -1,0 +1,144 @@
+<%- include("../partials/head", { title: "Finding Details - NETSENTRY" }) %>
+
+<%- include("../partials/navbar") %>
+
+<%- include("../partials/sidebar") %>
+
+<main>
+
+    <h1>NETSENTRY - Finding Details</h1>
+
+    <%- include("../partials/flash") %>
+
+    <hr>
+
+    <% if (!finding) { %>
+
+        <p>Finding not found.</p>
+
+    <% } else { %>
+
+        <h2>
+            <%= finding.title %>
+        </h2>
+
+        <p>
+            <strong>Severity:</strong>
+            <%= finding.severity %>
+        </p>
+
+        <p>
+            <strong>Category:</strong>
+            <%= finding.category || "Other" %>
+        </p>
+
+        <p>
+            <strong>Status:</strong>
+            <%= finding.status %>
+        </p>
+
+        <hr>
+
+        <h2>Description</h2>
+
+        <p>
+            <%= finding.description %>
+        </p>
+
+        <% if (finding.detectedConfig) { %>
+
+            <h2>Detected Configuration</h2>
+
+            <pre><%= finding.detectedConfig %></pre>
+
+        <% } %>
+
+        <% if (finding.aiExplanation) { %>
+
+            <h2>AI Explanation</h2>
+
+            <p>
+                <%= finding.aiExplanation %>
+            </p>
+
+        <% } %>
+
+        <% if (finding.recommendedFix) { %>
+
+            <h2>Recommended Fix</h2>
+
+            <p>
+                <%= finding.recommendedFix %>
+            </p>
+
+        <% } %>
+
+        <hr>
+
+        <h2>Device Information</h2>
+
+        <% if (finding.device) { %>
+
+            <p>
+                <strong>Device:</strong>
+                <%= finding.device.deviceName %>
+            </p>
+
+            <p>
+                <strong>Vendor:</strong>
+                <%= finding.device.vendor %>
+            </p>
+
+            <p>
+                <strong>Device Type:</strong>
+                <%= finding.device.deviceType || "Network Device" %>
+            </p>
+
+            <p>
+                <strong>IP Address:</strong>
+                <%= finding.device.ipAddress || "N/A" %>
+            </p>
+
+        <% } else { %>
+
+            <p>Device information unavailable.</p>
+
+        <% } %>
+
+        <hr>
+
+        <h2>Actions</h2>
+
+        <p>
+            <a href="/remediations/<%= finding._id %>">
+                Open Remediation
+            </a>
+        </p>
+
+        <% if (finding.audit) { %>
+
+            <p>
+                <a href="/audits/<%= finding.audit._id || finding.audit %>">
+                    View Related Audit
+                </a>
+            </p>
+
+        <% } %>
+
+        <p>
+            <a href="/findings">
+                Back to Findings
+            </a>
+        </p>
+
+        <p>
+            <a href="/dashboard">
+                Dashboard
+            </a>
+        </p>
+
+    <% } %>
+
+</main>
+
+<%- include("../partials/footer") %>

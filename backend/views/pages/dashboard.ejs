@@ -1,0 +1,211 @@
+<%- include("../partials/head", { title: "NETSENTRY Dashboard" }) %>
+
+<%- include("../partials/navbar") %>
+
+<%- include("../partials/sidebar") %>
+
+<main>
+
+    <h1>NETSENTRY Dashboard</h1>
+
+    <%- include("../partials/flash") %>
+
+
+    <!-- ================================= -->
+    <!-- MAIN ACTION -->
+    <!-- ================================= -->
+
+    <h2>Configuration Audit</h2>
+
+    <p>
+        Upload a network configuration to start a security audit.
+    </p>
+
+    <p>
+        <a href="/configurations/upload">
+            + Upload New Configuration
+        </a>
+    </p>
+
+
+    <hr>
+
+
+    <!-- ================================= -->
+    <!-- OVERVIEW -->
+    <!-- ================================= -->
+
+    <h2>Overview</h2>
+
+    <p>
+        <strong>Total Devices:</strong>
+        <%= totalDevices %>
+    </p>
+
+    <p>
+        <strong>Total Configurations:</strong>
+        <%= totalConfigurations %>
+    </p>
+
+    <p>
+        <strong>Completed Audits:</strong>
+        <%= completedAudits %>
+    </p>
+
+    <p>
+        <strong>Average Security Score:</strong>
+        <%= averageScore %>%
+    </p>
+
+
+    <hr>
+
+
+    <!-- ================================= -->
+    <!-- OPEN SECURITY FINDINGS -->
+    <!-- ================================= -->
+
+    <h2>Open Security Findings</h2>
+
+    <p>
+        <strong>Critical:</strong>
+        <%= criticalFindings %>
+    </p>
+
+    <p>
+        <strong>High:</strong>
+        <%= highFindings %>
+    </p>
+
+
+    <hr>
+
+
+    <!-- ================================= -->
+    <!-- RECENT AUDITS -->
+    <!-- ================================= -->
+
+    <h2>Recent Audits</h2>
+
+    <% if (recentAudits && recentAudits.length > 0) { %>
+
+        <% recentAudits.forEach(function(audit) { %>
+
+            <div>
+
+                <h3>
+                    <%= audit.device
+                        ? audit.device.deviceName
+                        : "Unknown Device" %>
+                </h3>
+
+                <p>
+                    <strong>Vendor:</strong>
+                    <%= audit.vendor %>
+                </p>
+
+                <p>
+                    <strong>Status:</strong>
+                    <%= audit.status %>
+                </p>
+
+                <p>
+                    <strong>Compliance Score:</strong>
+                    <%= audit.complianceScore %>%
+                </p>
+
+                <p>
+                    <strong>High Findings:</strong>
+                    <%= audit.highFindings %>
+                </p>
+
+                <p>
+                    <a href="/audits/<%= audit._id %>">
+                        View Audit
+                    </a>
+                </p>
+
+            </div>
+
+            <hr>
+
+        <% }); %>
+
+    <% } else { %>
+
+        <p>
+            No audits available.
+        </p>
+
+    <% } %>
+
+
+    <!-- ================================= -->
+    <!-- QUICK ACTIONS -->
+    <!-- ================================= -->
+
+    <h2>Quick Actions</h2>
+
+    <p>
+        <a href="/configurations">
+            Configurations
+        </a>
+    </p>
+
+    <p>
+        <a href="/audits">
+            Audits
+        </a>
+    </p>
+
+    <p>
+        <a href="/findings">
+            Security Findings
+        </a>
+    </p>
+
+    <p>
+        <a href="/security-posture">
+            Security Posture
+        </a>
+    </p>
+
+    <p>
+        <a href="/risk">
+            Risk Prioritization
+        </a>
+    </p>
+
+    <p>
+        <a href="/exposure">
+            Exposure Analysis
+        </a>
+    </p>
+
+    <p>
+        <a href="/drift">
+            Configuration Drift
+        </a>
+    </p>
+
+    <p>
+        <a href="/comparison">
+            Device Comparison
+        </a>
+    </p>
+
+    <p>
+        <a href="/ai-training">
+            AI Training
+        </a>
+    </p>
+
+    <p>
+        <a href="/reports">
+            Reports
+        </a>
+    </p>
+
+</main>
+
+<%- include("../partials/footer") %>

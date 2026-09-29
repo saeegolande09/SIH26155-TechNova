@@ -1,0 +1,122 @@
+<%- include("../partials/head", { title: "Configurations - NETSENTRY" }) %>
+
+<%- include("../partials/navbar") %>
+
+<%- include("../partials/sidebar") %>
+
+<main>
+
+    <h1>NETSENTRY - Configurations</h1>
+
+    <%- include("../partials/flash") %>
+
+    <hr>
+
+    <h2>Uploaded Configurations</h2>
+
+    <% if (!configurations || configurations.length === 0) { %>
+
+        <p>No configurations uploaded yet.</p>
+
+    <% } else { %>
+
+        <table border="1" cellpadding="10" cellspacing="0">
+
+            <thead>
+                <tr>
+                    <th>Device</th>
+                    <th>Vendor</th>
+                    <th>File Name</th>
+                    <th>Version</th>
+                    <th>Status</th>
+                    <th>Uploaded At</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <% configurations.forEach(configuration => { %>
+
+                    <tr>
+
+                        <td>
+                            <%= configuration.device
+                                ? configuration.device.deviceName
+                                : "Unknown Device" %>
+                        </td>
+
+                        <td>
+                            <%= configuration.vendor %>
+                        </td>
+
+                        <td>
+                            <%= configuration.fileName %>
+                        </td>
+
+                        <td>
+                            <%= configuration.configVersion %>
+                        </td>
+
+                        <td>
+                            <%= configuration.status %>
+                        </td>
+
+                        <td>
+                            <%= configuration.uploadedAt
+                                ? new Date(configuration.uploadedAt).toLocaleString()
+                                : "N/A" %>
+                        </td>
+
+                    </tr>
+
+                <% }) %>
+
+            </tbody>
+
+        </table>
+
+    <% } %>
+
+    <hr>
+
+    <h2>Quick Actions</h2>
+
+    <p>
+        <a href="/configurations/upload">
+            Upload New Configuration
+        </a>
+    </p>
+
+    <p>
+        <a href="/comparison">
+            Compare Configurations
+        </a>
+    </p>
+
+    <p>
+        <a href="/exposure">
+            Exposure Analysis
+        </a>
+    </p>
+
+    <p>
+        <a href="/risk">
+            Risk Prioritization
+        </a>
+    </p>
+
+    <p>
+        <a href="/drift">
+            Configuration Drift
+        </a>
+    </p>
+
+    <p>
+        <a href="/reports">
+            Reports
+        </a>
+    </p>
+
+</main>
+
+<%- include("../partials/footer") %>

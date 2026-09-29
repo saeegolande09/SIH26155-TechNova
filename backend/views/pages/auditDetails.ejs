@@ -1,0 +1,218 @@
+<%- include("../partials/head", { title: "Audit Details - NETSENTRY" }) %>
+
+<%- include("../partials/navbar") %>
+
+<%- include("../partials/sidebar") %>
+
+<main>
+
+    <h1>NETSENTRY - Audit Details</h1>
+
+    <%- include("../partials/flash") %>
+
+    <hr>
+
+    <h2>Audit Information</h2>
+
+    <p>
+        <strong>Audit ID:</strong>
+        <%= audit._id %>
+    </p>
+
+    <p>
+        <strong>Device:</strong>
+        <%= audit.device
+            ? audit.device.deviceName
+            : "Unknown Device" %>
+    </p>
+
+    <p>
+        <strong>Vendor:</strong>
+        <%= audit.vendor || "Unknown" %>
+    </p>
+
+    <p>
+        <strong>Status:</strong>
+        <%= audit.status %>
+    </p>
+
+    <p>
+        <strong>Compliance Score:</strong>
+        <%= audit.complianceScore || 0 %>%
+    </p>
+
+    <hr>
+
+    <h2>Audit Summary</h2>
+
+    <p>
+        <strong>Total Checks:</strong>
+        <%= audit.totalChecks || 0 %>
+    </p>
+
+    <p>
+        <strong>Passed Checks:</strong>
+        <%= audit.passedChecks || 0 %>
+    </p>
+
+    <p>
+        <strong>Failed Checks:</strong>
+        <%= audit.failedChecks || 0 %>
+    </p>
+
+    <p>
+        <strong>Critical Findings:</strong>
+        <%= audit.criticalFindings || 0 %>
+    </p>
+
+    <p>
+        <strong>High Findings:</strong>
+        <%= audit.highFindings || 0 %>
+    </p>
+
+    <p>
+        <strong>Medium Findings:</strong>
+        <%= audit.mediumFindings || 0 %>
+    </p>
+
+    <p>
+        <strong>Low Findings:</strong>
+        <%= audit.lowFindings || 0 %>
+    </p>
+
+    <hr>
+
+    <h2>Configuration</h2>
+
+    <% if (audit.configuration) { %>
+
+        <p>
+            <strong>File Name:</strong>
+            <%= audit.configuration.fileName %>
+        </p>
+
+        <p>
+            <strong>Version:</strong>
+            <%= audit.configuration.configVersion %>
+        </p>
+
+        <p>
+            <strong>Status:</strong>
+            <%= audit.configuration.status %>
+        </p>
+
+        <p>
+            <strong>Uploaded At:</strong>
+            <%= audit.configuration.uploadedAt
+                ? new Date(audit.configuration.uploadedAt).toLocaleString()
+                : "N/A" %>
+        </p>
+
+    <% } else { %>
+
+        <p>
+            Configuration information unavailable.
+        </p>
+
+    <% } %>
+
+    <hr>
+
+    <h2>Security Findings</h2>
+
+    <% if (!findings || findings.length === 0) { %>
+
+        <p>No security findings detected for this audit.</p>
+
+    <% } else { %>
+
+        <% findings.forEach(finding => { %>
+
+            <div>
+
+                <h3>
+                    <%= finding.title %>
+                </h3>
+
+                <p>
+                    <strong>Severity:</strong>
+                    <%= finding.severity %>
+                </p>
+
+                <p>
+                    <strong>Category:</strong>
+                    <%= finding.category || "Other" %>
+                </p>
+
+                <p>
+                    <strong>Status:</strong>
+                    <%= finding.status %>
+                </p>
+
+                <p>
+                    <strong>Description:</strong>
+                    <%= finding.description %>
+                </p>
+
+                <% if (finding.detectedConfig) { %>
+
+                    <p>
+                        <strong>Detected Configuration:</strong>
+                    </p>
+
+                    <pre><%= finding.detectedConfig %></pre>
+
+                <% } %>
+
+                <% if (finding.recommendedFix) { %>
+
+                    <p>
+                        <strong>Recommended Fix:</strong>
+                        <%= finding.recommendedFix %>
+                    </p>
+
+                <% } %>
+
+                <p>
+                    <a href="/remediations/<%= finding._id %>">
+                        View Remediation
+                    </a>
+                </p>
+
+            </div>
+
+            <hr>
+
+        <% }) %>
+
+    <% } %>
+
+    <h2>Actions</h2>
+
+    <p>
+        <a href="/audits/<%= audit._id %>/reaudit">
+            Re-Audit Configuration
+        </a>
+    </p>
+
+    <p>
+        <a href="/reports">
+            View Reports
+        </a>
+    </p>
+
+    <p>
+        <a href="/audits">
+            Back to Audits
+        </a>
+    </p>
+
+    <p>
+        <a href="/dashboard">
+            Dashboard
+        </a>
+    </p>
+
+</main>
+
+<%- include("../partials/footer") %>

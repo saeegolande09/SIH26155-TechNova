@@ -1,0 +1,34 @@
+﻿{
+  "success": true,
+  "vendor": "Juniper",
+  "hostname": "SRX-01",
+  "interfaces": [
+    {
+      "name": "ge-0/0/0",
+      "configuration": [
+        "set interfaces ge-0/0/0 unit 0 family inet address 192.168.1.1/24"
+      ]
+    }
+  ],
+  "securityPolicies": [
+    "set security policies from-zone untrust to-zone trust policy allow-web match source-address any",
+    "set security policies from-zone untrust to-zone trust policy allow-web match destination-address any",
+    "set security policies from-zone untrust to-zone trust policy allow-web then permit"
+  ],
+  "services": [
+    {
+      "service": "SSH",
+      "status": "Enabled"
+    },
+    {
+      "service": "Telnet",
+      "status": "Enabled"
+    }
+  ],
+  "authentication": [
+    {
+      "type": "Root Authentication",
+      "configuration": "set system root-authentication encrypted-password \"$6$example\""
+    }
+  ]
+}

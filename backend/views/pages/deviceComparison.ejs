@@ -1,0 +1,333 @@
+<%- include("../partials/head", { title: "Device Comparison - NETSENTRY" }) %>
+
+<%- include("../partials/navbar") %>
+
+<%- include("../partials/sidebar") %>
+
+<main>
+
+    <h1>
+        NETSENTRY - Device Comparison
+    </h1>
+
+    <%- include("../partials/flash") %>
+
+    <hr>
+
+    <h2>
+        Compare Configurations
+    </h2>
+
+    <form
+        action="/comparison/compare"
+        method="POST"
+    >
+
+        <h3>
+            Old Configuration
+        </h3>
+
+        <select
+            name="oldConfigurationId"
+            required
+        >
+
+            <option value="">
+                Select Old Configuration
+            </option>
+
+            <% configurations.forEach(function(config) { %>
+
+                <option
+                    value="<%= config._id %>"
+                    <%= oldConfiguration &&
+                        oldConfiguration._id.toString() ===
+                        config._id.toString()
+                        ? "selected"
+                        : "" %>
+                >
+
+                    <%= config.fileName %> -
+
+                    <%= config.device
+                        ? config.device.deviceName
+                        : "Unknown Device" %>
+
+                    -
+
+                    <%= config.vendor %>
+
+                </option>
+
+            <% }); %>
+
+        </select>
+
+        <br>
+        <br>
+
+        <h3>
+            New Configuration
+        </h3>
+
+        <select
+            name="newConfigurationId"
+            required
+        >
+
+            <option value="">
+                Select New Configuration
+            </option>
+
+            <% configurations.forEach(function(config) { %>
+
+                <option
+                    value="<%= config._id %>"
+                    <%= newConfiguration &&
+                        newConfiguration._id.toString() ===
+                        config._id.toString()
+                        ? "selected"
+                        : "" %>
+                >
+
+                    <%= config.fileName %> -
+
+                    <%= config.device
+                        ? config.device.deviceName
+                        : "Unknown Device" %>
+
+                    -
+
+                    <%= config.vendor %>
+
+                </option>
+
+            <% }); %>
+
+        </select>
+
+        <br>
+        <br>
+
+        <button type="submit">
+            Compare Configurations
+        </button>
+
+    </form>
+
+
+    <% if (result) { %>
+
+        <hr>
+
+        <h2>
+            Comparison Result
+        </h2>
+
+        <h3>
+            Old Configuration
+        </h3>
+
+        <p>
+            <strong>File:</strong>
+            <%= oldConfiguration.fileName %>
+        </p>
+
+        <p>
+            <strong>Device:</strong>
+            <%= oldConfiguration.device
+                ? oldConfiguration.device.deviceName
+                : "Unknown Device" %>
+        </p>
+
+        <p>
+            <strong>Vendor:</strong>
+            <%= oldConfiguration.vendor %>
+        </p>
+
+        <hr>
+
+        <h3>
+            New Configuration
+        </h3>
+
+        <p>
+            <strong>File:</strong>
+            <%= newConfiguration.fileName %>
+        </p>
+
+        <p>
+            <strong>Device:</strong>
+            <%= newConfiguration.device
+                ? newConfiguration.device.deviceName
+                : "Unknown Device" %>
+        </p>
+
+        <p>
+            <strong>Vendor:</strong>
+            <%= newConfiguration.vendor %>
+        </p>
+
+        <hr>
+
+        <h2>
+            Drift Summary
+        </h2>
+
+        <p>
+            <strong>Drift Detected:</strong>
+            <%= result.driftDetected ? "Yes" : "No" %>
+        </p>
+
+        <p>
+            <strong>Changed Lines:</strong>
+            <%= result.changedLines %>
+        </p>
+
+        <p>
+            <strong>Risk Level:</strong>
+            <%= result.riskLevel %>
+        </p>
+
+        <p>
+            <strong>Security Impact:</strong>
+            <%= result.securityImpact %>
+        </p>
+
+        <hr>
+
+        <h2>
+            Added Configuration
+        </h2>
+
+        <% if (
+            result.added &&
+            result.added.length > 0
+        ) { %>
+
+            <% result.added.forEach(function(line) { %>
+
+                <p>
+                    <strong>+</strong>
+                    <%= line %>
+                </p>
+
+            <% }); %>
+
+        <% } else { %>
+
+            <p>
+                No configuration lines added.
+            </p>
+
+        <% } %>
+
+        <hr>
+
+        <h2>
+            Removed Configuration
+        </h2>
+
+        <% if (
+            result.removed &&
+            result.removed.length > 0
+        ) { %>
+
+            <% result.removed.forEach(function(line) { %>
+
+                <p>
+                    <strong>-</strong>
+                    <%= line %>
+                </p>
+
+            <% }); %>
+
+        <% } else { %>
+
+            <p>
+                No configuration lines removed.
+            </p>
+
+        <% } %>
+
+        <hr>
+
+        <h2>
+            Security Analysis
+        </h2>
+
+        <% if (result.securityImpact !== "None") { %>
+
+            <p>
+                ⚠ Security-related configuration
+                changes were detected.
+            </p>
+
+            <p>
+                <strong>Risk Level:</strong>
+                <%= result.riskLevel %>
+            </p>
+
+        <% } else { %>
+
+            <p>
+                No security-related configuration
+                changes were detected.
+            </p>
+
+        <% } %>
+
+    <% } %>
+
+
+    <hr>
+
+    <h2>
+        Quick Actions
+    </h2>
+
+    <p>
+        <a href="/dashboard">
+            Back to Dashboard
+        </a>
+    </p>
+
+    <p>
+        <a href="/configurations">
+            View Configurations
+        </a>
+    </p>
+
+    <p>
+        <a href="/configurations/upload">
+            Upload Configuration
+        </a>
+    </p>
+
+    <p>
+        <a href="/drift">
+            Configuration Drift
+        </a>
+    </p>
+
+    <p>
+        <a href="/security-posture">
+            Security Posture
+        </a>
+    </p>
+
+    <p>
+        <a href="/risk">
+            Risk Prioritization
+        </a>
+    </p>
+
+    <p>
+        <a href="/exposure">
+            Exposure Analysis
+        </a>
+    </p>
+
+</main>
+
+<%- include("../partials/footer") %>

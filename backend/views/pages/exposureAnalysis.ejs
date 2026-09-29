@@ -1,0 +1,259 @@
+<%- include("../partials/head", { title: "Exposure Analysis - NETSENTRY" }) %>
+
+<%- include("../partials/navbar") %>
+
+<%- include("../partials/sidebar") %>
+
+<main>
+
+    <h1>NETSENTRY - Exposure Analysis</h1>
+
+    <%- include("../partials/flash") %>
+
+    <hr>
+
+    <h2>Select Configuration</h2>
+
+    <form
+        action="/exposure/analyze"
+        method="POST"
+    >
+
+        <p>
+
+            <label>
+                Configuration:
+            </label>
+
+            <br>
+
+            <select name="configurationId" required>
+
+                <option value="">
+                    Select Configuration
+                </option>
+
+                <% configurations.forEach(function(config) { %>
+
+                    <option
+                        value="<%= config._id %>"
+                        <%= selectedConfiguration &&
+                            selectedConfiguration._id.toString() === config._id.toString()
+                            ? "selected"
+                            : "" %>
+                    >
+
+                        <%= config.fileName %> -
+
+                        <%= config.device
+                            ? config.device.deviceName
+                            : "Unknown Device" %>
+
+                    </option>
+
+                <% }); %>
+
+            </select>
+
+        </p>
+
+        <button type="submit">
+            Analyze Attack Surface
+        </button>
+
+    </form>
+
+
+    <% if (result) { %>
+
+        <hr>
+
+        <h2>Attack Surface Analysis</h2>
+
+        <p>
+            <strong>Configuration:</strong>
+            <%= selectedConfiguration.fileName %>
+        </p>
+
+        <p>
+            <strong>Device:</strong>
+            <%= selectedConfiguration.device
+                ? selectedConfiguration.device.deviceName
+                : "Unknown Device" %>
+        </p>
+
+        <p>
+            <strong>Vendor:</strong>
+            <%= selectedConfiguration.vendor %>
+        </p>
+
+        <hr>
+
+        <h2>Attack Surface Score</h2>
+
+        <h1>
+            <%= result.attackSurfaceScore %>%
+        </h1>
+
+        <p>
+            <strong>Risk Level:</strong>
+            <%= result.riskLevel %>
+        </p>
+
+        <hr>
+
+        <h2>Exposure Summary</h2>
+
+        <p>
+            <strong>Exposed Services:</strong>
+            <%= result.exposedServices
+                ? result.exposedServices.length
+                : 0 %>
+        </p>
+
+        <p>
+            <strong>Permit Rules:</strong>
+            <%= result.totalPermitRules || 0 %>
+        </p>
+
+        <p>
+            <strong>Deny Rules:</strong>
+            <%= result.totalDenyRules || 0 %>
+        </p>
+
+        <p>
+            <strong>Reachable Rules:</strong>
+            <%= result.totalReachableRules || 0 %>
+        </p>
+
+        <hr>
+
+        <h2>Exposed Services</h2>
+
+        <% if (
+            result.exposedServices &&
+            result.exposedServices.length > 0
+        ) { %>
+
+            <% result.exposedServices.forEach(function(service) { %>
+
+                <p>
+                    <strong>
+                        ⚠ <%= service %>
+                    </strong>
+                </p>
+
+            <% }); %>
+
+        <% } else { %>
+
+            <p>
+                No exposed services detected.
+            </p>
+
+        <% } %>
+
+        <hr>
+
+        <h2>Reachable Rules</h2>
+
+        <% if (
+            result.reachableRules &&
+            result.reachableRules.length > 0
+        ) { %>
+
+            <% result.reachableRules.forEach(function(rule) { %>
+
+                <div>
+
+                    <p>
+                        <strong>Rule:</strong>
+                        <%= rule.rule %>
+                    </p>
+
+                    <p>
+                        <strong>Source:</strong>
+                        <%= rule.source %>
+                    </p>
+
+                    <p>
+                        <strong>Destination:</strong>
+                        <%= rule.destination %>
+                    </p>
+
+                    <p>
+                        <strong>Protocol:</strong>
+                        <%= rule.protocol %>
+                    </p>
+
+                    <p>
+                        <strong>Port:</strong>
+                        <%= rule.port || "Any" %>
+                    </p>
+
+                </div>
+
+                <hr>
+
+            <% }); %>
+
+        <% } else { %>
+
+            <p>
+                No reachable rules detected.
+            </p>
+
+        <% } %>
+
+    <% } %>
+
+
+    <hr>
+
+    <h2>Quick Actions</h2>
+
+    <p>
+        <a href="/dashboard">
+            Back to Dashboard
+        </a>
+    </p>
+
+    <p>
+        <a href="/configurations">
+            Configurations
+        </a>
+    </p>
+
+    <p>
+        <a href="/security-posture">
+            Security Posture
+        </a>
+    </p>
+
+    <p>
+        <a href="/risk">
+            Risk Prioritization
+        </a>
+    </p>
+
+    <p>
+        <a href="/drift">
+            Configuration Drift
+        </a>
+    </p>
+
+    <p>
+        <a href="/comparison">
+            Device Comparison
+        </a>
+    </p>
+
+    <p>
+        <a href="/reports">
+            Reports
+        </a>
+    </p>
+
+</main>
+
+<%- include("../partials/footer") %>

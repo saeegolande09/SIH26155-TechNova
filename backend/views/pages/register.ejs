@@ -1,0 +1,100 @@
+<%- include("../partials/head", { title: "NETSENTRY - Create Account" }) %>
+
+<main>
+
+    <h1>NETSENTRY AI</h1>
+
+    <hr>
+
+    <h2>Create Account</h2>
+
+    <%- include("../partials/flash") %>
+
+    <form
+        action="/register"
+        method="POST"
+    >
+
+        <p>
+            <label for="username">
+                Username:
+            </label>
+
+            <br>
+
+            <input
+                type="text"
+                id="username"
+                name="username"
+                required
+            >
+        </p>
+
+        <p>
+            <label for="email">
+                Email:
+            </label>
+
+            <br>
+
+            <input
+                type="email"
+                id="email"
+                name="email"
+                required
+            >
+        </p>
+
+        <p>
+            <label for="password">
+                Password:
+            </label>
+
+            <br>
+
+            <input
+                type="password"
+                id="password"
+                name="password"
+                minlength="6"
+                required
+            >
+        </p>
+
+        <p>
+            <label for="confirmPassword">
+                Confirm Password:
+            </label>
+
+            <br>
+
+            <input
+                type="password"
+                id="confirmPassword"
+                name="confirmPassword"
+                minlength="6"
+                required
+            >
+        </p>
+
+        <button type="submit">
+            Create Account
+        </button>
+
+    </form>
+
+    <hr>
+
+    <p>
+        Already have an account?
+    </p>
+
+    <p>
+        <a href="/">
+            Back to Login
+        </a>
+    </p>
+
+</main>
+
+<%- include("../partials/footer") %>

@@ -1,0 +1,347 @@
+<%- include("../partials/head", { title: "Security Posture - NETSENTRY" }) %>
+
+<%- include("../partials/navbar") %>
+
+<%- include("../partials/sidebar") %>
+
+<main>
+
+    <h1>NETSENTRY - Security Posture</h1>
+
+    <%- include("../partials/flash") %>
+
+    <hr>
+
+    <h2>Overall Security Score</h2>
+
+    <h1>
+        <%= averageScore %>%
+    </h1>
+
+    <p>
+        <strong>Security Posture:</strong>
+        <%= postureStatus %>
+    </p>
+
+    <hr>
+
+    <h2>Security Overview</h2>
+
+    <p>
+        <strong>Total Devices:</strong>
+        <%= totalDevices %>
+    </p>
+
+    <p>
+        <strong>Total Audits:</strong>
+        <%= totalAudits %>
+    </p>
+
+    <p>
+        <strong>Completed Audits:</strong>
+        <%= completedAudits %>
+    </p>
+
+    <p>
+        <strong>Open Findings:</strong>
+        <%= openFindings %>
+    </p>
+
+    <p>
+        <strong>Resolved Findings:</strong>
+        <%= resolvedFindings %>
+    </p>
+
+    <hr>
+
+    <h2>Open Findings by Severity</h2>
+
+    <p>
+        <strong>Critical:</strong>
+        <%= criticalFindings %>
+    </p>
+
+    <p>
+        <strong>High:</strong>
+        <%= highFindings %>
+    </p>
+
+    <p>
+        <strong>Medium:</strong>
+        <%= mediumFindings %>
+    </p>
+
+    <p>
+        <strong>Low:</strong>
+        <%= lowFindings %>
+    </p>
+
+    <hr>
+
+    <h2>Vendor Summary</h2>
+
+    <% if (vendorSummary && vendorSummary.length > 0) { %>
+
+        <% vendorSummary.forEach(function(vendor) { %>
+
+            <div>
+
+                <h3>
+                    <%= vendor._id %>
+                </h3>
+
+                <p>
+                    <strong>Devices:</strong>
+                    <%= vendor.deviceCount %>
+                </p>
+
+                <p>
+                    <strong>Average Security Score:</strong>
+                    <%= Math.round(vendor.averageScore || 0) %>%
+                </p>
+
+            </div>
+
+            <hr>
+
+        <% }); %>
+
+    <% } else { %>
+
+        <p>
+            No vendor data available.
+        </p>
+
+    <% } %>
+
+    <hr>
+
+    <h2>Devices Requiring Attention</h2>
+
+    <% if (riskyDevices && riskyDevices.length > 0) { %>
+
+        <% riskyDevices.forEach(function(device) { %>
+
+            <div>
+
+                <h3>
+                    <%= device.deviceName %>
+                </h3>
+
+                <p>
+                    <strong>Vendor:</strong>
+                    <%= device.vendor %>
+                </p>
+
+                <p>
+                    <strong>Security Score:</strong>
+                    <%= device.securityScore %>%
+                </p>
+
+                <p>
+                    <strong>Status:</strong>
+                    <%= device.status %>
+                </p>
+
+            </div>
+
+            <hr>
+
+        <% }); %>
+
+    <% } else { %>
+
+        <p>
+            No devices currently require attention.
+        </p>
+
+    <% } %>
+
+    <hr>
+
+    <h2>Device Security Posture</h2>
+
+    <% if (devices && devices.length > 0) { %>
+
+        <% devices.forEach(function(device) { %>
+
+            <div>
+
+                <h3>
+                    <%= device.deviceName %>
+                </h3>
+
+                <p>
+                    <strong>Vendor:</strong>
+                    <%= device.vendor %>
+                </p>
+
+                <p>
+                    <strong>Device Type:</strong>
+                    <%= device.deviceType %>
+                </p>
+
+                <p>
+                    <strong>Status:</strong>
+                    <%= device.status %>
+                </p>
+
+                <p>
+                    <strong>Security Score:</strong>
+                    <%= device.securityScore %>%
+                </p>
+
+                <p>
+                    <strong>Last Audit:</strong>
+
+                    <% if (device.lastAudit) { %>
+
+                        <%= new Date(device.lastAudit).toLocaleString() %>
+
+                    <% } else { %>
+
+                        Not audited
+
+                    <% } %>
+
+                </p>
+
+            </div>
+
+            <hr>
+
+        <% }); %>
+
+    <% } else { %>
+
+        <p>
+            No devices available.
+        </p>
+
+    <% } %>
+
+    <hr>
+
+    <h2>Recent Audits</h2>
+
+    <% if (recentAudits && recentAudits.length > 0) { %>
+
+        <% recentAudits.forEach(function(audit) { %>
+
+            <div>
+
+                <h3>
+                    Audit
+                </h3>
+
+                <% if (audit.device) { %>
+
+                    <p>
+                        <strong>Device:</strong>
+                        <%= audit.device.deviceName %>
+                    </p>
+
+                <% } %>
+
+                <p>
+                    <strong>Vendor:</strong>
+                    <%= audit.vendor %>
+                </p>
+
+                <p>
+                    <strong>Status:</strong>
+                    <%= audit.status %>
+                </p>
+
+                <p>
+                    <strong>Security Score:</strong>
+                    <%= audit.complianceScore %>%
+                </p>
+
+                <p>
+                    <strong>Failed Checks:</strong>
+                    <%= audit.failedChecks %>
+                </p>
+
+                <p>
+                    <strong>Date:</strong>
+                    <%= audit.createdAt
+                        ? new Date(audit.createdAt).toLocaleString()
+                        : "N/A" %>
+                </p>
+
+                <p>
+                    <a href="/audits/<%= audit._id %>">
+                        View Audit
+                    </a>
+                </p>
+
+            </div>
+
+            <hr>
+
+        <% }); %>
+
+    <% } else { %>
+
+        <p>
+            No audits available.
+        </p>
+
+    <% } %>
+
+    <hr>
+
+    <h2>Quick Actions</h2>
+
+    <p>
+        <a href="/dashboard">
+            Back to Dashboard
+        </a>
+    </p>
+
+    <p>
+        <a href="/configurations">
+            View Configurations
+        </a>
+    </p>
+
+    <p>
+        <a href="/configurations/upload">
+            Upload Configuration
+        </a>
+    </p>
+
+    <p>
+        <a href="/risk">
+            Risk Prioritization
+        </a>
+    </p>
+
+    <p>
+        <a href="/exposure">
+            Exposure Analysis
+        </a>
+    </p>
+
+    <p>
+        <a href="/drift">
+            Configuration Drift
+        </a>
+    </p>
+
+    <p>
+        <a href="/comparison">
+            Device Comparison
+        </a>
+    </p>
+
+    <p>
+        <a href="/reports">
+            Reports
+        </a>
+    </p>
+
+</main>
+
+<%- include("../partials/footer") %>
