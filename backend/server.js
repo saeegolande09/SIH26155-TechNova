@@ -44,7 +44,6 @@ const PORT = process.env.PORT || 5000;
 // STATIC FILES
 // ===============================
 
-// Serve CSS, JavaScript, images, etc.
 app.use(express.static(path.join(__dirname, "public")));
 
 // ===============================
@@ -108,7 +107,7 @@ app.use(
 );
 
 // ===============================
-// MAKE USER AVAILABLE TO ALL EJS VIEWS
+// MAKE USER AVAILABLE TO ALL EJS
 // ===============================
 
 app.use((req, res, next) => {
@@ -136,6 +135,7 @@ function requireAdmin(req, res, next) {
     }
 
     if (req.session.user.role !== "admin") {
+
         return res.status(403).send(
             "Access denied. Admin privileges required."
         );
@@ -219,11 +219,6 @@ app.use(
 // ===============================
 
 app.get("/", (req, res) => {
-
-    if (req.session.user) {
-        return res.redirect("/dashboard");
-    }
-
     res.render("pages/home");
 });
 
@@ -285,10 +280,15 @@ app.post("/login", async (req, res) => {
         }
 
         req.session.user = {
+
             id: user._id.toString(),
+
             username: user.username,
+
             email: user.email,
+
             role: user.role
+
         };
 
         console.log(
@@ -368,15 +368,19 @@ app.post("/register", async (req, res) => {
 
         const existingUser =
             await User.findOne({
+
                 $or: [
+
                     {
                         username:
                             username.trim()
                     },
+
                     {
                         email:
                             email.trim().toLowerCase()
                     }
+
                 ]
             });
 
@@ -406,6 +410,7 @@ app.post("/register", async (req, res) => {
                     hashedPassword,
 
                 role: "user"
+
             });
 
         console.log(
@@ -463,19 +468,22 @@ app.get(
 
         try {
 
-            const userId = req.session.user.id;
+            const userId =
+                req.session.user.id;
 
             // ==========================================
             // GET CURRENT USER'S DEVICES
             // ==========================================
 
-            const devices = await Device.find({
-                user: userId
-            }).select("_id");
+            const devices =
+                await Device.find({
+                    user: userId
+                }).select("_id");
 
-            const deviceIds = devices.map(
-                device => device._id
-            );
+            const deviceIds =
+                devices.map(
+                    device => device._id
+                );
 
             // ==========================================
             // TOTAL DEVICES
@@ -490,9 +498,11 @@ app.get(
 
             const totalConfigurations =
                 await Configuration.countDocuments({
+
                     device: {
                         $in: deviceIds
                     }
+
                 });
 
             // ==========================================
@@ -501,10 +511,13 @@ app.get(
 
             const completedAudits =
                 await Audit.countDocuments({
+
                     device: {
                         $in: deviceIds
                     },
+
                     status: "Completed"
+
                 });
 
             // ==========================================
@@ -526,7 +539,8 @@ app.get(
                             _id: null,
 
                             averageScore: {
-                                $avg: "$securityScore"
+                                $avg:
+                                    "$securityScore"
                             }
 
                         }
@@ -537,7 +551,8 @@ app.get(
             const averageScore =
                 scoreResult.length > 0
                     ? Math.round(
-                        scoreResult[0].averageScore
+                        scoreResult[0]
+                            .averageScore
                     )
                     : 0;
 
@@ -547,11 +562,15 @@ app.get(
 
             const criticalFindings =
                 await Finding.countDocuments({
+
                     device: {
                         $in: deviceIds
                     },
+
                     severity: "Critical",
+
                     status: "Open"
+
                 });
 
             // ==========================================
@@ -560,11 +579,15 @@ app.get(
 
             const highFindings =
                 await Finding.countDocuments({
+
                     device: {
                         $in: deviceIds
                     },
+
                     severity: "High",
+
                     status: "Open"
+
                 });
 
             // ==========================================
@@ -574,9 +597,11 @@ app.get(
             const recentAudits =
                 await Audit
                     .find({
+
                         device: {
                             $in: deviceIds
                         }
+
                     })
                     .populate("device")
                     .sort({
@@ -591,6 +616,7 @@ app.get(
             res.render(
                 "pages/dashboard",
                 {
+
                     totalDevices,
 
                     totalConfigurations,
@@ -604,6 +630,7 @@ app.get(
                     highFindings,
 
                     recentAudits
+
                 }
             );
 
@@ -634,6 +661,7 @@ app.get(
             "Admin access granted. Logged in as: " +
             req.session.user.username
         );
+
     }
 );
 
@@ -648,5 +676,6 @@ app.listen(
         console.log(
             `NETSENTRY server running at http://localhost:${PORT}`
         );
+
     }
 );
