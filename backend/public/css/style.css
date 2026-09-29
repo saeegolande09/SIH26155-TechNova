@@ -12631,3 +12631,54 @@ body > main.netsentry-home {
         font-size: 10px !important;
     }
 }
+/* =========================================================
+   MOBILE ONLY — REMOVE SIDE LINES
+   Desktop/PC completely unaffected
+   ========================================================= */
+
+@media screen and (max-width: 768px) {
+
+    html,
+    body {
+        overflow-x: hidden !important;
+        border: none !important;
+        outline: none !important;
+    }
+
+    /* Remove borders from page wrappers */
+    main,
+    section,
+    header,
+    footer,
+    .container,
+    .page-container,
+    .content,
+    .content-wrapper,
+    .page-content {
+        border-left: none !important;
+        border-right: none !important;
+        outline: none !important;
+    }
+
+    /* Landing page sections */
+    .hero,
+    .hero-section,
+    .landing-hero,
+    .about-section,
+    .features-section {
+        border-left: 0 !important;
+        border-right: 0 !important;
+        outline: 0 !important;
+    }
+
+    /* Make sure no pseudo-element creates the line */
+    body::before,
+    body::after,
+    main::before,
+    main::after,
+    section::before,
+    section::after {
+        border-left: none !important;
+        border-right: none !important;
+    }
+}
