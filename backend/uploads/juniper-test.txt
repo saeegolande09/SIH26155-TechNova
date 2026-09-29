@@ -1,8 +1,0 @@
-set system host-name SRX-01
-set interfaces ge-0/0/0 unit 0 family inet address 192.168.1.1/24
-set system services ssh
-set system services telnet
-set security policies from-zone untrust to-zone trust policy allow-web match source-address any
-set security policies from-zone untrust to-zone trust policy allow-web match destination-address any
-set security policies from-zone untrust to-zone trust policy allow-web then permit
-set system root-authentication encrypted-password "$6$example"
